@@ -1,0 +1,141 @@
+.container1 {
+    width: auto;
+    height: flex;
+    background-color: pink; /* เปลี่ยนเป็นสีที่คุณต้องการ */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.container2 {
+    width: auto;
+    height: flex;
+    text-align: center;
+    background-color: palevioletred;
+}
+
+.container2:not(:first-of-type) {
+    border-top: 1px solid #000; /* เพิ่มเส้นคั่นที่ด้านบน */
+}
+
+
+#header {
+    width: auto;
+    display: flex;
+    justify-content: space-between; /* จัดตำแหน่งโลโก้และปุ่มเข้าสู่ระบบให้อยู่ตรงข้ามกัน */
+    align-items: center; /* จัดแนวแนวตั้งให้อยู่ตรงกลาง */
+    background-color: palevioletred;
+}
+
+.logo .header-logo-0 {
+    display: flex;
+    justify-content: flex-start; /* จัดตำแหน่งโลโก้ให้อยู่ด้านซ้าย */
+    align-items: center;
+}
+
+.item-logoimg {
+    width: 30px; /* ขนาดโลโก้ */
+    height: 30px; /* ให้ความสูงปรับตามอัตราส่วน */
+}
+
+.navbar .container-fluid {
+    display: flex;
+    justify-content: flex-end; /* จัดตำแหน่งเนื้อหาภายใน container-fluid ให้ไปทางขวาสุด */
+}
+
+.navbar {
+    background-color: palevioletred; /* กำหนดสีพื้นหลังเป็นสีขาวโปร่งใส */
+}
+
+.navbar-brand img {
+    width: 40px; /* ขนาดสูงสุดของโลโก้ */
+    height: auto; /* ให้ความสูงปรับตามอัตราส่วน */
+}
+
+.nav-link {
+    color: black; /* กำหนดสีข้อความเป็นสีดำ */
+    padding-inline: 30px;
+}
+
+.nav-link:hover {
+    color: white;
+    text-decoration: none; /* เพื่อลบ underline ที่ปกติแสดงขึ้นเมื่อ hover */
+}
+
+.img-fluid{
+    margin: 20px;
+    width: auto;
+}
+
+.img-thumbnail{
+    width: 300px;
+    height: 300px;
+}
+
+.container-fluid{
+    margin-left: 100px;
+}
+
+.news {
+    width: 1000px;
+    border: 1px solid #ddd; /* กำหนดขอบสีเทาอ่อน */
+    border-radius: 10px; /* กำหนดความโค้งมนของขอบ */
+    padding: 15px; /* กำหนดระยะห่างภายในกล่อง */
+    text-align: left;
+}
+
+.news strong{
+    font-size: 30px;
+}
+
+.text-center {
+    align-items: center;
+    justify-content: center; /* จัดกลางแนวนอน */
+    text-align: left;
+    padding: 50px;
+}
+
+.rounded {
+    width: 300px;
+    height: 300px;
+}
+
+.about  {
+    margin-top: 30px;
+}
+
+.about strong {
+    font-size: 30px;
+}
+
+.employee strong {
+    font-size: 30px;
+}
+
+.row{
+    margin-top: 30px;
+}
+
+.employee-img{
+    width: 200px;
+    height: 300px;
+}
+
+.product strong {
+    font-size: 30px;
+}
+
+.row{
+    margin-top: 30px;
+}
+
+.product-img{
+    width: 300px;
+    height: 300px;
+}
+
+.align-left {
+    display: block;
+    margin-left: 50px;
+}
