@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Login</title>
+		<title>์New member</title>
 		<!--Made with love by Mutiullah Samim -->
 		<!--Bootsrap 4 CDN-->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -171,7 +171,7 @@
 				<div class="card">
 					<div class="card-header">
 						<span class="glyphicon glyphicon-lock"> </span>
-						<h3>เข้าสู่ระบบ</h3>
+						<h3>สมัครสมาชิก</h3>
 					</div>
 					
 					<div class="card-body">
@@ -180,9 +180,37 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" name="username" class="form-control" placeholder="อีเมล / เบอร์โทรศัพท์">
-								
+								<input type="text" name="username" class="form-control" placeholder="ชื่อ - นามสกุล">
 							</div>
+
+                            <div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" name="name" class="form-control" placeholder="ชื่อเล่น">
+							</div>
+
+                            <div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-age"></i></span>
+								</div>
+								<input type="text" name="age" class="form-control" placeholder="อายุ">
+							</div>
+
+                            <div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-phone"></i></span>
+								</div>
+								<input type="text" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์">
+							</div>
+
+                            <div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-email"></i></span>
+								</div>
+								<input type="text" name="email" class="form-control" placeholder="อีเมล์">
+							</div>
+
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -190,34 +218,16 @@
 								<input type="password" name="password" class="form-control" placeholder="รหัสผ่าน">
 							</div>
 
-							<div class="row align-items-center password1 justify-content-end">
-								<a href="your-link-here">ลืมรผัสผ่าน?</a>
+                            <div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" name="confirm-password" class="form-control" placeholder="ยืนยันรหัสผ่าน">
 							</div>
 
 							<div class="login-group">
 								<button class="login-button login-group">
     								<a href="your-page-url">เข้าสู่ระบบ</a>
-								</button>
-							</div>
-
-							<div class="row align-items-center newmember justify-content-center">
-								ยังไม่มีบัญชีใช่ไหม?
-								<a href="newmember.php">สมัครสมาชิก</a>
-							</div>
-
-							<div class="divider">หรือเข้าสู่ระบบด้วยบัญชี</div>
-
-							<div class="login-group">
-								<button class="login-button1">
-									<i class="fas fa-envelope"></i>
-									<a href="your-page-url">เข้าสู่ระบบด้วยอีเมล</a>
-								</button>
-							</div>
-
-							<div class="login-group">
-								<button class="login-button1">
-									<i class="fas fa-mobile-alt"></i>
-									<a href="your-page-url">เข้าสู่ระบบด้วยเบอร์โทรศัพท์</a>
 								</button>
 							</div>
 

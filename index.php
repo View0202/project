@@ -4,10 +4,10 @@
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>page</title>
+	<title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="layouts/home.css">
+    <link rel="stylesheet" type="text/css" href="layouts/index.css">
     
 </head>
 <body>
@@ -25,7 +25,6 @@
             <nav class="navbar navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="login.php">
-                    <img src="icons/login.png" >
                         เข้าสู่ระบบ
                     </a>
                 </div>
@@ -39,22 +38,22 @@
                 <a class="nav-link" href="#">หน้าแรก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">เกี่ยวกับเรา</a>
+                <a class="nav-link" href="about.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">พนักงานคลินิก</a>
+                <a class="nav-link" href="employee.php">พนักงานคลินิก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">สินค้าและบริการ</a>
+                <a class="nav-link" href="product.php">สินค้าและบริการ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">โปรโมชั่น</a>
+                <a class="nav-link" href="promotion.php">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">ผลลัพธ์ลูกค้า</a>
+                <a class="nav-link" href="result.php">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">ติดต่อเรา</a>
+                <a class="nav-link" href="contact.php">ติดต่อเรา</a>
             </li>
             </ul>
     </div>
@@ -130,11 +129,111 @@
                         <br>ราคา : บาท
                 </div>
             </div>
+
+            <a class="align-left">บริการสักคิ้ว</a>
+            <div class="row align-items-center">
+                <div class="col">
+                    <img src="images/product.jpg" class="product-img" alt="">
+                        <br>สินค้า :
+                        <br>ราคา : บาท
+                </div>
+                <div class="col">
+                    <img src="images/product.jpg" class="product-img" alt="">
+                        <br>สินค้า :
+                        <br>ราคา : บาท
+                </div>
+                <div class="col">
+                    <img src="images/product.jpg" class="product-img" alt="">
+                        <br>สินค้า :
+                        <br>ราคา : บาท
+                </div>
+            </div>
+
+            <a class="align-left">บริการทำเล็บ</a>
+            <div class="row align-items-center">
+                <div class="col">
+                    <img src="images/product.jpg" class="product-img" alt="">
+                        <br>สินค้า :
+                        <br>ราคา : บาท
+                </div>
+                <div class="col">
+                    <img src="images/product.jpg" class="product-img" alt="">
+                        <br>สินค้า :
+                        <br>ราคา : บาท
+                </div>
+                <div class="col">
+                    <img src="images/product.jpg" class="product-img" alt="">
+                        <br>สินค้า :
+                        <br>ราคา : บาท
+                </div>
+            </div>
+
+            <a class="btn btn-primary" href="#" role="button">สมัครสมาชิกใหม่ >></a>
+
         </div>
     </div>
 
+    <hr>
+    
+    <div class="promotion">
+        <strong>โปรโมชั่นประจำเดิอน</strong>
+        
+    </div>
 
+    <hr>
 
+    <div class="result">
+        <strong>ผลลัพธ์ลูกค้า</strong>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <img src="images/logo1.png" class="result-img" alt="">
+                </div>
+                <div class="col">
+                    <img src="images/logo1.png" class="result-img" alt="">
+                </div>
+                <div class="col">
+                    <img src="images/logo1.png" class="result-img" alt="">
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col">
+                    <img src="images/logo1.png" class="result-img" alt="">
+                </div>
+                <div class="col">
+                    <img src="images/logo1.png" class="result-img" alt="">
+                </div>
+                <div class="col">
+                    <img src="images/logo1.png" class="result-img" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="contact">
+        <strong>ติดต่อเรา</strong>
+        <div class="widget-item-shortdesc">เปิดให้บิการ ทุกวัน เวลา 11.00 - 18.00 น.</div>
+        
+    </div>
+
+    <hr>
+
+    <div class="container2">
+        <header id="footer">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="login.php">
+                        Copyright 2024 @ Mira One Stop Services Beauty Center
+                    </a>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    
     
     
      
