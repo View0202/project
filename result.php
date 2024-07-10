@@ -4,7 +4,7 @@
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mira comprehensive beauty center Employee</title>
+	<title>Mira comprehensive beauty center Result</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="layouts/index.css">
@@ -59,7 +59,7 @@
                 <a class="nav-link" href="about.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">พนักงานคลินิก</a>
+                <a class="nav-link" href="employee.php">พนักงานคลินิก</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="product.php">สินค้าและบริการ</a>
@@ -68,7 +68,7 @@
                 <a class="nav-link" href="promotion.php">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="result.php">ผลลัพธ์ลูกค้า</a>
+                <a class="nav-link" href="#">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="contact.php">ติดต่อเรา</a>
@@ -76,40 +76,32 @@
             </ul>
     </div>
 
-    <div class="employee">
+    <div class="result">
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-            <strong>พนักงานคลินิก</strong>
+            <strong>ผลลัพธ์ลูกค้า</strong>
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col mr-3">
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col mr-3">
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col">
-                            <div class="card" style="width: 20rem; margin: 20px">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
                         </div>
                     </div>
                 </div>
@@ -129,8 +121,24 @@
                 </div>
             </nav>
         </header>
-    </div>         
-</div>   
+    </div>
+
+    
+    
+    
+     
+                    
+           
+
+</div>
+
+
+
+
+
+
+
+    
 
 </body>
 </html>

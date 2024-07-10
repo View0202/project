@@ -4,7 +4,7 @@
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mira comprehensive beauty center Employee</title>
+	<title>Mira comprehensive beauty center Contact</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="layouts/index.css">
@@ -59,7 +59,7 @@
                 <a class="nav-link" href="about.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">พนักงานคลินิก</a>
+                <a class="nav-link" href="employee.php">พนักงานคลินิก</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="product.php">สินค้าและบริการ</a>
@@ -71,52 +71,45 @@
                 <a class="nav-link" href="result.php">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact.php">ติดต่อเรา</a>
+                <a class="nav-link" href="#">ติดต่อเรา</a>
             </li>
             </ul>
     </div>
 
-    <div class="employee">
+    <div class="contact">
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-            <strong>พนักงานคลินิก</strong>
+            <strong>ติดต่อเรา</strong>
+                <div class="widget-item-shortdesc">เปิดให้บริการ ทุกวัน เวลา 11.00 - 18.00 น.</div>
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col mr-3">
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col mr-3">
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col">
-                            <div class="card" style="width: 20rem; margin: 20px">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
+                            <div class="alert alert-secondary" role="alert">
+                                <img src="icons/facebook.png" alt="Facebook Icon" style="width:30px; height:30px; margin-right:5px;">
+                                    Facebook : .....................
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="alert alert-secondary" role="alert">
+                                <img src="icons/line.png" alt="Line Icon" style="width:30px; height:30px; margin-right:5px;">
+                                Line : ....................
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="alert alert-secondary" role="alert">
+                                <img src="icons/phone.png" alt="Phone Icon" style="width:30px; height:30px; margin-right:5px;">
+                                Phone : 090-3166790
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236.7043517668177!2d98.81794018833246!3d18.33497964530612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30dbb903de457b15%3A0xade4cc5e472c4fdf!2sSS%20Com%20Service!5e0!3m2!1sth!2sth!4v1720606431292!5m2!1sth!2sth" width="1000" height="450" style="border:0; margin: 20px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+           
             </span>
         </div>
     </div>
-    
+
     <hr>
 
     <div class="container2">
@@ -129,8 +122,8 @@
                 </div>
             </nav>
         </header>
-    </div>         
-</div>   
+    </div>
+</div>
 
 </body>
 </html>
