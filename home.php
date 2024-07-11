@@ -59,7 +59,7 @@
                 <a class="nav-link" href="about.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="employee.php">พนักงานคลินิก</a>
+                <a class="nav-link" href="employee.php">ตารางพนักงาน</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="product.php">สินค้าและบริการ</a>
@@ -76,64 +76,11 @@
             </ul>
     </div>
 
-    <div class="img-fluid">
-        <a href="#" title="">
-            <img alt="" src="images/promote3.png">
-        </a>
-    </div>
-
-    <div class="container-fluid d-flex align-items-center">
-        <img src="images/news.jpeg" class="img-thumbnail" alt="ข่าว">
-        <div class="news ms-3">
-            <strong>ข่าวประชาสัมพันธ์</strong> <br>It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="text-center">
-    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-        <div class="about">
-            <strong>เกี่ยวกับเรา</strong>
-        </div>
-        <div class="widget-item-shortdesc">A gentle tranquil alternative using a special blend of Thai Herbs wrapped in muslin, steamed and used warm.</div>
-    </div>
-
-    <hr>
-
-    <div class="employee">
-        <strong>พนักงานคลินิก</strong>
+    <div class="calendar">
+        <strong>ตารางพนักงาน</strong>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col mr-3">
-                    <div class="card" style="width: 20rem;">
-                        <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">ชื่อพนักงาน :</h5>
-                            <p class="card-text">ตำแหน่ง :</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col mr-3">
-                    <div class="card" style="width: 20rem;">
-                        <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">ชื่อพนักงาน :</h5>
-                            <p class="card-text">ตำแหน่ง :</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                        <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">ชื่อพนักงาน :</h5>
-                            <p class="card-text">ตำแหน่ง :</p>
-                        </div>
-                    </div>
-                </div>
+                <iframe src="https://calendar.google.com/calendar/embed?src=rungpairin.nut%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
             </div>
         </div>
     </div>
@@ -242,39 +189,131 @@
                 </div>
             </div>
 
-            <a class="btn btn-primary" href="newmember.php" role="button" style="margin-top: 30px;">สมัครสมาชิกใหม่ >></a>
+            <a class="btn btn-primary" href="#" role="button" style="margin-top: 30px;">จองคิว</a>
 
         </div>
     </div>
 
     <hr>
 
-    <div class="result">
-        <strong>ผลลัพธ์ลูกค้า</strong>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
-                    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                </div>
-                <div class="col">
-                    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                </div>
-                <div class="col">
-                    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                </div>
+    <div class="promotion">
+        <div class="row justify-content-center">
+            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
+            <strong>โปรโมชั่น</strong>
+            <div class="container">
+                <div class="row justify-content-center g-3 align-items-center">
+                    <div class="col">
+                        <div class="card" style="width: 30rem;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body text-start">
+                                        <h5 class="card-title">โปรโมชั่น : ..............</h5>
+                                        <p class="card-text">เงื่อนไข : .............</p>
+                                        <p class="card-detail">สิ้นสุดกิจกรรม : .............</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card" style="width: 30rem;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body text-start">
+                                        <h5 class="card-title">โปรโมชั่น : ..............</h5>
+                                        <p class="card-text">เงื่อนไข : .............</p>
+                                        <p class="card-detail">สิ้นสุดกิจกรรม : .............</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
             </div>
 
-            <div class="row align-items-center">
-                <div class="col">
-                    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                </div>
-                <div class="col">
-                    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                </div>
-                <div class="col">
-                    <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                </div>
+            <div class="container">
+                <div class="row justify-content-center g-3 align-items-center">
+                    <div class="col">
+                        <div class="card" style="width: 30rem;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body text-start">
+                                        <h5 class="card-title">โปรโมชั่น : ..............</h5>
+                                        <p class="card-text">เงื่อนไข : .............</p>
+                                        <p class="card-detail">สิ้นสุดกิจกรรม : .............</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card" style="width: 30rem;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body text-start">
+                                        <h5 class="card-title">โปรโมชั่น : ..............</h5>
+                                        <p class="card-text">เงื่อนไข : .............</p>
+                                        <p class="card-detail">สิ้นสุดกิจกรรม : .............</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
             </div>
+
+            <div class="container">
+                <div class="row justify-content-center g-3 align-items-center">
+                    <div class="col">
+                        <div class="card" style="width: 30rem; margin: 20px">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body text-start">
+                                        <h5 class="card-title">โปรโมชั่น : ..............</h5>
+                                        <p class="card-text">เงื่อนไข : .............</p>
+                                        <p class="card-detail">สิ้นสุดกิจกรรม : .............</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card" style="width: 30rem;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body text-start">
+                                        <h5 class="card-title">โปรโมชั่น : ..............</h5>
+                                        <p class="card-text">เงื่อนไข : .............</p>
+                                        <p class="card-detail">สิ้นสุดกิจกรรม : .............</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
+            </div>
+            </span>
         </div>
     </div>
 

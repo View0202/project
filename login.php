@@ -13,9 +13,23 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 		<!--Custom styles-->
 		<link rel="stylesheet" type="text/css" href="styles.css">
+
+		<!-- Google Fonts - Prompt -->
+    	<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 		<style type="text/css">
-			/* Made with love by Mutiullah Samim*/
-		@import url('https://fonts.googleapis.com/css?family=Numans');
+		body {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        p, .card-title, .card-text, .widget-item-shortdesc {
+            font-family: 'Prompt', sans-serif;
+        }
+
 		html,body{
 		background-image: url('https://getwallpapers.com/wallpaper/full/0/f/a/920042-pink-computer-wallpaper-2048x1280-for-samsung-galaxy.jpg');
 		background-size: cover;
@@ -175,7 +189,7 @@
 					</div>
 					
 					<div class="card-body">
-						<form ame="formlogin" action="chklogin.php" method="POST" id="login" class="form-horizontal">
+						<form ame="formlogin" action="check_login.php" method="POST">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -220,13 +234,8 @@
 									<a href="your-page-url">เข้าสู่ระบบด้วยเบอร์โทรศัพท์</a>
 								</button>
 							</div>
-
-
-							
-							
 						</form>
 					</div>
-					
 				</div>
 			</div>
 		</div>
