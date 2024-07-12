@@ -12,6 +12,15 @@
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- jquery -->
+		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- jquery -->
+    <script type="text/javascript" src="index.js"></script>
+
+    <!-- sweet -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Inline Styles for Font Family -->
     <style>
         body {
@@ -30,6 +39,7 @@
 </head>
 <body>
 
+<!-- ส่วนหัวตาราง -->
 <div class="container1">
     <div class="container2">
         <header id="header">
@@ -40,12 +50,16 @@
                     </a>
                 </div>
             </div>
+
             <nav class="navbar navbar-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="login.php">
-                        เข้าสู่ระบบ
-                    </a>
-                </div>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">ข้อมูลส่วนตัว</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
+                    </li>
+                </ul>
             </nav>
         </header>
     </div>
@@ -80,7 +94,7 @@
         <strong>ตารางพนักงาน</strong>
         <div class="container">
             <div class="row align-items-center">
-                <iframe src="https://calendar.google.com/calendar/embed?src=rungpairin.nut%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+                <iframe src="https://calendar.google.com/calendar/embed?src=rungpairin.nut%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="500" height="500" frameborder="0" scrolling="no"></iframe>
             </div>
         </div>
     </div>

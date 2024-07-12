@@ -22,6 +22,21 @@
     	<!-- Google Fonts - Prompt -->
     	<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+		<!-- jquery -->
+		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+		<!-- jquery -->
+		<script type="text/javascript" src="index.js"></script>
+
+		<!-- sweet -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#login').data();
+			});
+		</script>
+
 		<style type="text/css">
 		body {
             font-family: 'Prompt', sans-serif;
@@ -193,59 +208,59 @@
 					</div>
 					
 					<div class="card-body">
-						<form ame="formlogin" action="chklogin.php" method="POST" id="login" class="form-horizontal">
+						<form ame="formlogin" method="POST" id="login" class="form-horizontal">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" name="name" class="form-control" placeholder="ชื่อ">
+								<input type="text" id="username" name="name" class="form-control" placeholder="ชื่อ">
 							</div>
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" name="surname" class="form-control" placeholder="นามสกุล">
+								<input type="text" id="surname" name="surname" class="form-control" placeholder="นามสกุล">
 							</div>
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-age"></i></span>
 								</div>
-								<input type="text" name="age" class="form-control" placeholder="อายุ">
+								<input type="date" id="age" name="age" class="form-control" placeholder="อายุ">
 							</div>
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-phone"></i></span>
 								</div>
-								<input type="text" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์">
+								<input type="number" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์">
 							</div>
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-email"></i></span>
 								</div>
-								<input type="text" name="email" class="form-control" placeholder="อีเมล์">
+								<input type="text" id="email" name="email" class="form-control" placeholder="อีเมล์">
 							</div>
 
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input type="password" name="password" class="form-control" placeholder="รหัสผ่าน">
+								<input type="password" id="password" name="password" class="form-control" placeholder="รหัสผ่าน">
 							</div>
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input type="password" name="password_cf" class="form-control" placeholder="ยืนยันรหัสผ่าน">
+								<input type="password" id="password_cf" name="password_cf" class="form-control" placeholder="ยืนยันรหัสผ่าน">
 							</div>
 
 							<div class="login-group">
-								<button class="login-button login-group">
-    								<a href="your-page-url">เข้าสู่ระบบ</a>
+								<button class="login-button login-group" type="submit" value="เข้าสู่ระบบ" onclick="saveuser()">
+									เข้าสู่ระบบ
 								</button>
 							</div>	
 						</form>

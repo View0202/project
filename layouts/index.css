@@ -44,6 +44,7 @@
     justify-content: flex-end; /* จัดตำแหน่งเนื้อหาภายใน container-fluid ให้ไปทางขวาสุด */
 }
 
+
 .navbar {
     background-color: palevioletred; /* กำหนดสีพื้นหลังเป็นสีขาวโปร่งใส */
 }
@@ -171,12 +172,6 @@
     font-size: 30px;
 }
 
-
-
-
-
-
-
 .footer {
     position: fixed;
     bottom: 0;
@@ -185,4 +180,8 @@
     background-color: palevioletred;
     padding: 10px 0;
     border-top: 1px solid #dee2e6;
-  }
+}
+
+.input-group-text {
+    cursor: pointer;
+}
