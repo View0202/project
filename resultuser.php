@@ -12,6 +12,15 @@
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- jquery -->
+		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- jquery -->
+    <script type="text/javascript" src="index.js"></script>
+
+    <!-- sweet -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Inline Styles for Font Family -->
     <style>
         body {
@@ -41,12 +50,16 @@
                     </a>
                 </div>
             </div>
+            
             <nav class="navbar navbar-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="login.php">
-                        เข้าสู่ระบบ
-                    </a>
-                </div>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
+                    </li>
+                </ul>
             </nav>
         </header>
     </div>
@@ -54,63 +67,55 @@
     <div class="container2">
             <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="index.php">หน้าแรก</a>
+                <a class="nav-link" href="home.php">หน้าแรก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="about.php">เกี่ยวกับเรา</a>
+                <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">พนักงานคลินิก</a>
+                <a class="nav-link" href="reservationuser.php">ตารางพนักงาน</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="product.php">สินค้าและบริการ</a>
+                <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="promotion.php">โปรโมชั่น</a>
+                <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="result.php">ผลลัพธ์ลูกค้า</a>
+                <a class="nav-link" href="#">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact.php">ติดต่อเรา</a>
+                <a class="nav-link" href="contactuser.php">ติดต่อเรา</a>
             </li>
             </ul>
     </div>
 
-    <div class="employee">
+    <div class="result">
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-            <strong>พนักงานคลินิก</strong>
+            <strong>ผลลัพธ์ลูกค้า</strong>
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col mr-3">
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col mr-3">
-                            <div class="card" style="width: 20rem;">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col">
-                            <div class="card" style="width: 20rem; margin: 20px">
-                                <img src="images/employee_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">ชื่อพนักงาน :</h5>
-                                    <p class="card-text">ตำแหน่ง :</p>
-                                </div>
-                            </div>
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+                        </div>
+                        <div class="col">
+                            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
                         </div>
                     </div>
                 </div>
@@ -130,8 +135,7 @@
                 </div>
             </nav>
         </header>
-    </div>         
-</div>   
-
+    </div>
+</div>
 </body>
 </html>

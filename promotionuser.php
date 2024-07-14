@@ -67,7 +67,7 @@
     <div class="container2">
             <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="#">หน้าแรก</a>
+                <a class="nav-link" href="home.php">หน้าแรก</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
@@ -79,7 +79,7 @@
                 <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
+                <a class="nav-link" href="#">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="resultuser.php">ผลลัพธ์ลูกค้า</a>
@@ -89,126 +89,6 @@
             </li>
             </ul>
     </div>
-
-    <div class="calendar">
-        <strong>ตารางพนักงาน</strong>
-        <div class="container">
-            <div class="row align-items-center">
-                <iframe src="https://calendar.google.com/calendar/embed?src=rungpairin.nut%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="800" height="500" frameborder="0" scrolling="no"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="product">
-        <strong>สินค้าและบริการ</strong>
-        <div class="container">
-        <p class="text-start fs-3">สินค้า</p>
-            <div class="row justify-content-center g-3 align-items-center">
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                        <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                    <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                    <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <p class="text-start fs-3" style="margin-top: 50px;">บริการสักคิ้ว</p>
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                        <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                    <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                    <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <p class="text-start fs-3" style="margin-top: 50px;">บริการทำเล็บ</p>
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                        <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                    <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card" style="width: 20rem;">
-                    <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">สินค้า :</h5>
-                            <p class="card-text">ราคา : บาท</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <a class="btn btn-primary" href="reservation_form.php" role="button" style="margin-top: 30px;">จองคิว</a>
-
-        </div>
-    </div>
-
-    <hr>
 
     <div class="promotion">
         <div class="row justify-content-center">
@@ -333,39 +213,6 @@
 
     <hr>
 
-    <div class="contact">
-        <strong>ติดต่อเรา</strong>
-        <div class="widget-item-shortdesc">เปิดให้บริการ ทุกวัน เวลา 11.00 - 18.00 น.</div>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="alert alert-secondary" role="alert">
-                        <img src="icons/facebook.png" alt="Facebook Icon" style="width:30px; height:30px; margin-right:5px;">
-                            Facebook : .....................
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="alert alert-secondary" role="alert">
-                        <img src="icons/line.png" alt="Line Icon" style="width:30px; height:30px; margin-right:5px;">
-                        Line : ....................
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="alert alert-secondary" role="alert">
-                        <img src="icons/phone.png" alt="Phone Icon" style="width:30px; height:30px; margin-right:5px;">
-                        Phone : 090-3166790
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236.7043517668177!2d98.81794018833246!3d18.33497964530612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30dbb903de457b15%3A0xade4cc5e472c4fdf!2sSS%20Com%20Service!5e0!3m2!1sth!2sth!4v1720606431292!5m2!1sth!2sth" width="1000" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        
-    </div>
-
-    
-    <hr>
-
     <div class="container2">
         <header id="footer">
             <nav class="navbar navbar-light">
@@ -377,23 +224,6 @@
             </nav>
         </header>
     </div>
-
-    
-    
-    
-     
-                    
-           
-
 </div>
-
-
-
-
-
-
-
-    
-
 </body>
 </html>

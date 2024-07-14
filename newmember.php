@@ -213,7 +213,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" id="username" name="name" class="form-control" placeholder="ชื่อ">
+								<input type="text" id="username" name="username" class="form-control" placeholder="ชื่อ">
 							</div>
 
                             <div class="input-group form-group">
@@ -225,7 +225,7 @@
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-age"></i></span>
+									<span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
 								</div>
 								<input type="date" id="age" name="age" class="form-control" placeholder="อายุ">
 							</div>
@@ -239,7 +239,7 @@
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-email"></i></span>
+									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 								</div>
 								<input type="text" id="email" name="email" class="form-control" placeholder="อีเมล์">
 							</div>
