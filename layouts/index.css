@@ -185,3 +185,41 @@
 .input-group-text {
     cursor: pointer;
 }
+
+.fixed-bottom-icons {
+    position: fixed;
+    bottom: 20px; /* ระยะห่างจากด้านล่างของหน้าจอ */
+    right: 20px; /* ระยะห่างจากด้านขวาของหน้าจอ */
+    display: flex;
+    flex-direction: column; /* เรียงไอคอนในแนวตั้ง */
+    gap: 10px; /* ระยะห่างระหว่างไอคอน */
+    z-index: 999; /* ความสำคัญของการวางไอคอน */
+}
+  
+.fixed-bottom-icons i {
+    font-size: 24px; /* ขนาดไอคอน */
+    cursor: pointer; /* ทำให้เป็นตัวชี้ */
+    background-color: #007bff; /* สีพื้นหลังของไอคอน */
+    color: #fff; /* สีของไอคอน */
+    padding: 10px; /* ระยะห่างภายใน */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* เงาเพื่อเพิ่มมิติ */
+}
+
+.estimate strong {
+    font-size: 30px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center; /* จัดให้ภาพอยู่ตรงกลางตามแนวนอน */
+    align-items: center; /* จัดให้ภาพอยู่ตรงกลางตามแนวตั้ง */
+}
+  
+.card-img-top {
+    width: 200px; 
+    height: 200px; 
+    margin-top: 20px; /* ระยะห่างจากด้านบน */
+}
+  
+  

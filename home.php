@@ -21,6 +21,9 @@
     <!-- sweet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+
     <!-- Inline Styles for Font Family -->
     <style>
         body {
@@ -363,6 +366,14 @@
         
     </div>
 
+    <div class="fixed-bottom">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin: 20px;">
+            <button type="button" class="btn btn-outline-success" onclick="location.href='estimate.php'">
+                <i class="bi bi-box-arrow-up-right"></i> ประเมินใบหน้า
+            </button>
+        </div>
+    </div>
+    
     <hr>
 
     <div class="container2">
