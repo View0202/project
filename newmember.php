@@ -7,10 +7,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Mira Comprehensive Beauty Center</title>
-
+		<title>New member</title>
+		
 		<!--Bootsrap 4 CDN-->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		
@@ -21,7 +19,8 @@
 		<link rel="stylesheet" type="text/css" href="styles.css">
 
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    	<link rel="stylesheet" type="text/css" href="layouts/index.css">
+    	
+		<link rel="stylesheet" type="text/css" href="layouts/index.css">
 
     	<!-- Google Fonts - Prompt -->
     	<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -212,12 +211,12 @@
 					</div>
 					
 					<div class="card-body">
-						<form ame="formlogin" method="POST" id="login" class="form-horizontal">
+						<form method="POST" id="login" class="form-horizontal">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" id="username" name="username" class="form-control" placeholder="ชื่อ">
+								<input type="text" id="name" name="name" class="form-control" placeholder="ชื่อ">
 							</div>
 
                             <div class="input-group form-group">
@@ -229,9 +228,9 @@
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
+									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 								</div>
-								<input type="date" id="age" name="age" class="form-control" placeholder="อายุ">
+								<input type="text" id="email" name="email" class="form-control" placeholder="อีเมล์">
 							</div>
 
                             <div class="input-group form-group">
@@ -243,11 +242,11 @@
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+									<span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
 								</div>
-								<input type="text" id="email" name="email" class="form-control" placeholder="อีเมล์">
+								<input type="date" id="age" name="age" class="form-control" placeholder="อายุ">
 							</div>
-
+                            
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -263,8 +262,8 @@
 							</div>
 
 							<div class="login-group">
-								<button type="submit" class="login-button" onclick="saveuser()">
-									เข้าสู่ระบบ
+								<button class="login-button login-group" type="submit" value="สมัครสมาชิก" onclick="savecustomer()">
+									สมัครสมาชิก
 								</button>
 							</div>	
 						</form>

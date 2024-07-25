@@ -3,7 +3,7 @@ include("db_config.php");
 $id = $_GET['id'] ?? null;
 
 if ($id) {
-    $sql = "SELECT * FROM user WHERE id = ?";
+    $sql = "SELECT * FROM users WHERE id = ?";
     $stmt = $db_con->prepare($sql);
     $stmt->bindParam(1, $id);
     $stmt->execute();
@@ -15,21 +15,27 @@ if ($id) {
 <html>
 <head>
     <title>Login</title>
-    <!--Made with love by Mutiullah Samim -->
     <!--Bootstrap 4 CDN-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
     <!--Fontawesome CDN-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <!-- Google Fonts - Prompt -->
+    
+    <!--Google Fonts - Prompt-->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <!-- Custom JS -->
-    <script type="text/javascript" src="index.js"></script>
+    
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Custom JS -->
+    <script type="text/javascript" src="index.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
     <style type="text/css">
         body {
             font-family: 'Prompt', sans-serif;
@@ -192,12 +198,12 @@ if ($id) {
                     <h3>เข้าสู่ระบบ</h3>
                 </div>
                 <div class="card-body">
-                    <form name="formlogin" id="loginuser" action="api/checkuser.php" method="POST">
+                    <form name="formlogin" id="loginuser" method="POST">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                             </div>
-                            <input type="text" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์">
+                            <input type="text" id="email" name="email" class="form-control" placeholder="อีเมล์">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
@@ -231,6 +237,7 @@ if ($id) {
                             </button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

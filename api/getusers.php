@@ -5,7 +5,7 @@
 	$response = array();
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
-		$sql = "SELECT * FROM user";
+		$sql = "SELECT * FROM users";
 		$result = $db_con -> query($sql);
         $stmt->execute();
 

@@ -3,12 +3,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        saveuser();
     });
 });
 
-function saveuser() {
-    var username = $("#username").val();
+function savecustomer() {
+    var name = $("#name").val();
     var surname = $("#surname").val();
     var age = $("#age").val();
     var phone = $("#phone").val();
@@ -16,7 +15,7 @@ function saveuser() {
     var password = $("#password").val();
     var password_cf = $("#password_cf").val();
 
-    if (username == "" || surname == "" || age == "" || phone == "" || email == "" || password == "" || password_cf == "") {
+    if (name == "" || surname == "" || age == "" || phone == "" || email == "" || password == "" || password_cf == "") {
         Swal.fire({
             title: "กรุณากรอกข้อมูลให้ครบ",
             text: "",
@@ -30,17 +29,15 @@ function saveuser() {
         });
     } else {
         $.ajax({
-            url: 'api/adduser.php',
+            url: 'api/addcustomer.php',
             type: 'POST',
             dataType: 'json',
             data: {
-                username: username,
+                name: name,
                 surname: surname,
                 age: age,
                 phone: phone,
-                email: email,
-                password: password,
-                password_cf: password_cf
+                email: email
             },
         })
         .done(function(result) {
@@ -49,10 +46,10 @@ function saveuser() {
                     title: "บันทึกข้อมูลสำเร็จ",
                     text: "",
                     icon: "success",
-                    
+
                     didClose: () => {
                         $("#login").trigger('reset');
-                        window.location.href = 'home.php';
+                        window.location.href = 'login.php';
                     }
                 });
             } else {
@@ -64,7 +61,7 @@ function saveuser() {
             }
         })
         .fail(function() {
-            
+
         })
         .always(function() {
 			console.log("complete");
@@ -96,142 +93,54 @@ $(document).ready(function() {
 
 $(document).ready(function () {
     $("#loginuser").submit(function (event) {
-        event.preventDefault(); // Prevent the form from submitting the default way
+        event.preventDefault(); // ป้องกันฟอร์มจากการส่งข้อมูลแบบปกติ
 
-        var phone = $("#phone").val();
+        var email = $("#email").val();
         var password = $("#password").val();
 
-        if (phone === "" || password === "") {
+        if (email === "" || password === "") {
             Swal.fire({
                 icon: 'warning',
                 title: 'กรุณากรอกข้อมูลให้ครบ',
-                text: 'เบอร์โทรศัพท์และรหัสผ่าน'
+                text: 'อีเมล์และรหัสผ่าน'
             });
         } else {
             $.ajax({
-                url: 'api/checkuser.php', // Correct the URL here
+                url: 'api/checkuser.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    phone: phone,
+                    email: email,
                     password: password
                 },
-            })
-            .done(function(result) {
-                if (result.success) { // Changed to check 'success' instead of 'status'
+                success: function(result) {
+                    if (result.success) {
+                        Swal.fire({
+                            title: "เข้าสู่ระบบสำเร็จ",
+                            icon: "success",
+                            didClose: () => {
+                                $("#loginuser").trigger('reset');
+                                window.location.href = 'home.php';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "เข้าสู่ระบบไม่สำเร็จ",
+                            text: result.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ",
+                            icon: "error",
+                        });
+                    }
+                },
+                error: function() {
                     Swal.fire({
-                        title: "เข้าสู่ระบบสำเร็จ",
-                        text: "",
-                        icon: "success",
-                        didClose: () => {
-                            $("#loginuser").trigger('reset');
-                            window.location.href = 'home.php';
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: "เข้าสู่ระบบไม่สำเร็จ",
-                        text: result.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ",
+                        title: "เกิดข้อผิดพลาด",
+                        text: "ไม่สามารถติดต่อกับเซิร์ฟเวอร์ได้",
                         icon: "error",
                     });
                 }
-            })
-            .fail(function() {
-                Swal.fire({
-                    title: "เกิดข้อผิดพลาด",
-                    text: "ไม่สามารถติดต่อกับเซิร์ฟเวอร์ได้",
-                    icon: "error",
-                });
             });
         }
     });
 });
 
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    var tabEl = document.querySelectorAll('button[data-bs-toggle="pill"]');
-    tabEl.forEach(function(tab) {
-        tab.addEventListener("shown.bs.tab", function(event) {
-            var target = event.target.getAttribute("data-bs-target");
-            var content = document.querySelector(target);
-            var otherContents = document.querySelectorAll(".tab-pane");
-            otherContents.forEach(function(otherContent) {
-                if (otherContent !== content) {
-                    otherContent.classList.remove("show", "active");
-                }
-            });
-            content.classList.add("show", "active");
-        });
-    });
-});
-
-var id;
-
-function openEditModal(index){
-    $('#editUser').modal('show');
-
-    $('#edit_id').val(data[index].emp_id); // Add this line
-    $('#edit_username').val(data[index].username);
-    $('#edit_surname').val(data[index].surname);
-    $('#edit_age').val(data[index].age);
-    $('#edit_phone').val(data[index].phone);
-    $('#edit_email').val(data[index].email);
-    $('#edit_password').val(data[index].password);
-    $('#edit_password_cf').val(data[index].password_cf);
-    id = data[index].emp_id;
-}
-
-function updateUser(){
-    var username = $('#edit_username').val();
-    var surname = $('#edit_surname').val();
-    var age = $('#edit_age').val();
-    var phone = $('#edit_phone').val();
-    var email = $('#edit_email').val();
-    var password = $('#edit_password').val();
-    var password_cf = $('#edit_password_cf').val();
-    var id = $('#edit_id').val(); // Add this line
-
-    $.ajax({
-        url: 'api/updateuser.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            id: id,
-            username: username,
-            surname: surname,
-            age: age,
-            phone: phone,
-            email: email,
-            password: password,
-            password_cf: password_cf
-        },
-    })
-    .done(function(result) {
-        if (result.status == 'ok') {
-            Swal.fire({
-                title: "แก้ไขข้อมูลสำเร็จ",
-                text: "",
-                icon: "success",
-                didClose:() => {
-                    getData();
-                    $("#edituser").trigger('reset');
-                    window.location.href = 'home.php';
-                }
-            });
-        } else {
-            Swal.fire({
-                title: "แก้ไขข้อมูลไม่สำเร็จ",
-                text: "",
-                icon: "error",
-            });
-        }
-    })
-    .fail(function() {
-        console.log("error");
-    })
-    .always(function() {
-        console.log("complete");
-    });
-}
 

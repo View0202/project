@@ -363,7 +363,6 @@
         
     </div>
 
-    
     <hr>
 
     <div class="container2">
@@ -377,23 +376,6 @@
             </nav>
         </header>
     </div>
-
-    
-    
-    
-     
-                    
-           
-
 </div>
-
-
-
-
-
-
-
-    
-
 </body>
 </html>

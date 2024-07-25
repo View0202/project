@@ -7,7 +7,7 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$id = $_POST['id'];
-		$sql = "DELETE FROM user WHERE id = ?";
+		$sql = "DELETE FROM customer WHERE id = ?";
 
 		$stmt = $db_con -> prepare($sql);
 		$stmt -> bindParam(1, $id);
