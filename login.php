@@ -1,15 +1,4 @@
-<?php
-include("db_config.php");
-$id = $_GET['id'] ?? null;
 
-if ($id) {
-    $sql = "SELECT * FROM users WHERE id = ?";
-    $stmt = $db_con->prepare($sql);
-    $stmt->bindParam(1, $id);
-    $stmt->execute();
-    $row = $stmt->fetch();
-}
-?>
 
 <!DOCTYPE html>
 <html>
