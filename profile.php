@@ -1,3 +1,15 @@
+<?php
+	include("db_config.php");
+	$id = $_GET['id'];
+	$sql = "SELECT * FROM customer WHERE customer_id = ?";
+
+	$stmt = $db_con -> prepare($sql);
+	$stmt -> bindParam(1, $id);
+	$stmt -> execute();
+
+	$row = $stmt -> fetch();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +43,7 @@
 
     <script type="text/javascript">
 			$(document).ready(function() {
-				$('#edituser').data();
+				$('#editCustomer').data();
 			});
 		</script>
 
@@ -137,32 +149,32 @@
 
                                 <div class="col">
                                     <div class="card-body">
-                                        <form ame="formedit" method="POST" id="editUser" class="form-horizontal" action="api/updatauser.php">
-                                            <input type="hidden" id="edit_id" name="id" value="<?=$id?>">
+                                        <form ame="formedit" method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php">
+                                            <input type="hidden" name="customer_id" value="<?=$id?>">
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                                <input type="text" id="edit_username" name="username" class="form-control" value="<?=$row['username']?>">
+                                                <input type="text" id="edit_name" name="name" class="form-control">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
-                                                <input type="text" id="edit_surname" name="surname" class="form-control" value="<?=$row['surname']?>">
-                                            </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">อายุ</span>
-                                                <input type="date" id="edit_age" name="age" class="form-control" value="<?=$row['age']?>">
-                                            </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
-                                                <input type="number" id="edit_phone" name="phone" class="form-control" value="<?=$row['phone']?>">
+                                                <input type="text" id="edit_surname" name="surname" class="form-control">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">อีเมล์</span>
-                                                <input type="text" id="edit_email" name="email" class="form-control" value="<?=$row['email']?>">
+                                                <input type="text" id="edit_email" name="email" class="form-control">
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
+                                                <input type="number" id="edit_phone" name="phone" class="form-control">
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">อายุ</span>
+                                                <input type="date" id="edit_age" name="age" class="form-control">
                                             </div>
 
                                             <div class="input-group mb-3">
@@ -175,7 +187,7 @@
                                                 <input type="password" id="edit_password_cf" name="password_cf" class="form-control">
                                             </div>
 
-                                            <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล" onclick="updateUser()">
+                                            <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล" onclick="updateCustomer()">
                                                 แก้ไขข้อมูล
                                             </button>
                                         </form>

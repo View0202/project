@@ -69,7 +69,6 @@ function savecustomer() {
     }
 }
 
-
 $(document).ready(function() {
     // Define the logoutuser function
     window.logoutuser = function() {
