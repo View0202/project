@@ -42,11 +42,11 @@
                 </div>
             </div>
             <nav class="navbar navbar-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="login.php">
-                        เข้าสู่ระบบ
-                    </a>
-                </div>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">เข้าสู่ระบบ</a>
+                    </li>
+                </ul>
             </nav>
         </header>
     </div>

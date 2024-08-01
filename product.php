@@ -8,6 +8,24 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="layouts/index.css">
+
+    <!-- Google Fonts - Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Inline Styles for Font Family -->
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        p, .card-title, .card-text, .widget-item-shortdesc {
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
     
 </head>
 <body>
@@ -24,11 +42,11 @@
                 </div>
             </div>
             <nav class="navbar navbar-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="login.php">
-                        เข้าสู่ระบบ
-                    </a>
-                </div>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">เข้าสู่ระบบ</a>
+                    </li>
+                </ul>
             </nav>
         </header>
     </div>
