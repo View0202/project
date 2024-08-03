@@ -91,11 +91,9 @@ $(document).ready(function() {
     };
 });
 
-
-
 $(document).ready(function () {
     $("#loginuser").submit(function (event) {
-        event.preventDefault();
+        event.preventDefault(); // Prevent the form from submitting the default way
 
         var email = $("#email").val();
         var password = $("#password").val();
@@ -104,7 +102,7 @@ $(document).ready(function () {
             Swal.fire({
                 icon: 'warning',
                 title: 'กรุณากรอกข้อมูลให้ครบ',
-                text: 'อีเมล์และรหัสผ่าน'
+                text: 'เบอร์โทรศัพท์และรหัสผ่าน'
             });
         } else {
             $.ajax({
@@ -114,10 +112,10 @@ $(document).ready(function () {
                 data: {
                     email: email,
                     password: password
-                }
+                },
             })
             .done(function(result) {
-                if (result.success) {  // เปลี่ยนจาก result.status == 'ok' เป็น result.success
+                if (result.status == 'ok') {
                     Swal.fire({
                         title: "เข้าสู่ระบบสำเร็จ",
                         text: "",
@@ -130,16 +128,16 @@ $(document).ready(function () {
                 } else {
                     Swal.fire({
                         title: "เข้าสู่ระบบไม่สำเร็จ",
-                        text: result.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ",
-                        icon: "error"
+                        text: result.message || "",
+                        icon: "error",
                     });
                 }
             })
             .fail(function() {
                 Swal.fire({
                     title: "เกิดข้อผิดพลาด",
-                    text: "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้",
-                    icon: "error"
+                    text: "",
+                    icon: "error",
                 });
             })
             .always(function() {
@@ -154,17 +152,20 @@ $(document).ready(function () {
 
 
 
-//รูปภาพใบหน้า
-document.getElementById('formFile').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('displayImage').src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
-});
+
+
+
+// //รูปภาพใบหน้า
+// document.getElementById('formFile').addEventListener('change', function(event) {
+//     const file = event.target.files[0];
+//     if (file) {
+//         const reader = new FileReader();
+//         reader.onload = function(e) {
+//             document.getElementById('displayImage').src = e.target.result;
+//         }
+//         reader.readAsDataURL(file);
+//     }
+// });
 
 
 

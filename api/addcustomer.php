@@ -24,8 +24,16 @@
 
         $result = $stmt -> execute();
 
+        // สร้างคำสั่ง SQL สำหรับเพิ่มข้อมูลในตาราง users
+        $sql_users = "INSERT INTO users (email, password) VALUES (:email, :password)";
+        $stmt_users = $db_con->prepare($sql_users);
+        $stmt_users->bindParam(":email", $email);
+        $stmt_users->bindParam(":password", $password); // Use hashed password
+
+        $result_users = $stmt_users->execute();
+
         // ตรวจสอบการเพิ่มข้อมูล
-        if ($result) {
+        if ($result && $result_users) {
             $response['status'] = 'ok';
         } else {
             $response['status'] = 'error';
@@ -36,3 +44,6 @@
     // ปิดการเชื่อมต่อ
     echo json_encode($response);
 ?>
+
+
+

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 	include("db_config.php");
 	$id = $_GET['id'];
 	$sql = "SELECT * FROM customer WHERE customer_id = ?";
@@ -8,7 +8,7 @@
 	$stmt -> execute();
 
 	$row = $stmt -> fetch();
-?>
+?> -->
 
 <!DOCTYPE html>
 <html>
