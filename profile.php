@@ -1,7 +1,8 @@
 <?php
+    session_start();
 	include("db_config.php");
 	$id = $_GET['id'];
-	$sql = "SELECT * FROM customer WHERE customer_id = ?";
+	$sql = "SELECT * FROM customer WHERE customer_id = 0000000197";
 
 	$stmt = $db_con -> prepare($sql);
 	$stmt -> bindParam(1, $id);
@@ -137,49 +138,39 @@
                 <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="row justify-content-center">
                         <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px;">
-                            <div class="row justify-content-center  align-items-center">
-                                <div class="col">
-                                    <div class="card" style="width: 15rem; margin-left: 150px">
-                                    <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <a href="#" class="btn btn-primary">อัพโหลดรูป</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="card-body">
-                                        <form ame="formedit" method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php">
-                                            <input type="hidden" name="customer_id" value="<?=$id?>">
+                            <div class="justify-content-center align-items-center">
+                                    <div class="card-body" >
+                                    <form ame="formedit" method="POST" id="editCustomer" class="form-horizontal" action="api/updatacustomer.php">
+                                            <input type="hidden" id="edit_id" name="id" value="<?=$id?>">
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                                <input type="text" id="edit_name" name="name" class="form-control">
+                                                <input type="text" id="edit_name" name="username" class="form-control" value="<?=$row['name']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
-                                                <input type="text" id="edit_surname" name="surname" class="form-control">
+                                                <input type="text" id="edit_surname" name="surname" class="form-control" value="<?=$row['surname']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">อีเมล์</span>
-                                                <input type="text" id="edit_email" name="email" class="form-control">
+                                                <input type="text" id="edit_email" name="email" class="form-control" value="<?=$row['email']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
-                                                <input type="number" id="edit_phone" name="phone" class="form-control">
+                                                <input type="number" id="edit_phone" name="phone" class="form-control" value="<?=$row['phone']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">อายุ</span>
-                                                <input type="date" id="edit_age" name="age" class="form-control">
+                                                <input type="date" id="edit_age" name="age" class="form-control" value="<?=$row['age']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default" aria-describedby="passwordHelp">รหัสผ่าน</span>
-                                                <input type="password" id="edit_password" name="password" class="form-control">
+                                                <input type="password" id="edit_password" name="password" class="form-control" value="<?=$row['password']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
@@ -191,8 +182,10 @@
                                                 แก้ไขข้อมูล
                                             </button>
                                         </form>
+
+
                                     </div>
-                                </div>
+                                
                             </div>       
                         </span>
                     </div>  

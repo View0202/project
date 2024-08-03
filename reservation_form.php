@@ -34,6 +34,14 @@
         p, .card-title, .card-text, .widget-item-shortdesc {
             font-family: 'Prompt', sans-serif;
         }
+
+        .reservation strong {
+            font-size: 30px;
+        }
+
+        .red-text {
+            color: red;
+        }
     </style>
     
 </head>
@@ -101,7 +109,7 @@
 
     <hr>
 
-    <div class="employee">
+    <div class="reservation">
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1000px;">
             <strong>กรอกข้อมูลการจองคิว</strong>
@@ -175,9 +183,15 @@
                         </div>
                 </div>
 
-                <div class="col-auto" style="margin: 20px;">
-                    <button type="submit" class="btn btn-primary">จองคิว</button>
+                <div style="font-size: 10px;">
+                    <p class="red-text">*ในการจองแต่ละครั้งสามารถเลื่อนคิวได้ 1 ครั้งเท่านั้น</p>
                 </div>
+
+                <div class="modal-footer justify-content-center">
+                    <a href="paymentuser.php" class="btn btn-success" role="button">ต่อไป</a>
+                    <a href="home.php" class="btn btn-secondary" role="button">ยกเลิก</a>
+                </div>
+
             </span>
         </div>
     </div>
