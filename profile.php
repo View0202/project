@@ -1,5 +1,6 @@
+
 <?php
-    session_start();
+session_start();
 	include("db_config.php");
 	$id = $_GET['id'];
 	$sql = "SELECT * FROM customer WHERE customer_id = 0000000197";
