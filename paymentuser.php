@@ -202,7 +202,7 @@
     <hr>
 
     <div class="container2">
-        <header id="footer">
+        <footer id="footer">
             <nav class="navbar navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="login.php">
@@ -210,7 +210,7 @@
                     </a>
                 </div>
             </nav>
-        </header>
+        </footer>
     </div>
 </div>
 </body>

@@ -241,17 +241,17 @@ session_start();
         <hr>
 
         <div class="container2">
-            <header id="footer">
-                <nav class="navbar navbar-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="login.php">
-                            Copyright 2024 @ Mira One Stop Services Beauty Center
-                        </a>
-                    </div>
-                </nav>
-            </header>
-        </div>
+        <footer id="footer">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="login.php">
+                        Copyright 2024 @ Mira One Stop Services Beauty Center
+                    </a>
+                </div>
+            </nav>
+        </footer>
     </div>
+</div>
 
 </body>
 </html>
