@@ -65,7 +65,10 @@
         }
     </style>
 
-    <script>
+<script>
+        var countdownTimer; // ประกาศตัวแปรสำหรับ setInterval
+        var time; // ประกาศตัวแปรสำหรับเวลา
+
         function selectGateway(id) {
             let info;
             switch(id) {
@@ -78,10 +81,43 @@
                 default:
                     info = 'ข้อมูลไม่ถูกต้อง';
             }
+
+            // ตั้งเวลา 15 นาที (900 วินาที)
+            time = 15 * 60;
+
+            // แสดงข้อมูลการชำระเงินและส่วนต่างๆ
             document.getElementById('paymentInfo').innerText = info;
-            document.getElementById('paymentSeparator').style.display = 'block'; // แสดง <hr> เมื่อคลิก
-            document.getElementById('infoBox').style.display = 'block'; // แสดงกล่องข้อความเมื่อคลิก
-            document.getElementById('buttonContainer').style.display = 'block'; // แสดงปุ่มเมื่อคลิก
+            document.getElementById('paymentSeparator').style.display = 'block';
+            document.getElementById('countdown').style.display = 'block';
+            document.getElementById('infoBox').style.display = 'block';
+            document.getElementById('buttonContainer').style.display = 'block';
+
+            // เคลียร์ตัวจับเวลาถ้ามีอยู่แล้ว
+            clearInterval(countdownTimer);
+
+            // เริ่มการนับถอยหลังใหม่
+            countdownTimer = setInterval(updateCountdown, 1000);
+        }
+
+        // ฟังก์ชันการอัปเดตตัวนับถอยหลัง
+        function updateCountdown() {
+            var minutes = Math.floor(time / 60);
+            var seconds = time % 60;
+
+            // การจัดรูปแบบให้มีสองหลักเสมอ
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // แสดงเวลาที่เหลือ
+            document.getElementById('countdown').innerText = minutes + ":" + seconds;
+
+            // เมื่อหมดเวลา ให้ย้อนกลับไปยังหน้าก่อนหน้า
+            if (time <= 0) {
+                clearInterval(countdownTimer); // เคลียร์ตัวจับเวลาหลังหมดเวลา
+                window.history.back();
+            } else {
+                time--;
+            }
         }
     </script>
     
@@ -182,6 +218,7 @@
                                 <div id="paymentInfo" class="info">
                                     <!-- ข้อมูลการชำระเงินจะถูกเพิ่มที่นี่ -->
                                 </div>
+                                <div id="countdown"></div>
                                 <!-- div สำหรับแสดงข้อมูล -->
                                 <div id="infoBox" class="info-box center-content">
                                     <!-- ข้อมูลเพิ่มเติมจะถูกเพิ่มที่นี่ -->
@@ -202,7 +239,7 @@
     <hr>
 
     <div class="container2">
-        <header id="footer">
+        <footer id="footer">
             <nav class="navbar navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="login.php">
@@ -210,8 +247,12 @@
                     </a>
                 </div>
             </nav>
-        </header>
+        </footer>
     </div>
 </div>
 </body>
 </html>
+
+<script>
+
+    </script>

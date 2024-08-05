@@ -26,6 +26,8 @@
 
 		if ($result) {
 			$response['status'] = 'ok';
+			header("Location: ../profile.php");
+            exit();
 		}else{
 			$response['status'] = 'error';
 		}

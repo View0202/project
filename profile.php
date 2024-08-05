@@ -1,16 +1,46 @@
-
 <?php
-session_start();
-	include("db_config.php");
-	$id = $_GET['id'];
-	$sql = "SELECT * FROM customer WHERE customer_id = 0000000197";
+    // session_start();
+	// include("db_config.php");
+	// $sql = 'SELECT * FROM users WHERE user_id = ?';
 
-	$stmt = $db_con -> prepare($sql);
-	$stmt -> bindParam(1, $id);
-	$stmt -> execute();
+	// $stmt = $db_con -> prepare($sql);
+	// $stmt -> bindParam(1, $id);
+	// $stmt -> execute();
 
-	$row = $stmt -> fetch();
+	// $row = $stmt -> fetch();
+
+    session_start();
+    include("db_config.php");
+
+    // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
+    $sql = "SELECT u.*, c.* FROM users u
+            INNER JOIN customer c ON c.customer_id = c.customer_id
+            WHERE u.user_id = ?";
+
+    // เตรียมคำสั่ง SQL และผูกค่า parameter
+    $stmt = $db_con->prepare($sql);
+    $stmt->bindParam(1, $_SESSION['user_id']);
+    $stmt->execute();
+
+    // ดึงข้อมูลผลลัพธ์
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
+    if ($row) {
+        // ตัวอย่างการเข้าถึงข้อมูล
+        $user_id = $row['user_id'];
+
+        $customer_id = $row['customer_id'];
+        $name = $row['name'];
+
+        // การใช้งานข้อมูลต่อไป...
+    } else {
+        // กรณีไม่พบข้อมูล
+        echo "ไม่พบผู้ใช้ที่ตรงตามเงื่อนไข";
+    }
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -44,10 +74,10 @@ session_start();
     <script type="text/javascript" src="index.js"></script>
 
     <script type="text/javascript">
-			$(document).ready(function() {
-				$('#editCustomer').data();
-			});
-		</script>
+		$(document).ready(function() {
+			$('#editCustomer').data();
+		});
+	</script>
 
     <!-- Inline Styles for Font Family -->
     <style>
@@ -141,12 +171,12 @@ session_start();
                         <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px;">
                             <div class="justify-content-center align-items-center">
                                     <div class="card-body" >
-                                    <form ame="formedit" method="POST" id="editCustomer" class="form-horizontal" action="api/updatacustomer.php">
-                                            <input type="hidden" id="edit_id" name="id" value="<?=$id?>">
+                                        <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php">
+                                            <input type="hidden" id="edit_id" name="customer_id" value="<?=$customer_id?>">
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                                <input type="text" id="edit_name" name="username" class="form-control" value="<?=$row['name']?>">
+                                                <input type="text" id="edit_name" name="name" class="form-control" value="<?=$row['name']?>">
                                             </div>
 
                                             <div class="input-group mb-3">
@@ -179,7 +209,7 @@ session_start();
                                                 <input type="password" id="edit_password_cf" name="password_cf" class="form-control">
                                             </div>
 
-                                            <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล" onclick="updateCustomer()">
+                                            <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล">
                                                 แก้ไขข้อมูล
                                             </button>
                                         </form>
@@ -241,17 +271,17 @@ session_start();
         <hr>
 
         <div class="container2">
-            <header id="footer">
-                <nav class="navbar navbar-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="login.php">
-                            Copyright 2024 @ Mira One Stop Services Beauty Center
-                        </a>
-                    </div>
-                </nav>
-            </header>
-        </div>
+        <footer id="footer">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="login.php">
+                        Copyright 2024 @ Mira One Stop Services Beauty Center
+                    </a>
+                </div>
+            </nav>
+        </footer>
     </div>
+</div>
 
 </body>
 </html>

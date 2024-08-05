@@ -1,3 +1,37 @@
+<?php
+
+    session_start();
+    include("db_config.php");
+
+    // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
+    $sql = "SELECT u.*, c.* FROM users u
+            INNER JOIN customer c ON c.customer_id = c.customer_id
+            WHERE u.user_id = ?";
+
+    // เตรียมคำสั่ง SQL และผูกค่า parameter
+    $stmt = $db_con->prepare($sql);
+    $stmt->bindParam(1, $_SESSION['user_id']);
+    $stmt->execute();
+
+    // ดึงข้อมูลผลลัพธ์
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
+    if ($row) {
+        // ตัวอย่างการเข้าถึงข้อมูล
+        $user_id = $row['user_id'];
+
+        $customer_id = $row['customer_id'];
+        $name = $row['name'];
+
+        // การใช้งานข้อมูลต่อไป...
+    } else {
+        // กรณีไม่พบข้อมูล
+        echo "ไม่พบผู้ใช้ที่ตรงตามเงื่อนไข";
+    }
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +68,30 @@
         p, .card-title, .card-text, .widget-item-shortdesc {
             font-family: 'Prompt', sans-serif;
         }
+
+        .container1 {
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0 auto;
+        }
+
+        .img-container {
+            width: 300px; /* กำหนดขนาด container ที่ต้องการ */
+            height: 300px;
+            overflow: hidden; /* ซ่อนส่วนที่เกิน */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 100px;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto; /* ปรับขนาดอัตโนมัติ */
+            height: auto; /* ปรับขนาดอัตโนมัติ */
+        }
+
     </style>
     
 </head>
@@ -91,41 +149,45 @@
     </div>
 
     <div class="estimate">
-        <div class="row justify-content-center">
-            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-                <strong>ประเมินใบหน้า</strong>
-                <div class="row justify-content-center align-items-center">
-                    <div class="col">
-                        <div class="card" style="width: 500px; height: 400px; margin-left: 50px;">
-                            <div class="img-container">
-                                <img id="displayImage" src="images/haman.png" class="card-img-top" style="width: 200px; height: 200px; margin-top: 20px;">
-                            </div>
-                            <div class="mb-3">
-                                <input class="form-control" type="file" id="formFile" style="width: 450px; margin-left: 25px; margin-top: 100px;">
+        <form id="estimateForm" method="POST" enctype="multipart/form-data" action="api/addestimate.php">
+            <input type="hidden" name="customer_id" value="<?=$customer_id?>">
+            <div class="row justify-content-center">
+                <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
+                    <strong>ประเมินใบหน้า</strong>
+                    <div class="row justify-content-center align-items-center" style="margin-bottom: 20px;">
+                        <div class="col">
+                            <div class="card" style="width: 500px; height: 400px; margin-left: 50px;">
+                                <div class="img-container">
+                                    <img id="displayImage" src="images/human.jpeg" class="card-img-top">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" id="formFile" name="formFile" style="width: 450px; margin-left: 25px; margin-top: 20px;">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="mb-3 fs-3">
-                            <label for="textarea1" class="form-label">รายละเอียด</label>
-                            <textarea class="form-control" id="textarea1" rows="3"></textarea>
-                        </div> 
+                        <div class="col">
+                            <div class="mb-3 fs-3">
+                                <label for="detail" class="form-label">รายละเอียด</label>
+                                <textarea class="form-control" id="detail" name="detail" rows="3"></textarea>
+                            </div> 
 
-                        <button type="submit" class="btn btn-warning" value="เพิ่มใบหน้า" onclick="saveestimate()">
-                            ส่งประเมินใบหน้า
-                        </button> 
+                            <button type="submit" class="btn btn-warning">
+                                ส่งประเมินใบหน้า
+                            </button> 
+                            <a href="home.php" class="btn btn-secondary">ยกเลิก</a>
+                        </div>
+                        
                     </div>
-                    
-                </div>
-            </span>
-        </div>
+                </span>
+            </div>
+        </form>
     </div>
     
     <hr>
 
     <div class="container2">
-        <header id="footer">
+        <footer id="footer">
             <nav class="navbar navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="login.php">
@@ -133,8 +195,23 @@
                     </a>
                 </div>
             </nav>
-        </header>
+        </footer>
     </div>
 </div>
+
+<!-- JavaScript image -->
+<script>
+    document.getElementById('formFile').addEventListener('change', function(event) {
+        const file = event.target.files[0]; // รับไฟล์ที่ถูกเลือก
+        if (file) {
+            const reader = new FileReader(); // สร้าง FileReader
+            reader.onload = function(e) {
+                document.getElementById('displayImage').src = e.target.result; // อัปเดต src ของรูปภาพ
+            }
+            reader.readAsDataURL(file); // อ่านไฟล์เป็น Data URL
+        }
+    });
+</script>
+
 </body>
 </html>

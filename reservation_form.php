@@ -75,7 +75,7 @@
     <div class="container2">
             <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="#">หน้าแรก</a>
+                <a class="nav-link" href="home.php">หน้าแรก</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="about.php">เกี่ยวกับเรา</a>
@@ -199,7 +199,7 @@
     <hr>
 
     <div class="container2">
-        <header id="footer">
+        <footer id="footer">
             <nav class="navbar navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="login.php">
@@ -207,7 +207,7 @@
                     </a>
                 </div>
             </nav>
-        </header>
+        </footer>
     </div>      
 </div>
 

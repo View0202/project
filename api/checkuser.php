@@ -1,33 +1,35 @@
 <?php
-    session_start();
-    include("../db_config.php");
+session_start();
+include("../db_config.php");
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Query to check if the user exists
+    $sql = "SELECT * FROM users WHERE email = :email";
+    $stmt = $db_con->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        // Query to check if the user exists
-        $sql = "SELECT * FROM users WHERE email = ?";
-        $stmt = $db_con->prepare($sql);
-        $stmt->bindParam(1, $email);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if ($row && password_verify($password, $row['password'])) {
+    if ($row) {
+        // Check if the password is correct
+        $hashed_password = $row['password'];
+        if ($password==$hashed_password) {
             // Set session variables
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['name'] = $row['name'];
+            $_SESSION['login'] = 'yes';
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['email'] = $row['email'];
             // Respond with success
             echo json_encode(['status' => 'ok']);
+            header("Location: ../home.php");
+            exit();
         } else {
-            // If login fails, respond with error
+            // If password is incorrect
             echo json_encode(['status' => 'error', 'message' => 'อีเมล์หรือรหัสผ่านไม่ถูกต้อง']);
         }
     } else {
-        // If the request method is not POST, respond with error
-        echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+        // If email is not found
+        echo json_encode(['status' => 'error', 'message' => 'อีเมล์หรือรหัสผ่านไม่ถูกต้อง']);
     }
-    
 ?>
-
-

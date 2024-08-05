@@ -1,3 +1,4 @@
+//สมัครสมาชิก
 document.addEventListener('DOMContentLoaded', (event) => {
     const form = document.getElementById('login');
 
@@ -70,6 +71,7 @@ function savecustomer() {
     }
 }
 
+//ออกจากระบบ
 $(document).ready(function() {
     // Define the logoutuser function
     window.logoutuser = function() {
@@ -91,81 +93,197 @@ $(document).ready(function() {
     };
 });
 
-$(document).ready(function () {
-    $("#loginuser").submit(function (event) {
-        event.preventDefault(); // Prevent the form from submitting the default way
+//เข้าสู่ระบบ
+// $(document).ready(function () {
+//     $("#loginuser").submit(function (event) {
+//         event.preventDefault(); // Prevent the form from submitting the default way
 
-        var email = $("#email").val();
-        var password = $("#password").val();
+//         var email = $("#email").val();
+//         var password = $("#password").val();
 
-        if (email === "" || password === "") {
-            Swal.fire({
-                icon: 'warning',
-                title: 'กรุณากรอกข้อมูลให้ครบ',
-                text: 'เบอร์โทรศัพท์และรหัสผ่าน'
-            });
-        } else {
-            $.ajax({
-                url: 'api/checkuser.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    email: email,
-                    password: password
-                },
-            })
-            .done(function(result) {
-                if (result.status == 'ok') {
-                    Swal.fire({
-                        title: "เข้าสู่ระบบสำเร็จ",
-                        text: "",
-                        icon: "success",
-                        didClose: () => {
-                            $("#loginuser").trigger('reset');
-                            window.location.href = 'home.php';
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: "เข้าสู่ระบบไม่สำเร็จ",
-                        text: result.message || "",
-                        icon: "error",
-                    });
-                }
-            })
-            .fail(function() {
-                Swal.fire({
-                    title: "เกิดข้อผิดพลาด",
-                    text: "",
-                    icon: "error",
-                });
-            })
-            .always(function() {
-                console.log("complete");
-            });
-        }
-    });
-});
-
-
-
-
-
-
-
-
-
-// //รูปภาพใบหน้า
-// document.getElementById('formFile').addEventListener('change', function(event) {
-//     const file = event.target.files[0];
-//     if (file) {
-//         const reader = new FileReader();
-//         reader.onload = function(e) {
-//             document.getElementById('displayImage').src = e.target.result;
+//         if (email == "" || password == "") {
+//             Swal.fire({
+//                 icon: 'warning',
+//                 title: 'กรุณากรอกข้อมูลให้ครบ',
+//                 text: 'เบอร์โทรศัพท์และรหัสผ่าน'
+//             });
+//         } else {
+//             $.ajax({
+//                 url: 'api/checkuser.php',
+//                 type: 'POST',
+//                 dataType: 'json',
+//                 data: {
+//                     email: email,
+//                     password: password
+//                 },
+//             })
+//             .done(function(result) {
+//                 if (result.status == 'ok') {
+//                     Swal.fire({
+//                         title: "เข้าสู่ระบบสำเร็จ",
+//                         text: "",
+//                         icon: "success",
+//                         didClose: () => {
+//                             $("#loginuser").trigger('reset');
+//                             window.location.href = 'home.php';
+//                         }
+//                     });
+//                 } else {
+//                     Swal.fire({
+//                         title: "เข้าสู่ระบบไม่สำเร็จ",
+//                         text: result.message || "",
+//                         icon: "error",
+//                     });
+//                 }
+//             })
+//             .fail(function() {
+//                 Swal.fire({
+//                     title: "เกิดข้อผิดพลาด",
+//                     text: "",
+//                     icon: "error",
+//                 });
+//             })
+//             .always(function() {
+//                 console.log("complete");
+//             });
 //         }
-//         reader.readAsDataURL(file);
-//     }
+//     });
 // });
+
+//ประเมินใบหน้า
+function saveestimate() {
+    var detail = $("#detail").val();
+    var formFile = $("#formFile")[0].files[0]; // รับไฟล์ที่อัพโหลด
+
+    if (detail == "" || !formFile) {
+        Swal.fire({
+            title: "กรุณากรอกข้อมูลให้ครบ",
+            text: "",
+            icon: "warning"
+        });
+    } else {
+        var formData = new FormData();
+        formData.append("detail", detail);
+        formData.append("customer_id", $("#customer_id").val()); // รับ customer_id ถ้ามี
+        formData.append("formFile", formFile);
+
+        $.ajax({
+            url: 'api/addestimate.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json'
+        })
+        .done(function(result) {
+            if (result.status == 'ok') {
+                Swal.fire({
+                    title: "บันทึกข้อมูลสำเร็จ",
+                    text: "",
+                    icon: "success",
+                    didClose: () => {
+                        $("#estimateForm").trigger('reset');
+                        window.location.href = 'home.php';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: "บันทึกข้อมูลไม่สำเร็จ",
+                    text: result.message || "",
+                    icon: "error"
+                });
+            }
+        })
+        .fail(function() {
+            Swal.fire({
+                title: "เกิดข้อผิดพลาด",
+                text: "",
+                icon: "error"
+            });
+        })
+        .always(function() {
+            console.log("complete");
+        });
+    }
+}
+
+//อัพเดตข้อมูลส่วนตัว
+// function updateCustomer() {
+//     var name = $("#edit_name").val();
+//     var surname = $("#edit_surname").val();
+//     var email = $("#edit_email").val();
+//     var phone = $("#edit_phone").val();
+//     var age = $("edit_age").val();
+//     var password = $("#edit_password").val();
+//     var password_cf = $("#edit_password_cf").val();
+
+//     if (name == "" || surname == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
+//         Swal.fire({
+//             title: "กรุณากรอกข้อมูลให้ครบ",
+//             text: "",
+//             icon: "warning"
+//         });
+//     } else if (password !== password_cf) {
+//         Swal.fire({
+//             title: "รหัสผ่านไม่ตรงกัน",
+//             text: "กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่าน",
+//             icon: "error"
+//         });
+//     } else {
+//         $.ajax({
+//             url: 'api/updatecustomer.php',
+//             type: 'POST',
+//             dataType: 'json',
+//             data: {
+//                 id: id,
+//                 name: name,
+//                 surname: surname,
+//                 age: age,
+//                 phone: phone,
+//                 email: email,
+//                 password: password
+//             },
+//         })
+//         .done(function(result) {
+//             if (result.status == 'ok') {
+//                 Swal.fire({
+//                     title: "บันทึกข้อมูลสำเร็จ",
+//                     text: "",
+//                     icon: "success",
+
+//                     didClose: () => {
+//                         $("#editCustomer").trigger('reset');
+//                         window.location.href = 'profile.php';
+//                     }
+//                 });
+//             } else {
+//                 Swal.fire({
+//                     title: "บันทึกข้อมูลไม่สำเร็จ",
+//                     text: "",
+//                     icon: "error"
+//                 });
+//             }
+//         })
+//         .fail(function() {
+
+//         })
+//         .always(function() {
+// 			console.log("complete");
+// 		});
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
