@@ -68,30 +68,6 @@
         p, .card-title, .card-text, .widget-item-shortdesc {
             font-family: 'Prompt', sans-serif;
         }
-
-        .container1 {
-            max-width: 100%;
-            max-height: 100%;
-            margin: 0 auto;
-        }
-
-        .img-container {
-            width: 300px; /* กำหนดขนาด container ที่ต้องการ */
-            height: 300px;
-            overflow: hidden; /* ซ่อนส่วนที่เกิน */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 100px;
-        }
-
-        .img-container img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto; /* ปรับขนาดอัตโนมัติ */
-            height: auto; /* ปรับขนาดอัตโนมัติ */
-        }
-
     </style>
     
 </head>
