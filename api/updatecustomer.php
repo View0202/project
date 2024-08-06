@@ -11,16 +11,26 @@
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $age = $_POST['age'];
+		$password = $_POST['password'];
+		$password_cf = $_POST['password_cf'];
         $customer_id = $_POST['customer_id'];
 
-		$sql = "UPDATE customer SET name=?, surname=?, email=?, phone=?, age=? WHERE customer_id=?";
+		// Check if passwords match
+		if ($password !== $password_cf) {
+			$response['status'] = 'password_mismatch';
+			echo json_encode($response);
+			exit();
+		}
+
+		$sql = "UPDATE customer SET name=?, surname=?, email=?, phone=?, age=?, password=? WHERE customer_id=?";
 		$stmt = $db_con -> prepare($sql);
 		$stmt -> bindParam(1, $name);
 		$stmt -> bindParam(2, $surname);
 		$stmt -> bindParam(3, $email);
         $stmt -> bindParam(4, $phone);
         $stmt -> bindParam(5, $age);
-		$stmt -> bindParam(6, $customer_id);
+		$stmt -> bindParam(6, $password);
+		$stmt -> bindParam(7, $customer_id);
 
 		$result = $stmt -> execute();
 

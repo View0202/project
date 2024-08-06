@@ -3,6 +3,12 @@
     session_start();
     include("db_config.php");
 
+    // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+        exit;
+    }
+
     // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
     $sql = "SELECT u.*, c.* FROM users u
             INNER JOIN customer c ON c.customer_id = c.customer_id

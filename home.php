@@ -3,11 +3,38 @@
     session_start();
     include("db_config.php");
 
-    // // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-    // if (!isset($_SESSION['user_id'])) {
-    //     header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
-    //     exit;
-    // }
+    // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+        exit;
+    }
+
+    // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
+    $sql = "SELECT u.*, c.* FROM users u
+            INNER JOIN customer c ON c.customer_id = c.customer_id
+            WHERE u.user_id = ?";
+
+    // เตรียมคำสั่ง SQL และผูกค่า parameter
+    $stmt = $db_con->prepare($sql);
+    $stmt->bindParam(1, $_SESSION['user_id']);
+    $stmt->execute();
+
+    // ดึงข้อมูลผลลัพธ์
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
+    if ($row) {
+        // ตัวอย่างการเข้าถึงข้อมูล
+        $user_id = $row['user_id'];
+
+        $customer_id = $row['customer_id'];
+        $name = $row['name'];
+
+        // การใช้งานข้อมูลต่อไป...
+    } else {
+        // กรณีไม่พบข้อมูล
+        echo "ไม่พบผู้ใช้ที่ตรงตามเงื่อนไข";
+    }
 
 ?>
 

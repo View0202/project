@@ -1,16 +1,13 @@
 <?php
-    // session_start();
-	// include("db_config.php");
-	// $sql = 'SELECT * FROM users WHERE user_id = ?';
-
-	// $stmt = $db_con -> prepare($sql);
-	// $stmt -> bindParam(1, $id);
-	// $stmt -> execute();
-
-	// $row = $stmt -> fetch();
 
     session_start();
     include("db_config.php");
+
+    // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+        exit;
+    }
 
     // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
     $sql = "SELECT u.*, c.* FROM users u
@@ -170,53 +167,50 @@
                     <div class="row justify-content-center">
                         <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px;">
                             <div class="justify-content-center align-items-center">
-                                    <div class="card-body" >
-                                        <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php">
-                                            <input type="hidden" id="edit_id" name="customer_id" value="<?=$customer_id?>">
+                                <div class="card-body" >
+                                    <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php">
+                                        <input type="hidden" id="edit_id" name="customer_id" value="<?=$customer_id?>">
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                                <input type="text" id="edit_name" name="name" class="form-control" value="<?=$row['name']?>">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
+                                            <input type="text" id="name" name="name" class="form-control" value="<?=$row['name']?>">
+                                        </div>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
-                                                <input type="text" id="edit_surname" name="surname" class="form-control" value="<?=$row['surname']?>">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
+                                            <input type="text" id="surname" name="surname" class="form-control" value="<?=$row['surname']?>">
+                                        </div>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">อีเมล์</span>
-                                                <input type="text" id="edit_email" name="email" class="form-control" value="<?=$row['email']?>">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">อีเมล์</span>
+                                            <input type="text" id="email" name="email" class="form-control" value="<?=$row['email']?>">
+                                        </div>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
-                                                <input type="number" id="edit_phone" name="phone" class="form-control" value="<?=$row['phone']?>">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
+                                            <input type="number" id="phone" name="phone" class="form-control" value="<?=$row['phone']?>">
+                                        </div>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">อายุ</span>
-                                                <input type="date" id="edit_age" name="age" class="form-control" value="<?=$row['age']?>">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">อายุ</span>
+                                            <input type="date" id="age" name="age" class="form-control" value="<?=$row['age']?>">
+                                        </div>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default" aria-describedby="passwordHelp">รหัสผ่าน</span>
-                                                <input type="password" id="edit_password" name="password" class="form-control" value="<?=$row['password']?>">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default" aria-describedby="passwordHelp">รหัสผ่าน</span>
+                                            <input type="password" id="password" name="password" class="form-control" value="<?=$row['password']?>">
+                                        </div>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">ยืนยันรหัสผ่าน</span>
-                                                <input type="password" id="edit_password_cf" name="password_cf" class="form-control">
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">ยืนยันรหัสผ่าน</span>
+                                            <input type="password" id="password_cf" name="password_cf" class="form-control">
+                                        </div>
 
-                                            <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล">
-                                                แก้ไขข้อมูล
-                                            </button>
-                                        </form>
-
-
-                                    </div>
-                                
+                                        <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล">
+                                            แก้ไขข้อมูล
+                                        </button>
+                                    </form>
+                                </div>
                             </div>       
                         </span>
                     </div>  

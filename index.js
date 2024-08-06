@@ -208,70 +208,70 @@ function saveestimate() {
 }
 
 //อัพเดตข้อมูลส่วนตัว
-// function updateCustomer() {
-//     var name = $("#edit_name").val();
-//     var surname = $("#edit_surname").val();
-//     var email = $("#edit_email").val();
-//     var phone = $("#edit_phone").val();
-//     var age = $("edit_age").val();
-//     var password = $("#edit_password").val();
-//     var password_cf = $("#edit_password_cf").val();
+function updateCustomer() {
+    var name = $("#edit_name").val();
+    var surname = $("#edit_surname").val();
+    var email = $("#edit_email").val();
+    var phone = $("#edit_phone").val();
+    var age = $("edit_age").val();
+    var password = $("#edit_password").val();
+    var password_cf = $("#edit_password_cf").val();
 
-//     if (name == "" || surname == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
-//         Swal.fire({
-//             title: "กรุณากรอกข้อมูลให้ครบ",
-//             text: "",
-//             icon: "warning"
-//         });
-//     } else if (password !== password_cf) {
-//         Swal.fire({
-//             title: "รหัสผ่านไม่ตรงกัน",
-//             text: "กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่าน",
-//             icon: "error"
-//         });
-//     } else {
-//         $.ajax({
-//             url: 'api/updatecustomer.php',
-//             type: 'POST',
-//             dataType: 'json',
-//             data: {
-//                 id: id,
-//                 name: name,
-//                 surname: surname,
-//                 age: age,
-//                 phone: phone,
-//                 email: email,
-//                 password: password
-//             },
-//         })
-//         .done(function(result) {
-//             if (result.status == 'ok') {
-//                 Swal.fire({
-//                     title: "บันทึกข้อมูลสำเร็จ",
-//                     text: "",
-//                     icon: "success",
+    if (name == "" || surname == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
+        Swal.fire({
+            title: "กรุณากรอกข้อมูลให้ครบ",
+            text: "",
+            icon: "warning"
+        });
+    } else if (password !== password_cf) {
+        Swal.fire({
+            title: "รหัสผ่านไม่ตรงกัน",
+            text: "กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่าน",
+            icon: "error"
+        });
+    } else {
+        $.ajax({
+            url: 'api/updatecustomer.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: id,
+                name: name,
+                surname: surname,
+                age: age,
+                phone: phone,
+                email: email,
+                password: password
+            },
+        })
+        .done(function(result) {
+            if (result.status == 'ok') {
+                Swal.fire({
+                    title: "บันทึกข้อมูลสำเร็จ",
+                    text: "",
+                    icon: "success",
 
-//                     didClose: () => {
-//                         $("#editCustomer").trigger('reset');
-//                         window.location.href = 'profile.php';
-//                     }
-//                 });
-//             } else {
-//                 Swal.fire({
-//                     title: "บันทึกข้อมูลไม่สำเร็จ",
-//                     text: "",
-//                     icon: "error"
-//                 });
-//             }
-//         })
-//         .fail(function() {
+                    didClose: () => {
+                        $("#editCustomer").trigger('reset');
+                        window.location.href = 'profile.php';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: "บันทึกข้อมูลไม่สำเร็จ",
+                    text: "",
+                    icon: "error"
+                });
+            }
+        })
+        .fail(function() {
 
-//         })
-//         .always(function() {
-// 			console.log("complete");
-// 		});
-//     }
-// }
+        })
+        .always(function() {
+			console.log("complete");
+		});
+    }
+}
 
 
 
