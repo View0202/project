@@ -189,7 +189,7 @@
                     <h3>เข้าสู่ระบบ</h3>
                 </div>
                 <div class="card-body">
-                    <form name="formlogin" id="loginuser" action="api/checkuser.php" method="POST">
+                    <form id="loginuser" action="api/checkuser.php" method="POST">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
@@ -228,10 +228,10 @@
                             </button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>
