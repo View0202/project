@@ -208,118 +208,70 @@ function saveestimate() {
 }
 
 //อัพเดตข้อมูลส่วนตัว
-function updateCustomer() {
-    var name = $("#edit_name").val();
-    var surname = $("#edit_surname").val();
-    var email = $("#edit_email").val();
-    var phone = $("#edit_phone").val();
-    var age = $("edit_age").val();
-    var password = $("#edit_password").val();
-    var password_cf = $("#edit_password_cf").val();
+// function updateCustomer() {
+//     var name = $("#edit_name").val();
+//     var surname = $("#edit_surname").val();
+//     var email = $("#edit_email").val();
+//     var phone = $("#edit_phone").val();
+//     var age = $("edit_age").val();
+//     var password = $("#edit_password").val();
+//     var password_cf = $("#edit_password_cf").val();
 
-    if (name == "" || surname == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
-        Swal.fire({
-            title: "กรุณากรอกข้อมูลให้ครบ",
-            text: "",
-            icon: "warning"
-        });
-    } else if (password !== password_cf) {
-        Swal.fire({
-            title: "รหัสผ่านไม่ตรงกัน",
-            text: "กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่าน",
-            icon: "error"
-        });
-    } else {
-        $.ajax({
-            url: 'api/updatecustomer.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                id: id,
-                name: name,
-                surname: surname,
-                age: age,
-                phone: phone,
-                email: email,
-                password: password
-            },
-        })
-        .done(function(result) {
-            if (result.status == 'ok') {
-                Swal.fire({
-                    title: "บันทึกข้อมูลสำเร็จ",
-                    text: "",
-                    icon: "success",
+//     if (name == "" || surname == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
+//         Swal.fire({
+//             title: "กรุณากรอกข้อมูลให้ครบ",
+//             text: "",
+//             icon: "warning"
+//         });
+//     } else if (password !== password_cf) {
+//         Swal.fire({
+//             title: "รหัสผ่านไม่ตรงกัน",
+//             text: "กรุณาตรวจสอบรหัสผ่านและยืนยันรหัสผ่าน",
+//             icon: "error"
+//         });
+//     } else {
+//         $.ajax({
+//             url: 'api/updatecustomer.php',
+//             type: 'POST',
+//             dataType: 'json',
+//             data: {
+//                 id: id,
+//                 name: name,
+//                 surname: surname,
+//                 age: age,
+//                 phone: phone,
+//                 email: email,
+//                 password: password
+//             },
+//         })
+//         .done(function(result) {
+//             if (result.status == 'ok') {
+//                 Swal.fire({
+//                     title: "บันทึกข้อมูลสำเร็จ",
+//                     text: "",
+//                     icon: "success",
 
-                    didClose: () => {
-                        $("#editCustomer").trigger('reset');
-                        window.location.href = 'profile.php';
-                    }
-                });
-            } else {
-                Swal.fire({
-                    title: "บันทึกข้อมูลไม่สำเร็จ",
-                    text: "",
-                    icon: "error"
-                });
-            }
-        })
-        .fail(function() {
+//                     didClose: () => {
+//                         $("#editCustomer").trigger('reset');
+//                         window.location.href = 'profile.php';
+//                     }
+//                 });
+//             } else {
+//                 Swal.fire({
+//                     title: "บันทึกข้อมูลไม่สำเร็จ",
+//                     text: "",
+//                     icon: "error"
+//                 });
+//             }
+//         })
+//         .fail(function() {
 
-        })
-        .always(function() {
-			console.log("complete");
-		});
-    }
-}
-
-
-// ดึงข้อมูลจาก estimate
-var html, data;
-
-getData();
-
-function getData() {
-    $.ajax({
-        url: 'api/getestimate.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {},
-    })
-    .done(function(result) {
-        // ตรวจสอบผลลัพธ์ที่ได้จาก API
-        console.log(result);
-
-        if (result.status === 'success') {
-            data = result.data;
-
-            html = '';
-
-            for (var i = 0; i < data.length; i++) {
-                html += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${data[i].detail}</td>
-                    <td><img src="${data[i].file}" alt="Image" width="100"></td>
-                    <td>
-                        <button class="btn btn-primary btn-sm">การตอบกลับ</button>
-                    </td>
-                </tr>
-                `;
-            }
-
-            $('#content').html(html);
-        } else {
-            console.log("Failed to load data: " + result.message);
-        }
-    })
-    .fail(function() {
-        console.log("Error connecting to the API.");
-    })
-    .always(function() {
-        console.log("Request complete.");
-    });
-}
+//         })
+//         .always(function() {
+// 			console.log("complete");
+// 		});
+//     }
+// }
 
 
 
