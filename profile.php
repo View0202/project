@@ -178,10 +178,9 @@
                     <div class="row justify-content-center">
                         <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px;">
                             <div class="justify-content-center align-items-center">
-                                <div class="card-body" >
-                                    <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php" onsubmit="return updateForm()">
-                                        <input type="hidden" id="customer_id" name="customer_id" value="<?=$customer_id?>">
-                                        <input type="hidden" id="user_id" name="user_id" value="<?=$user_id?>">
+                                    <div class="card-body" >
+                                        <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php">
+                                            <input type="hidden" id="edit_id" name="customer_id" value="<?=$customer_id?>">
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
@@ -218,39 +217,14 @@
                                             <input type="password" id="password_cf" name="password_cf" class="form-control">
                                         </div>
 
-                                        <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล">
-                                            แก้ไขข้อมูล
-                                        </button>
-                                    </form>
+                                            <button type="submit" class="btn btn-warning" value="แก้ไขข้อมูล">
+                                                แก้ไขข้อมูล
+                                            </button>
+                                        </form>
 
-                                    <script>
-                                        function updateForm() {
-                                            // รับค่าจาก input elements
-                                            const password = document.getElementById('password').value;
-                                            const password_cf = document.getElementById('password_cf').value;
 
-                                            // ตรวจสอบว่ารหัสยืนยันถูกกรอกหรือไม่
-                                            if (password_cf === "") {
-                                                Swal.fire({
-                                                    title: "กรุณากรอกรหัสยืนยัน",
-                                                    icon: "warning"
-                                                });
-                                                return false; // ยกเลิกการส่งฟอร์ม
-                                            }
-
-                                            // ตรวจสอบว่ารหัสผ่านและรหัสยืนยันตรงกันหรือไม่
-                                            if (password !== password_cf) {
-                                                Swal.fire({
-                                                    title: "รหัสผ่านไม่ตรงกัน",
-                                                    text: "",
-                                                    icon: "error"
-                                                });
-                                                return false; // ยกเลิกการส่งฟอร์ม
-                                            }
-                                        }
-                                    </script>
-
-                                </div>
+                                    </div>
+                                
                             </div>       
                         </span>
                     </div>  
