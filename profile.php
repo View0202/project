@@ -1,42 +1,46 @@
 <?php
 
-    session_start();
-    include("db_config.php");
+session_start();
+include("db_config.php");
 
-    // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
-        exit;
-    }
+// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+    exit;
+}
 
-    // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
-    $sql = "SELECT u.*, c.* FROM users u
-            INNER JOIN customer c ON c.customer_id = c.customer_id
-            WHERE u.user_id = ?";
+// สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users, customer และ estimate
+$sql = "SELECT u.*, c.*, e.*
+        FROM users u
+        INNER JOIN customer c ON c.customer_id = c.customer_id
+        INNER JOIN estimate e ON e.customer_id = e.customer_id
+        WHERE u.user_id = ?";
 
-    // เตรียมคำสั่ง SQL และผูกค่า parameter
-    $stmt = $db_con->prepare($sql);
-    $stmt->bindParam(1, $_SESSION['user_id']);
-    $stmt->execute();
+// เตรียมคำสั่ง SQL และผูกค่า parameter
+$stmt = $db_con->prepare($sql);
+$stmt->bindParam(1, $_SESSION['user_id']);
+$stmt->execute();
 
-    // ดึงข้อมูลผลลัพธ์
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+// ดึงข้อมูลผลลัพธ์
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
-    if ($row) {
-        // ตัวอย่างการเข้าถึงข้อมูล
-        $user_id = $row['user_id'];
+// ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
+if ($row) {
+    // ตัวอย่างการเข้าถึงข้อมูล
+    $user_id = $row['user_id'];
+    $customer_id = $row['customer_id'];
+    $name = $row['name'];
+    $estimate_id = $row['estimate_id']; // หรือชื่อคอลัมน์ที่คุณใช้ในตาราง estimate
+    $response = $row['response']; // สมมติว่าชื่อคอลัมน์ในตาราง estimate คือ response
 
-        $customer_id = $row['customer_id'];
-        $name = $row['name'];
-
-        // การใช้งานข้อมูลต่อไป...
-    } else {
-        // กรณีไม่พบข้อมูล
-        echo "ไม่พบผู้ใช้ที่ตรงตามเงื่อนไข";
-    }
+    // การใช้งานข้อมูลต่อไป...
+} else {
+    // กรณีไม่พบข้อมูล
+    echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
+}
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -283,7 +287,7 @@
                 <div class="tab-pane fade" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
                     <div class="face">
                         <div class="row justify-content-center">
-                            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
+                            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px;">
                             <strong>การประเมินใบหน้า</strong>
                             <div class="container mt-5">
                                 
@@ -305,7 +309,7 @@
                                         </thead>
 
                                         <tbody id="content">
-                                            
+                                            <?php include 'fetch_estimate.php'; ?>
                                         </tbody>
                                         
                                     </table>
@@ -318,6 +322,64 @@
                     </div>
                 </div>
 
+                <!-- Modal -->
+                <div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="estimateModalLabel">การตอบกลับ</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body" id="modalBodyContent">
+                                <input type="hidden" id="estimate_id" name="estimate_id" value="<?=$estimate_id?>">
+                                <input type="hidden" id="customer_id" name="customer_id" value="<?=$customer_id?>">
+
+                                <div class="mb-3">
+                                    <p class="card-text"><?php echo $response; ?></p>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function() {
+                        $('#estimateModal').on('show.bs.modal', function (e) {
+                            var estimateId = $(e.relatedTarget).data('estimate_id'); // ดึง estimate_id จากปุ่มที่เปิดโมดัล
+
+                            $.ajax({
+                                url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
+                                type: 'GET',
+                                dataType: 'json',
+                                data: { estimate_id: estimateId }, // ส่ง estimate_id ไปยัง getestimate.php
+                                success: function(response) {
+                                    if (response.data && response.data.length > 0) {
+                                        var content = '<ul>';
+                                        $.each(response.data, function(index, item) {
+                                            content += '<li>' + item.response + '</li>'; // เปลี่ยน `response` เป็นชื่อคอลัมน์ที่ต้องการ
+                                        });
+                                        content += '</ul>';
+                                        $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
+                                    } else {
+                                        $('#modalBodyContent').html('ไม่มีข้อมูล');
+                                    }
+                                },
+                                error: function() {
+                                    $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
+                                }
+                            });
+                        });
+                    });
+                </script>
+
+                <!-- แบบประเมิน -->
                 <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
                     <div class="form">
                         <div class="row justify-content-center">

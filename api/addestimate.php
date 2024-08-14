@@ -31,7 +31,7 @@ try {
             }
 
             // กำหนดเส้นทางสำหรับอัปโหลดไฟล์
-            $uploadFileDir = '../image_estimate';
+            $uploadFileDir = '../image_estimate/';
             $dest_path = $uploadFileDir . $fileName;
 
             // ย้ายไฟล์ที่อัปโหลดไปยังโฟลเดอร์ปลายทาง
@@ -40,7 +40,7 @@ try {
             }
 
             // เส้นทางที่เก็บในฐานข้อมูล
-            $db_file_path = 'estimate/' . $fileName;
+            $db_file_path = '' . $fileName;
 
         } else {
             throw new Exception("ไฟล์ไม่ได้ถูกอัปโหลด");
@@ -57,7 +57,7 @@ try {
 
         if ($result) {
             $response['status'] = 'ok';
-            header("Location: ../home.php");
+            header("Location: ../profile.php?id=pills-face");
             exit();
             $response['message'] = 'เพิ่มการประเมินเรียบร้อยแล้ว';
         } else {
