@@ -95,6 +95,10 @@ if ($row) {
         .face strong {
             font-size: 30px;
         }
+
+        .form strong {
+            font-size: 30px;
+        }
     </style>
 
     <script type="text/javascript">
@@ -381,15 +385,41 @@ if ($row) {
 
                 <!-- แบบประเมิน -->
                 <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
-                    <div class="form">
+                    <form method="POST" id="comment" class="form-horizontal" action="api/updatecomment.php" onsubmit="return updateComment()">
                         <div class="row justify-content-center">
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
-                            <strong>แบบประเมิน</strong>
+                                <strong style="font-size: 30px;">แบบประเมินความพึงพอใจ</strong>
+                                <input type="hidden" id="customer_id" name="customer_id" value="<?=$customer_id?>">
+                                <input type="hidden" id="user_id" name="user_id" value="<?=$user_id?>">
 
+                                <div class="mb-3" style="margin-top: 20px;">
+                                    <textarea class="form-control" id="commentTextarea1" name="comment" rows="5" placeholder="กรุณาใส่ความคิดเห็นของคุณ"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning" value="เพิ่มความคิดเห็น">
+                                    เพิ่มความคิดเห็น
+                                </button>
                             </span>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
+                <script>
+                    function updateComment() {
+                        // รับค่าจาก input elements
+                        const comment = document.getElementById('commentTextarea1').value;
+
+                        // ตรวจสอบว่ามีการกรอกความคิดเห็นหรือไม่
+                        if (comment === "") {
+                            Swal.fire({
+                                title: "กรุณากรอกความคิดเห็น",
+                                icon: "warning"
+                            });
+                            return false; // ยกเลิกการส่งฟอร์ม
+                        }
+                    }
+                </script>
+                
             </div>
         </div>
 
