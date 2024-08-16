@@ -45,7 +45,7 @@
         <header id="header">
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
-                    <a class="widget-item-logolink" href="index.html">
+                    <a class="widget-item-logolink">
                         <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
                     </a>
                 </div>
