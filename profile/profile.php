@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include("db_config.php");
+include("../db_config.php");
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id'])) {
@@ -54,7 +54,7 @@ if ($row) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="layouts/index.css">
+    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
     
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@ if ($row) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- jquery -->
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../index.js"></script>
 
     <script type="text/javascript">
 		$(document).ready(function() {
@@ -116,8 +116,8 @@ if ($row) {
         <header id="header">
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
-                    <a class="widget-item-logolink" href="index.html">
-                        <img class="widget-item-logoimg" src="images/logo.png" alt=" ">
+                    <a class="widget-item-logolink">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
                     </a>
                 </div>
             </div>
@@ -138,25 +138,25 @@ if ($row) {
         <div class="container2">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="home.php">หน้าแรก</a>
+                    <a class="nav-link" href="../home.php">หน้าแรก</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
+                    <a class="nav-link" href="../user/aboutuser.php">เกี่ยวกับเรา</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reservationuser.php">ตารางพนักงาน</a>
+                    <a class="nav-link" href="../user/reservationuser.php">ตารางพนักงาน</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
+                    <a class="nav-link" href="../user/productuser.php">สินค้าและบริการ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
+                    <a class="nav-link" href="../user/promotionuser.php">โปรโมชั่น</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="resultuser.php">ผลลัพธ์ลูกค้า</a>
+                    <a class="nav-link" href="../user/resultuser.php">ผลลัพธ์ลูกค้า</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contactuser.php">ติดต่อเรา</a>
+                    <a class="nav-link" href="../user/contactuser.php">ติดต่อเรา</a>
                 </li>
             </ul>
         </div>
@@ -297,7 +297,7 @@ if ($row) {
                                 
                                 <div class="row">
                                     <div class="col" align="right">
-                                        <a href="estimate.php" class="btn btn-primary">เพิ่ม</a>
+                                        <a href="../estimate/estimate.php" class="btn btn-primary">เพิ่ม</a>
                                     </div>
                                 </div>
 
@@ -313,7 +313,7 @@ if ($row) {
                                         </thead>
 
                                         <tbody id="content">
-                                            <?php include 'fetch_estimate.php'; ?>
+                                            <?php include 'api/fetch_estimate.php'; ?>
                                         </tbody>
                                         
                                     </table>

@@ -1,3 +1,46 @@
+<?php
+
+session_start();
+include("../db_config.php");
+
+// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+    exit;
+}
+
+// สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users, customer และ estimate
+$sql = "SELECT u.*, c.*, e.*
+        FROM users u
+        INNER JOIN customer c ON c.customer_id = c.customer_id
+        INNER JOIN estimate e ON e.customer_id = e.customer_id
+        WHERE u.user_id = ?";
+
+// เตรียมคำสั่ง SQL และผูกค่า parameter
+$stmt = $db_con->prepare($sql);
+$stmt->bindParam(1, $_SESSION['user_id']);
+$stmt->execute();
+
+// ดึงข้อมูลผลลัพธ์
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
+if ($row) {
+    // ตัวอย่างการเข้าถึงข้อมูล
+    $user_id = $row['user_id'];
+    $customer_id = $row['customer_id'];
+    $name = $row['name'];
+    $estimate_id = $row['estimate_id']; // หรือชื่อคอลัมน์ที่คุณใช้ในตาราง estimate
+    $response = $row['response']; // สมมติว่าชื่อคอลัมน์ในตาราง estimate คือ response
+
+    // การใช้งานข้อมูลต่อไป...
+} else {
+    // กรณีไม่พบข้อมูล
+    echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +50,7 @@
 	<title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="layouts/index.css">
+    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
 
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +59,7 @@
 		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- jquery -->
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../index.js"></script>
 
     <!-- sweet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -45,8 +88,8 @@
         <header id="header">
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
-                    <a class="widget-item-logolink" href="index.html">
-                        <img class="widget-item-logoimg" src="images/logo.png" alt=" ">
+                    <a class="widget-item-logolink">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
                     </a>
                 </div>
             </div>
@@ -54,7 +97,7 @@
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว</a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -67,7 +110,7 @@
     <div class="container2">
             <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="home.php">หน้าแรก</a>
+                <a class="nav-link" href="../home.php">หน้าแรก</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">เกี่ยวกับเรา</a>
@@ -93,7 +136,7 @@
     <div class="about">
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; ">
-            <img src="images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
+            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
                 <strong>เกี่ยวกับเรา</strong>
                 <div class="widget-item-shortdesc" style="margin: 20px">A gentle tranquil alternative using a special blend of Thai Herbs wrapped in muslin, steamed and used warm.</div>
             </span>

@@ -88,7 +88,7 @@
         <header id="header">
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
-                    <a class="widget-item-logolink" href="index.html">
+                    <a class="widget-item-logolink">
                         <img class="widget-item-logoimg" src="images/logo.png" alt=" ">
                     </a>
                 </div>
@@ -97,7 +97,7 @@
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว</a>
+                        <a class="nav-link active" aria-current="page" href="profile/profile.php">ข้อมูลส่วนตัว</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -113,22 +113,22 @@
                 <a class="nav-link" href="#">หน้าแรก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
+                <a class="nav-link" href="user/aboutuser.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="reservationuser.php">ตารางพนักงาน</a>
+                <a class="nav-link" href="user/reservationuser.php">ตารางพนักงาน</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
+                <a class="nav-link" href="user/productuser.php">สินค้าและบริการ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
+                <a class="nav-link" href="user/promotionuser.php">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="resultuser.php">ผลลัพธ์ลูกค้า</a>
+                <a class="nav-link" href="user/resultuser.php">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contactuser.php">ติดต่อเรา</a>
+                <a class="nav-link" href="user/contactuser.php">ติดต่อเรา</a>
             </li>
             </ul>
     </div>
@@ -408,7 +408,7 @@
 
     <div class="fixed-bottom">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin: 20px;">
-            <button type="button" class="btn btn-outline-success" onclick="location.href='estimate.php'">
+            <button type="button" class="btn btn-outline-success" onclick="location.href='estimate/estimate.php'">
                 <i class="bi bi-box-arrow-up-right"></i> ประเมินใบหน้า
             </button>
         </div>

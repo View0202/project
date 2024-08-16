@@ -7,7 +7,7 @@
 	<title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="layouts/index.css">
+    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
 
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- jquery -->
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../index.js"></script>
 
     <!-- sweet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -46,7 +46,7 @@
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
                     <a class="widget-item-logolink" href="index.html">
-                        <img class="widget-item-logoimg" src="images/logo.png" alt=" ">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
                     </a>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว</a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -99,7 +99,7 @@
                     <div class="row justify-content-center g-3 align-items-center">
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                                <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                <img src="../images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -109,7 +109,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -119,7 +119,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -132,7 +132,7 @@
                     <div class="row justify-content-center g-3 align-items-center">
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                                <img src="images/service_test3.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                <img src="../images/service_test3.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -142,7 +142,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/service_test3.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/service_test3.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -152,7 +152,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/service_test3.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/service_test3.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -165,7 +165,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                                <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                <img src="../images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -175,7 +175,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -185,7 +185,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -198,7 +198,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                                <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                <img src="../images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -208,7 +208,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -218,7 +218,7 @@
 
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                            <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                            <img src="../images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 <div class="card-body">
                                     <h5 class="card-title">สินค้า :</h5>
                                     <p class="card-text">ราคา : บาท</p>
@@ -227,7 +227,7 @@
                         </div>
                     </div>
 
-                    <a class="btn btn-primary" href="reservation_form.php" role="button" style="margin: 30px;">จองคิว</a>
+                    <a class="btn btn-primary" href="../reservation/reservation_form.php" role="button" style="margin: 30px;">จองคิว</a>
             </div>
             </span>
         </div>

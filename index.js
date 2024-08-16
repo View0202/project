@@ -87,7 +87,7 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Change to the logout page
-                window.location.href = 'index.php';
+                window.location.href = '../index.php';
             }
         });
     };

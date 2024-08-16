@@ -7,7 +7,7 @@
 	<title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="layouts/index.css">
+    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
 
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- jquery -->
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../index.js"></script>
 
     <!-- sweet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -45,8 +45,8 @@
         <header id="header">
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
-                    <a class="widget-item-logolink" href="index.html">
-                        <img class="widget-item-logoimg" src="images/logo.png" alt=" ">
+                    <a class="widget-item-logolink">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
                     </a>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว</a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -67,26 +67,26 @@
     <div class="container2">
             <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="home.php">หน้าแรก</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reservationuser.php">ตารางพนักงาน</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="resultuser.php">ผลลัพธ์ลูกค้า</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">ติดต่อเรา</a>
-            </li>
+                    <a class="nav-link" href="../home.php">หน้าแรก</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reservationuser.php">ตารางพนักงาน</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="resultuser.php">ผลลัพธ์ลูกค้า</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contactuser.php">ติดต่อเรา</a>
+                </li>
             </ul>
     </div>
 
@@ -99,19 +99,19 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <div class="alert alert-secondary" role="alert">
-                                <img src="icons/facebook.png" alt="Facebook Icon" style="width:30px; height:30px; margin-right:5px;">
+                                <img src="../icons/facebook.png" alt="Facebook Icon" style="width:30px; height:30px; margin-right:5px;">
                                     Facebook : .....................
                             </div>
                         </div>
                         <div class="col">
                             <div class="alert alert-secondary" role="alert">
-                                <img src="icons/line.png" alt="Line Icon" style="width:30px; height:30px; margin-right:5px;">
+                                <img src="../icons/line.png" alt="Line Icon" style="width:30px; height:30px; margin-right:5px;">
                                 Line : ....................
                             </div>
                         </div>
                         <div class="col">
                             <div class="alert alert-secondary" role="alert">
-                                <img src="icons/phone.png" alt="Phone Icon" style="width:30px; height:30px; margin-right:5px;">
+                                <img src="../icons/phone.png" alt="Phone Icon" style="width:30px; height:30px; margin-right:5px;">
                                 Phone : 090-3166790
                             </div>
                         </div>

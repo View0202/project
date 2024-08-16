@@ -1,6 +1,6 @@
 <?php
 // เชื่อมต่อกับฐานข้อมูล
-include("db_config.php");
+include("../db_config.php");
 
 // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง estimate
 $sql = "SELECT * FROM estimate";
@@ -13,7 +13,7 @@ if ($stmt->rowCount() > 0) {
         echo '<tr>';
         echo '<td>' . $index++ . '</td>'; // แสดงหมายเลขแถว
         echo '<td>' . $row['detail'] . '</td>';
-        echo '<td><img src="image_estimate/' . $row['file'] . '" alt="Image" style="max-width: 150px;"></td>';
+        echo '<td><img src="../image_estimate/' . $row['file'] . '" alt="Image" style="max-width: 150px;"></td>';
         echo '<td>';
         echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#estimateModal">การตอบกลับ</button>';
         echo '</td>';
