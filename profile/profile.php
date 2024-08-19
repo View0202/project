@@ -12,8 +12,8 @@ if (!isset($_SESSION['user_id'])) {
 // สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users, customer และ estimate
 $sql = "SELECT u.*, c.*, e.*
         FROM users u
-        INNER JOIN customer c ON c.customer_id = c.customer_id
-        INNER JOIN estimate e ON e.customer_id = e.customer_id
+        INNER JOIN customer c ON u.user_id = u.user_id
+        INNER JOIN estimate e ON c.customer_id = e.customer_id
         WHERE u.user_id = ?";
 
 // เตรียมคำสั่ง SQL และผูกค่า parameter
@@ -40,6 +40,7 @@ if ($row) {
 }
 
 ?>
+
 
 
 

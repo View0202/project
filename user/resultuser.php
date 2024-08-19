@@ -1,10 +1,35 @@
+<?php
+
+session_start();
+include("../db_config.php");
+
+// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+    exit;
+}
+
+// สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
+$sql = "SELECT u.*, c.* FROM users u
+        INNER JOIN customer c ON c.customer_id = c.customer_id
+        WHERE u.user_id = ?";
+
+// เตรียมคำสั่ง SQL และผูกค่า parameter
+$stmt = $db_con->prepare($sql);
+$stmt->bindParam(1, $_SESSION['user_id']);
+$stmt->execute();
+
+// ดึงข้อมูลผลลัพธ์ทั้งหมด
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mira comprehensive beauty center</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../layouts/index.css">
@@ -12,13 +37,13 @@
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- jquery -->
-		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-    <!-- jquery -->
+    <!-- Custom JS -->
     <script type="text/javascript" src="../index.js"></script>
 
-    <!-- sweet -->
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Inline Styles for Font Family -->
@@ -35,18 +60,16 @@
             font-family: 'Prompt', sans-serif;
         }
     </style>
-    
 </head>
 <body>
 
-<!-- ส่วนหัวตาราง -->
 <div class="container1">
     <div class="container2">
         <header id="header">
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
                     <a class="widget-item-logolink">
-                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt="Logo">
                     </a>
                 </div>
             </div>
@@ -65,7 +88,7 @@
     </div>
 
     <div class="container2">
-            <ul class="nav justify-content-center">
+        <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="../home.php">หน้าแรก</a>
             </li>
@@ -87,36 +110,42 @@
             <li class="nav-item">
                 <a class="nav-link" href="contactuser.php">ติดต่อเรา</a>
             </li>
-            </ul>
+        </ul>
     </div>
 
     <div class="result">
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-            <strong>ผลลัพธ์ลูกค้า</strong>
+                <strong>ผลลัพธ์ลูกค้า</strong>
                 <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                        </div>
-                        <div class="col">
-                            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                        </div>
-                        <div class="col">
-                            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                        </div>
-                    </div>
+                    <div class="row align-items-center" style="margin: 20px;">
+                        <?php
+                            if ($rows) {
+                                foreach ($rows as $row) {
+                                    $name = htmlspecialchars($row['name']);
+                                    $comment = htmlspecialchars($row['comment']);
 
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                        </div>
-                        <div class="col">
-                            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                        </div>
-                        <div class="col">
-                            <img src="../images/logo1.png" class="rounded mx-auto d-block" alt="..." style="margin: 20px;">
-                        </div>
+                                    // Check if the comment is not empty before displaying it
+                                    if (!empty($comment)) {
+                            ?>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <?php echo $name; ?>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text"><?php echo $comment; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                                    }
+                                }
+                            } else {
+                                echo "<p>ไม่พบข้อมูลลูกค้าที่ตรงตามเงื่อนไข</p>";
+                            }
+                        ?>
+
                     </div>
                 </div>
             </span>
