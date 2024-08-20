@@ -1,37 +1,46 @@
 <?php
-
 session_start();
-include("../db_config.php");
+include("../db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
+    header("Location: login.php");
     exit;
 }
 
-// สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users, customer และ estimate
-$sql = "SELECT u.*, c.*, e.*
-        FROM users u
-        INNER JOIN customer c ON u.user_id = u.user_id
-        INNER JOIN estimate e ON c.customer_id = e.customer_id
-        WHERE u.user_id = ?";
+// ดึง user_id จากเซสชัน
+$user_id = $_SESSION['user_id'];
 
-// เตรียมคำสั่ง SQL และผูกค่า parameter
+// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
+$sql = "SELECT users.*, customer.*, estimate.* FROM users
+    INNER JOIN customer ON users.email = customer.email
+    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
+    WHERE users.user_id = :user_id
+";
+
+
+// เตรียมคำสั่ง SQL
 $stmt = $db_con->prepare($sql);
-$stmt->bindParam(1, $_SESSION['user_id']);
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+// ดำเนินการคำสั่ง SQL
 $stmt->execute();
 
-// ดึงข้อมูลผลลัพธ์
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+// ดึงข้อมูลทั้งหมดจากผลลัพธ์
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนใช้งาน
-if ($row) {
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if ($data) {  // แก้ไขจาก $row เป็น $data
     // ตัวอย่างการเข้าถึงข้อมูล
-    $user_id = $row['user_id'];
-    $customer_id = $row['customer_id'];
-    $name = $row['name'];
-    $estimate_id = $row['estimate_id']; // หรือชื่อคอลัมน์ที่คุณใช้ในตาราง estimate
-    $response = $row['response']; // สมมติว่าชื่อคอลัมน์ในตาราง estimate คือ response
+    $user_id = $data['user_id'];
+    $customer_id = $data['customer_id'];
+    $name = $data['name'];
+    $show_face_tab = !empty($customer_id);
+
+    // แสดงข้อมูล
+    // echo "User ID: " . htmlspecialchars($user_id) . "<br>";
+    // echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    // echo "Name: " . htmlspecialchars($name) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
@@ -126,7 +135,7 @@ if ($row) {
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว</a>
+                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($name)?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -189,37 +198,37 @@ if ($row) {
                             <div class="justify-content-center align-items-center">
                                 <div class="card-body" >
                                     <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php" onsubmit="return updateForm()">
-                                        <input type="hidden" id="customer_id" name="customer_id" value="<?=$customer_id?>">
-                                        <input type="hidden" id="user_id" name="user_id" value="<?=$user_id?>">
+                                        <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
+                                        <input type="hidden" id="user_id" name="user_id" value="<?= htmlspecialchars($data['user_id']) ?>">
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                            <input type="text" id="name" name="name" class="form-control" value="<?=$row['name']?>">
+                                            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($data['name']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
-                                            <input type="text" id="surname" name="surname" class="form-control" value="<?=$row['surname']?>">
+                                            <input type="text" id="surname" name="surname" class="form-control" value="<?= htmlspecialchars($data['surname']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">อีเมล์</span>
-                                            <input type="text" id="email" name="email" class="form-control" value="<?=$row['email']?>">
+                                            <input type="text" id="email" name="email" class="form-control" value="<?= htmlspecialchars($data['email']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
-                                            <input type="number" id="phone" name="phone" class="form-control" value="<?=$row['phone']?>">
+                                            <input type="number" id="phone" name="phone" class="form-control" value="<?= htmlspecialchars($data['phone']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">อายุ</span>
-                                            <input type="date" id="age" name="age" class="form-control" value="<?=$row['age']?>">
+                                            <input type="date" id="age" name="age" class="form-control" value="<?= htmlspecialchars($data['age']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default" aria-describedby="passwordHelp">รหัสผ่าน</span>
-                                            <input type="password" id="password" name="password" class="form-control" value="<?=$row['password']?>">
+                                            <input type="password" id="password" name="password" class="form-control" value="<?= htmlspecialchars($data['password']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -288,6 +297,7 @@ if ($row) {
                     </div>
                 </div>
 
+                
                 <!-- ประเมินใบหน้า -->
                 <div class="tab-pane fade" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
                     <div class="face">
@@ -337,11 +347,10 @@ if ($row) {
                             </div>
 
                             <div class="modal-body" id="modalBodyContent">
-                                <input type="hidden" id="estimate_id" name="estimate_id" value="<?=$estimate_id?>">
-                                <input type="hidden" id="customer_id" name="customer_id" value="<?=$customer_id?>">
+                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
 
                                 <div class="mb-3">
-                                    <p class="card-text"><?php echo $response; ?></p>
+                                    
                                 </div>
                             </div>
 
@@ -356,32 +365,33 @@ if ($row) {
 
                 <script>
                     $(document).ready(function() {
-                        $('#estimateModal').on('show.bs.modal', function (e) {
-                            var estimateId = $(e.relatedTarget).data('estimate_id'); // ดึง estimate_id จากปุ่มที่เปิดโมดัล
+    $('#estimateModal').on('show.bs.modal', function (e) {
+        var estimateId = $(e.relatedTarget).data('estimate_id'); // ดึง estimate_id จากปุ่มที่เปิดโมดัล
 
-                            $.ajax({
-                                url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
-                                type: 'GET',
-                                dataType: 'json',
-                                data: { estimate_id: estimateId }, // ส่ง estimate_id ไปยัง getestimate.php
-                                success: function(response) {
-                                    if (response.data && response.data.length > 0) {
-                                        var content = '<ul>';
-                                        $.each(response.data, function(index, item) {
-                                            content += '<li>' + item.response + '</li>'; // เปลี่ยน `response` เป็นชื่อคอลัมน์ที่ต้องการ
-                                        });
-                                        content += '</ul>';
-                                        $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
-                                    } else {
-                                        $('#modalBodyContent').html('ไม่มีข้อมูล');
-                                    }
-                                },
-                                error: function() {
-                                    $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
-                                }
-                            });
-                        });
+        $.ajax({
+            url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
+            type: 'GET',
+            dataType: 'json',
+            data: { estimate_id: estimateId }, // ส่ง estimate_id ไปยัง getestimate.php
+            success: function(response) {
+                if (response.data && response.data.length > 0) {
+                    var content = '<ul>';
+                    $.each(response.data, function(index, item) {
+                        content += '<li>' + item.response + '</li>'; // เปลี่ยน `response` เป็นชื่อคอลัมน์ที่ต้องการ
                     });
+                    content += '</ul>';
+                    $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
+                } else {
+                    $('#modalBodyContent').html('ไม่มีข้อมูล');
+                }
+            },
+            error: function() {
+                $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
+            }
+        });
+    });
+});
+
                 </script>
 
                 <!-- แบบประเมิน -->

@@ -1,6 +1,6 @@
 <?php
 
-include("../db_config.php");
+include("../../db_config.php");
 
 $response = array();
 
@@ -31,7 +31,7 @@ try {
             }
 
             // กำหนดเส้นทางสำหรับอัปโหลดไฟล์
-            $uploadFileDir = '../image_estimate/';
+            $uploadFileDir = '../../image_estimate/';
             $dest_path = $uploadFileDir . $fileName;
 
             // ย้ายไฟล์ที่อัปโหลดไปยังโฟลเดอร์ปลายทาง
@@ -57,7 +57,7 @@ try {
 
         if ($result) {
             $response['status'] = 'ok';
-            header("Location: ../profile.php?id=pills-face");
+            header("Location: ../../profile/profile.php?id=pills-face");
             exit();
             $response['message'] = 'เพิ่มการประเมินเรียบร้อยแล้ว';
         } else {
