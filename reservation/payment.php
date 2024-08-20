@@ -196,7 +196,7 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว</a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($name)?> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>

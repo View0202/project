@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
+include("../db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id'])) {
@@ -47,32 +47,6 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
     // กรณีไม่พบข้อมูล
     echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
-
-?>
-
-<?php
-
-session_start();
-include("../db_config.php");
-
-// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // เปลี่ยนเส้นทางกลับไปหน้า login หากผู้ใช้ยังไม่ได้เข้าสู่ระบบ
-    exit;
-}
-
-// สร้าง SQL query ด้วย INNER JOIN ระหว่างตาราง users และ customer
-$sql = "SELECT u.*, c.* FROM users u
-        INNER JOIN customer c ON c.customer_id = c.customer_id
-        WHERE u.user_id = ?";
-
-// เตรียมคำสั่ง SQL และผูกค่า parameter
-$stmt = $db_con->prepare($sql);
-$stmt->bindParam(1, $_SESSION['user_id']);
-$stmt->execute();
-
-// ดึงข้อมูลผลลัพธ์ทั้งหมด
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -172,14 +146,14 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="container">
                     <div class="row align-items-center" style="margin: 20px;">
                         <?php
-                            if ($rows) {
-                                foreach ($rows as $row) {
+                            if (!empty($data)) {
+                                foreach ($data as $row) {
                                     $name = htmlspecialchars($row['name']);
                                     $comment = htmlspecialchars($row['comment']);
 
                                     // Check if the comment is not empty before displaying it
                                     if (!empty($comment)) {
-                            ?>
+                        ?>
                             <div class="col">
                                 <div class="card">
                                     <div class="card-header">
@@ -197,7 +171,6 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 echo "<p>ไม่พบข้อมูลลูกค้าที่ตรงตามเงื่อนไข</p>";
                             }
                         ?>
-
                     </div>
                 </div>
             </span>

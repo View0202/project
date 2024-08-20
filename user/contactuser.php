@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
+include("../db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id'])) {
