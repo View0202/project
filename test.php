@@ -8,12 +8,13 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// ดึง user_id จากเซสชัน
+// ดึง user_id และ customer_id จากเซสชัน
 $user_id = $_SESSION['user_id'];
+$customer_id = $_SESSION['customer_id'];
 
-// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
+// เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
 $sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.email = customer.email
+    INNER JOIN customer ON users.customer_id = customer.customer_id
     LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
     WHERE users.user_id = :user_id
 ";
@@ -30,28 +31,29 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
 if ($data) {
-    // แสดงข้อมูลสำหรับการตรวจสอบ
     echo '<pre>';
     print_r($data);
     echo '</pre>';
 
     // ตัวอย่างการเข้าถึงข้อมูล
     $user_id = $data['user_id'];
-    $customer_id = $data['customer_id'];
     $name = $data['name'];
-    $show_face_tab = !empty($customer_id);
+    $customer_id = $data['customer_id'];
+    $phone = $data['phone'];
 
     // แสดงข้อมูล
-    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "User ID: " . htmlspecialchars($user_id) . "<br>";
     echo "Name: " . htmlspecialchars($name) . "<br>";
+    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "Phone: " . htmlspecialchars($phone) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
     // กรณีไม่พบข้อมูล
     echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html>

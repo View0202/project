@@ -19,6 +19,7 @@ include("../db_config.php");
             // Set session variables
             $_SESSION['login'] = 'yes';
             $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['customer_id'] = $row['customer_id'];
             $_SESSION['email'] = $row['email'];
             // Respond with success
             echo json_encode(['status' => 'ok']);
