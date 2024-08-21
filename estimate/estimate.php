@@ -13,10 +13,11 @@ $user_id = $_SESSION['user_id'];
 
 // เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
 $sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.email = customer.email
+    INNER JOIN customer ON users.customer_id = customer.customer_id
     LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
     WHERE users.user_id = :user_id
 ";
+
 
 
 // เตรียมคำสั่ง SQL
@@ -33,13 +34,13 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($data) {  // แก้ไขจาก $row เป็น $data
     // ตัวอย่างการเข้าถึงข้อมูล
     $user_id = $data['user_id'];
-    $customer_id = $data['customer_id'];
+    $customer_id = $data['customer_id'];  // ตรวจสอบว่าค่านี้ถูกดึงมาหรือไม่
     $name = $data['name'];
     $show_face_tab = !empty($customer_id);
 
     // แสดงข้อมูล
     // echo "User ID: " . htmlspecialchars($user_id) . "<br>";
-    // echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
     // echo "Name: " . htmlspecialchars($name) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
@@ -122,29 +123,29 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
                 <a class="nav-link" href="../home.php">หน้าแรก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../aboutuser.php">เกี่ยวกับเรา</a>
+                <a class="nav-link" href="../user/aboutuser.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reservationuser.php">ตารางพนักงาน</a>
+                <a class="nav-link" href="../user/reservationuser.php">ตารางพนักงาน</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../productuser.php">สินค้าและบริการ</a>
+                <a class="nav-link" href="../user/productuser.php">สินค้าและบริการ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../promotionuser.php">โปรโมชั่น</a>
+                <a class="nav-link" href="../user/promotionuser.php">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../resultuser.php">ผลลัพธ์ลูกค้า</a>
+                <a class="nav-link" href="../user/resultuser.php">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../contactuser.php">ติดต่อเรา</a>
+                <a class="nav-link" href="../user/contactuser.php">ติดต่อเรา</a>
             </li>
             </ul>
     </div>
 
     <div class="estimate">
         <form id="estimateForm" method="POST" enctype="multipart/form-data" action="api/addestimate.php">
-            <input type="hidden" name="customer_id" value="<?=$customer_id?>">
+        <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
             <div class="row justify-content-center">
                 <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
                     <strong>ประเมินใบหน้า</strong>

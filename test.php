@@ -1,44 +1,213 @@
 <?php
-// เชื่อมต่อกับฐานข้อมูล
-include("../db_config.php");
+session_start();
+include("db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['user_id'])) {
-    echo '<tr><td colspan="4" align="center">กรุณาล็อกอินเพื่อดูข้อมูล</td></tr>';
+    header("Location: login.php");
     exit;
 }
 
-// ดึง customer_id จากเซสชัน
-$customer_id = isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : null; // ตรวจสอบให้แน่ใจว่าได้ตั้งค่า customer_id ในเซสชัน
+// ดึง user_id จากเซสชัน
+$user_id = $_SESSION['user_id'];
 
-// ตรวจสอบว่า customer_id มีอยู่หรือไม่
-if (empty($customer_id)) {
-    echo '<tr><td colspan="4" align="center">ไม่พบข้อมูลสำหรับคุณ</td></tr>';
-    exit;
-}
+// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
+$sql = "SELECT users.*, customer.*, estimate.* FROM users
+    INNER JOIN customer ON users.customer_id = customer.customer_id
+    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
+    WHERE users.user_id = :user_id
+";
 
-// คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง estimate โดยกรองตาม customer_id
-$sql = "SELECT * FROM estimate WHERE customer_id = :customer_id";
+// เตรียมคำสั่ง SQL
 $stmt = $db_con->prepare($sql);
-$stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
 // ดำเนินการคำสั่ง SQL
 $stmt->execute();
 
-// ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
-if ($stmt->rowCount() > 0) {
-    $index = 1; // เริ่มต้นที่ 1
-    while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo '<tr>';
-        echo '<td>' . $index++ . '</td>'; // แสดงหมายเลขแถว
-        echo '<td>' . htmlspecialchars($data['detail']) . '</td>';
-        echo '<td><img src="../image_estimate/' . htmlspecialchars($data['file']) . '" alt="Image" style="max-width: 150px;"></td>';
-        echo '<td>';
-        echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#estimateModal" data-estimate_id="' . htmlspecialchars($data['estimate_id']) . '">การตอบกลับ</button>';
-        echo '</td>';
-        echo '</tr>';
-    }
+// ดึงข้อมูลทั้งหมดจากผลลัพธ์
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if ($data) {
+    // ตรวจสอบคีย์ที่มีอยู่ในผลลัพธ์
+    echo '<pre>';
+    print_r($data);  // พิมพ์ข้อมูลเพื่อดูว่ามี `customer_id` หรือไม่
+    echo '</pre>';
+
+    // ตัวอย่างการเข้าถึงข้อมูล
+    $user_id = $data['user_id'];
+    $customer_id = $data['customer_id'];  // ตรวจสอบว่าค่านี้ถูกดึงมาหรือไม่
+    $name = $data['name'];
+    $show_face_tab = !empty($customer_id);
+
+    // แสดงข้อมูล
+    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "Name: " . htmlspecialchars($name) . "<br>";
 } else {
-    echo '<tr><td colspan="4" align="center">ไม่พบข้อมูล</td></tr>';
+    // กรณีไม่พบข้อมูล
+    echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
+
 ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mira comprehensive beauty center</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
+
+    <!-- Google Fonts - Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- jquery -->
+		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../index.js"></script>
+
+    <!-- sweet -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Inline Styles for Font Family -->
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        p, .card-title, .card-text, .widget-item-shortdesc {
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
+    
+</head>
+<body>
+
+<!-- ส่วนหัวตาราง -->
+<div class="container1">
+    <div class="container2">
+        <header id="header">
+            <div class="logo">
+                <div class="widget-header-logo widget-header-logo-0">
+                    <a class="widget-item-logolink" href="index.html">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
+                    </a>
+                </div>
+            </div>
+            
+            <nav class="navbar navbar-light">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($name)?> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="container2">
+            <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="../home.php">หน้าแรก</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../user/aboutuser.php">เกี่ยวกับเรา</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../user/reservationuser.php">ตารางพนักงาน</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../user/productuser.php">สินค้าและบริการ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../user/promotionuser.php">โปรโมชั่น</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../user/resultuser.php">ผลลัพธ์ลูกค้า</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../user/contactuser.php">ติดต่อเรา</a>
+            </li>
+            </ul>
+    </div>
+
+    <div class="estimate">
+        <form id="estimateForm" method="POST" enctype="multipart/form-data" action="api/addestimate.php">
+        <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
+            <div class="row justify-content-center">
+                <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
+                    <strong>ประเมินใบหน้า</strong>
+                    <div class="row justify-content-center align-items-center" style="margin-bottom: 20px;">
+                        <div class="col">
+                            <div class="card" style="width: 500px; height: 400px; margin-left: 50px;">
+                                <div class="img-container">
+                                    <img id="displayImage" src="../images/human.jpeg" class="card-img-top">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" id="formFile" name="formFile" style="width: 450px; margin-left: 25px; margin-top: 20px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3 fs-3">
+                                <label for="detail" class="form-label">รายละเอียด</label>
+                                <textarea class="form-control" id="detail" name="detail" rows="3"></textarea>
+                            </div> 
+
+                            <button type="submit" class="btn btn-warning">
+                                ส่งประเมินใบหน้า
+                            </button> 
+                            <a href="home.php" class="btn btn-secondary">ยกเลิก</a>
+                        </div>
+                        
+                    </div>
+                </span>
+            </div>
+        </form>
+    </div>
+    
+    <hr>
+
+    <div class="container2">
+        <footer id="footer">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="login.php">
+                        Copyright 2024 @ Mira One Stop Services Beauty Center
+                    </a>
+                </div>
+            </nav>
+        </footer>
+    </div>
+</div>
+
+<!-- JavaScript image -->
+<script>
+    document.getElementById('formFile').addEventListener('change', function(event) {
+        const file = event.target.files[0]; // รับไฟล์ที่ถูกเลือก
+        if (file) {
+            const reader = new FileReader(); // สร้าง FileReader
+            reader.onload = function(e) {
+                document.getElementById('displayImage').src = e.target.result; // อัปเดต src ของรูปภาพ
+            }
+            reader.readAsDataURL(file); // อ่านไฟล์เป็น Data URL
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -13,7 +13,7 @@ $user_id = $_SESSION['user_id'];
 
 // เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
 $sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.email = customer.email
+    INNER JOIN customer ON users.customer_id = customer.customer_id
     LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
     WHERE users.user_id = :user_id
 ";
@@ -38,9 +38,9 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
     $show_face_tab = !empty($customer_id);
 
     // แสดงข้อมูล
-    // echo "User ID: " . htmlspecialchars($user_id) . "<br>";
-    // echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
-    // echo "Name: " . htmlspecialchars($name) . "<br>";
+    echo "User ID: " . htmlspecialchars($user_id) . "<br>";
+    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "Name: " . htmlspecialchars($name) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
@@ -338,7 +338,7 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -392,7 +392,7 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
     });
 });
 
-                </script>
+                </script> -->
 
                 <!-- แบบประเมิน -->
                 <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
@@ -400,8 +400,8 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
                         <div class="row justify-content-center">
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
                                 <strong style="font-size: 30px;">แบบประเมินความพึงพอใจ</strong>
-                                <input type="hidden" id="customer_id" name="customer_id" value="<?=$customer_id?>">
-                                <input type="hidden" id="user_id" name="user_id" value="<?=$user_id?>">
+                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
+                                <input type="hidden" id="user_id" name="user_id" value="<?= htmlspecialchars($data['user_id']) ?>">
 
                                 <div class="mb-3" style="margin-top: 20px;">
                                     <textarea class="form-control" id="commentTextarea1" name="comment" rows="5" placeholder="กรุณาใส่ความคิดเห็นของคุณ"></textarea>
