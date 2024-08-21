@@ -13,7 +13,7 @@ $user_id = $_SESSION['user_id'];
 
 // เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
 $sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.customer_id = customer.customer_id
+    INNER JOIN customer ON users.email = customer.email
     LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
     WHERE users.user_id = :user_id
 ";
@@ -35,7 +35,6 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
     $user_id = $data['user_id'];
     $customer_id = $data['customer_id'];
     $name = $data['name'];
-    $show_face_tab = !empty($customer_id);
 
     // แสดงข้อมูล
     echo "User ID: " . htmlspecialchars($user_id) . "<br>";

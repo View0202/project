@@ -31,6 +31,9 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
 if ($data) {  // แก้ไขจาก $row เป็น $data
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
     // ตัวอย่างการเข้าถึงข้อมูล
     $user_id = $data['user_id'];
     $customer_id = $data['customer_id'];
