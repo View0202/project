@@ -11,13 +11,14 @@ if (!isset($_SESSION['user_id'])) {
 // ดึง user_id จากเซสชัน
 $user_id = $_SESSION['user_id'];
 
-// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
-$sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.email = customer.email
-    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
-    WHERE users.user_id = :user_id
-";
-
+// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลที่มีทั้ง customer name และ comment ไม่เป็นค่าว่าง
+$sql = "SELECT customer.name, customer.comment 
+        FROM users
+        INNER JOIN customer ON users.customer_id = customer.customer_id
+        LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
+        WHERE users.user_id = :user_id
+          AND customer.name IS NOT NULL AND customer.name != ''
+          AND customer.comment IS NOT NULL AND customer.comment != ''";
 
 // เตรียมคำสั่ง SQL
 $stmt = $db_con->prepare($sql);
@@ -27,27 +28,17 @@ $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 
 // ดึงข้อมูลทั้งหมดจากผลลัพธ์
-$data = $stmt->fetch(PDO::FETCH_ASSOC);
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ใช้ array_unique เพื่อกำจัดข้อมูลซ้ำ
+$uniqueResults = array_unique($results, SORT_REGULAR);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
-if ($data) {  // แก้ไขจาก $row เป็น $data
-    // ตัวอย่างการเข้าถึงข้อมูล
-    $user_id = $data['user_id'];
-    $customer_id = $data['customer_id'];
-    $name = $data['name'];
-    $show_face_tab = !empty($customer_id);
-
-    // แสดงข้อมูล
-    // echo "User ID: " . htmlspecialchars($user_id) . "<br>";
-    // echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
-    // echo "Name: " . htmlspecialchars($name) . "<br>";
-
-    // การใช้งานข้อมูลต่อไป...
+if (empty($uniqueResults)) {
+    $message = "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 } else {
-    // กรณีไม่พบข้อมูล
-    echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
+    $message = ""; // ไม่มีข้อความแสดง
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +94,7 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($name)?></a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo isset($uniqueResults[0]['name']) ? htmlspecialchars($uniqueResults[0]['name']) : ''; ?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -140,42 +131,29 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
     </div>
 
     <div class="result">
-        <div class="row justify-content-center">
-            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-                <strong>ผลลัพธ์ลูกค้า</strong>
-                <div class="container">
-                    <div class="row align-items-center" style="margin: 20px;">
-                        <?php
-                            if (!empty($data)) {
-                                foreach ($data as $row) {
-                                    $name = htmlspecialchars($row['name']);
-                                    $comment = htmlspecialchars($row['comment']);
-
-                                    // Check if the comment is not empty before displaying it
-                                    if (!empty($comment)) {
-                        ?>
-                            <div class="col">
+    <div class="row justify-content-center">
+        <div class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
+            <strong>ผลลัพธ์ลูกค้า</strong>
+            <div class="container">
+                <div class="row align-items-center" style="margin: 20px;">
+                        <?php foreach ($uniqueResults as $result): ?>
+                            <div class="col-md-4 col-12 mb-3">
                                 <div class="card">
                                     <div class="card-header">
-                                        <?php echo $name; ?>
+                                        <h5 class="card-title"><?php echo htmlspecialchars($result['name']); ?></h5>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text"><?php echo $comment; ?></p>
+                                        <p class="card-text"><?php echo htmlspecialchars($result['comment']); ?></p>
                                     </div>
                                 </div>
                             </div>
-                            <?php
-                                    }
-                                }
-                            } else {
-                                echo "<p>ไม่พบข้อมูลลูกค้าที่ตรงตามเงื่อนไข</p>";
-                            }
-                        ?>
-                    </div>
+                        <?php endforeach; ?>
                 </div>
-            </span>
+            </div>
         </div>
     </div>
+</div>
+
     
     <hr>
 
