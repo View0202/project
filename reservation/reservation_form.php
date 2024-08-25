@@ -292,13 +292,13 @@ if ($data) {
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">กรอกข้อมูลการจองคิว</h5>
-					                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                                <!-- <span aria-hidden="true">&times;</span> -->
-                                            </button>
+                                            <h5 class="modal-title" id="exampleModalLabel">กรอกข้อมูลการจองคิว</h5>
+                                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <form id="bookingForm">
+                                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
+
                                                 <div class="form-group">
                                                     <label for="date">วันที่จอง</label>
                                                     <input type="date" class="form-control" id="date" name="date">
@@ -319,7 +319,7 @@ if ($data) {
                                                     <input type="text" class="form-control" id="phone" name="phone" required>
                                                 </div>
 
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <label for="serviceGroup" class="col-form-label">กลุ่มบริการ</label>
                                                     <div class="col-auto">
                                                         <select class="form-select" id="serviceGroup">
@@ -329,16 +329,13 @@ if ($data) {
                                                             <option value="3">กลุ่มบริการ: ...........</option>
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="form-group">
                                                     <label for="serve" class="col-form-label">บริการ</label>
                                                     <div class="col-auto">
-                                                        <select class="form-select" id="serve">
-                                                            <option selected>บริการ...</option>
-                                                            <option value="1">บริการ: ...........</option>
-                                                            <option value="2">บริการ: ...........</option>
-                                                            <option value="3">บริการ: ...........</option>
+                                                        <select class="form-select" id="serve" name="serve">
+                                                            
                                                         </select>
                                                     </div>
                                                 </div>
@@ -346,11 +343,8 @@ if ($data) {
                                                 <div class="form-group">
                                                     <label for="selectEmployees" class="col-form-label">เลือกพนักงาน</label>
                                                     <div class="col-auto">
-                                                        <select class="form-select" id="selectEmployees">
-                                                            <option selected>เลือกพนักงาน...</option>
-                                                            <option value="1">ชื่อ: ...........</option>
-                                                            <option value="2">ชื่อ: ...........</option>
-                                                            <option value="3">ชื่อ: ...........</option>
+                                                        <select class="form-select" id="selectEmployees" name="employee">
+                                                            
                                                         </select>
                                                     </div>
                                                 </div>
@@ -361,6 +355,7 @@ if ($data) {
 
                                             </form>
                                         </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                                             <button type="button" class="btn btn-primary" onclick="saveBooking()">ต่อไป</button>
@@ -368,12 +363,47 @@ if ($data) {
                                     </div>
                                 </div>
                             </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    fetch('api/fetch_data.php')
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                            const serveSelect = document.getElementById('serve');
+                                            const employeesSelect = document.getElementById('selectEmployees');
+
+                                            // เติมข้อมูลบริการ
+                                            data.services.forEach(service => {
+                                                const option = document.createElement('option');
+                                                option.value = service.service_type_id;
+                                                option.textContent = `บริการ: ${service.service_type_name}`;
+                                                serveSelect.appendChild(option);
+                                            });
+
+                                            // เติมข้อมูลพนักงาน
+                                            data.employees.forEach(employee => {
+                                                const option = document.createElement('option');
+                                                option.value = employee.emp_id;
+                                                option.textContent = `ชื่อ: ${employee.fname}`;
+                                                employeesSelect.appendChild(option);
+                                            });
+                                        })
+                                        .catch(error => console.error('Error fetching data:', error));
+                                });
+                            </script>
+
                         </div>
                     </div>
                 </div>
             </span>
         </div>
     </div>
+
     <hr>
 
     <div class="container2">

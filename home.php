@@ -255,7 +255,7 @@ if ($data) {
                 </div>
             </div>
 
-            <a class="btn btn-primary" href="reservation_form.php" role="button" style="margin-top: 30px;">จองคิว</a>
+            <a class="btn btn-primary" href="reservation/reservation_form.php" role="button" style="margin-top: 30px;">จองคิว</a>
 
         </div>
     </div>
