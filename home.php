@@ -41,10 +41,10 @@ if ($data) {
     $phone = $data['phone']; // ตรวจสอบชื่อฟิลด์ในตาราง
 
     // แสดงข้อมูล
-    echo "User ID: " . htmlspecialchars($user_id) . "<br>";
-    echo "Name: " . htmlspecialchars($name) . "<br>";
-    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
-    echo "Phone: " . htmlspecialchars($phone) . "<br>";
+    // echo "User ID: " . htmlspecialchars($user_id) . "<br>";
+    // echo "Name: " . htmlspecialchars($name) . "<br>";
+    // echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    // echo "Phone: " . htmlspecialchars($phone) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {

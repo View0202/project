@@ -10,17 +10,17 @@ include("../db_config.php");
     $stmt = $db_con->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($row) {
+    if ($data) {
         // Check if the password is correct
-        $hashed_password = $row['password'];
+        $hashed_password = $data['password'];
         if ($password==$hashed_password) {
             // Set session variables
             $_SESSION['login'] = 'yes';
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['customer_id'] = $row['customer_id'];
-            $_SESSION['email'] = $row['email'];
+            $_SESSION['user_id'] = $data['user_id'];
+            $_SESSION['customer_id'] = $data['customer_id'];
+            $_SESSION['email'] = $data['email'];
             // Respond with success
             echo json_encode(['status' => 'ok']);
             header("Location: ../home.php");
