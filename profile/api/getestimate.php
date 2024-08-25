@@ -1,33 +1,31 @@
 <?php
-include("../db_config.php");
+include("../../db_config.php");
 
-$response = array(); // ใช้ array แทน string เพื่อการจัดการข้อมูลที่ดีกว่า
+$response = array();
 
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    $estimate_id = isset($_GET['estimate_id']) ? intval($_GET['estimate_id']) : 0; // รับพารามิเตอร์ id และแปลงเป็นจำนวนเต็ม
+if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['customer_id'])) {
+    $customer_id = $_GET['customer_id'];
+    echo "Customer ID: " . htmlspecialchars($customer_id); // ตรวจสอบค่า customer_id
 
-    try {
-        // เตรียมคำสั่ง SQL
-        $sql = "SELECT * FROM estimate WHERE estimate_id = ?";
-        $stmt = $db_con->prepare($sql);
-        $stmt->bindParam(1, $estimate_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        // ดึงข้อมูล
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC); // ใช้ fetchAll แทน fetch เพื่อรับข้อมูลหลายแถว
-
-        // เตรียมข้อมูลตอบกลับ
-        if ($data) {
-            $response['data'] = $data; // ส่งข้อมูลทั้งหมดที่ดึงมา
+    // เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากตาราง estimate ตาม customer_id ที่ส่งมา
+    $sql = "SELECT response FROM estimate WHERE customer_id = :customer_id";
+    $stmt = $db_con->prepare($sql);
+    $stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
+    
+    if ($stmt->execute()) {
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($data)) {
+            $response['data'] = $data;
         } else {
-            $response['data'] = []; // ส่ง array ว่างแทนที่จะเป็นข้อความ
+            $response['data'] = array();
         }
-    } catch (PDOException $e) {
-        $response['error'] = 'เกิดข้อผิดพลาด: ' . $e->getMessage();
+    } else {
+        $errorInfo = $stmt->errorInfo(); // เพิ่ม error handling
+        $response['error'] = "เกิดข้อผิดพลาดในการดึงข้อมูล: " . $errorInfo[2];
     }
+} else {
+    $response['error'] = "ไม่มี customer_id หรือไม่ได้ใช้วิธี GET";
 }
 
-// ส่งข้อมูลกลับเป็น JSON
-header('Content-Type: application/json');
 echo json_encode($response);
 ?>

@@ -1,161 +1,46 @@
 <?php
-session_start();
-include("db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
+// เชื่อมต่อกับฐานข้อมูล
+include("db_config.php");
 
-// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
+// ตรวจสอบและเริ่มต้น session ถ้าหาก session ยังไม่ได้เริ่ม
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // เริ่มการใช้งาน session
 }
 
-// ดึง user_id จากเซสชัน
-$user_id = $_SESSION['user_id'];
+// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+if (!isset($_SESSION['u_id'])) {
+    echo '<tr><td colspan="4" align="center">กรุณาล็อกอินเพื่อดูข้อมูล</td></tr>';
+    exit; // หยุดการทำงานของสคริปต์
+}
 
-// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลที่มีทั้ง customer name และ comment ไม่เป็นค่าว่าง
-$sql = "SELECT customer.name, customer.comment 
-        FROM users
-        INNER JOIN customer ON users.customer_id = customer.customer_id
-        LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
-        WHERE users.user_id = :user_id
-          AND customer.name IS NOT NULL AND customer.name != ''
-          AND customer.comment IS NOT NULL AND customer.comment != ''";
+// ดึง customer_id ของผู้ใช้จาก session
+$customer_id = $_SESSION['u_id']; // ใช้ customer_id ที่มาจาก session
 
-// เตรียมคำสั่ง SQL
+// คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง estimate โดยกรองตาม customer_id
+$sql = "SELECT estimate_id, detail, file FROM estimate WHERE customer_id = :customer_id";
 $stmt = $db_con->prepare($sql);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
 
 // ดำเนินการคำสั่ง SQL
 $stmt->execute();
 
-// ดึงข้อมูลทั้งหมดจากผลลัพธ์
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// ใช้ array_unique เพื่อกำจัดข้อมูลซ้ำ
-$uniqueResults = array_unique($results, SORT_REGULAR);
-
+// ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
+if ($stmt->rowCount() > 0) {
+    $index = 1; // เริ่มต้นที่ 1
+    while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo '<tr>';
+        echo '<td>' . $index++ . '</td>'; // แสดงหมายเลขแถว
+        echo '<td>' . htmlspecialchars($data['detail']) . '</td>';
+        echo '<td><img src="../image_estimate/' . htmlspecialchars($data['file']) . '" alt="Image" style="max-width: 150px;"></td>';
+        echo '<td>';
+        echo '<form method="post" action="your_action_page.php">'; // ใส่ action page ของคุณที่ต้องการส่งข้อมูลไป
+        echo '<input type="hidden" name="estimate_id" value="' . htmlspecialchars($data['estimate_id']) . '">';
+        echo '<button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#estimateModal">การตอบกลับ</button>';
+        echo '</form>';
+        echo '</td>';
+        echo '</tr>';
+    }
+} else {
+    echo '<tr><td colspan="4" align="center">ไม่พบข้อมูล</td></tr>';
+}
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mira comprehensive beauty center</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
-
-    <!-- Google Fonts - Prompt -->
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-    <!-- Custom JS -->
-    <script type="text/javascript" src="../index.js"></script>
-
-    <!-- SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Inline Styles for Font Family -->
-    <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Prompt', sans-serif;
-        }
-
-        p, .card-title, .card-text, .widget-item-shortdesc {
-            font-family: 'Prompt', sans-serif;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header id="header">
-        <div class="logo">
-            <div class="widget-header-logo widget-header-logo-0">
-                <a class="widget-item-logolink">
-                    <img class="widget-item-logoimg" src="../images/logo.png" alt="Logo">
-                </a>
-            </div>
-        </div>
-        
-        <nav class="navbar navbar-light">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <nav class="navbar navbar-light">
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" href="../home.php">หน้าแรก</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="aboutuser.php">เกี่ยวกับเรา</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reservationuser.php">ตารางพนักงาน</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="productuser.php">สินค้าและบริการ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="promotionuser.php">โปรโมชั่น</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">ผลลัพธ์ลูกค้า</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contactuser.php">ติดต่อเรา</a>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="result">
-        <div class="row justify-content-center">
-            <div class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="margin-top: 20px;">
-                <strong>ผลลัพธ์ลูกค้า</strong>
-                <div class="container">
-                    <div class="row align-items-center" style="margin: 20px;">
-                        <?php foreach ($uniqueResults as $result): ?>
-                            <div class="col-md-6">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo htmlspecialchars($result['name']); ?></h5>
-                                        <p class="card-text"><?php echo htmlspecialchars($result['comment']); ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <hr>
-
-    <footer id="footer">
-        <nav class="navbar navbar-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="login.php">
-                    Copyright 2024 @ Mira One Stop Services Beauty Center
-                </a>
-            </div>
-        </nav>
-    </footer>
-</div>
-
-</body>
-</html>
