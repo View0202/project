@@ -10,13 +10,14 @@ if (session_status() == PHP_SESSION_NONE) {
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['u_id'])) {
     echo '<tr><td colspan="4" align="center">กรุณาล็อกอินเพื่อดูข้อมูล</td></tr>';
+    exit; // หยุดการทำงานของสคริปต์
 }
 
 // ดึง customer_id ของผู้ใช้จาก session
-$customer_id = $data['customer_id'];
+$customer_id = $_SESSION['u_id']; // ใช้ customer_id ที่มาจาก session
 
 // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง estimate โดยกรองตาม customer_id
-$sql = "SELECT * FROM estimate WHERE customer_id = :customer_id";
+$sql = "SELECT estimate_id, detail, file FROM estimate WHERE customer_id = :customer_id";
 $stmt = $db_con->prepare($sql);
 $stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
 
