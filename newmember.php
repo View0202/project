@@ -64,8 +64,8 @@
 		align-content: center;
 		}
 		.card{
-		height: 550px;
-		margin-top: 100px;
+		height: 570px;
+		margin-top: 80px;
 		margin-bottom: auto;
 		width: 400px;
 		background-color: #FFC2FE  !important;
@@ -216,14 +216,21 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" id="name" name="name" class="form-control" placeholder="ชื่อ">
+								<input type="text" id="firstname" name="firstname" class="form-control" placeholder="ชื่อ">
 							</div>
 
                             <div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" id="surname" name="surname" class="form-control" placeholder="นามสกุล">
+								<input type="text" id="lastname" name="lastname" class="form-control" placeholder="นามสกุล">
+							</div>
+
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" id="username" name="username" class="form-control" placeholder="ชื่อผู้ใช้">
 							</div>
 
                             <div class="input-group form-group">

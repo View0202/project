@@ -3,24 +3,23 @@ session_start();
 include("db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
+// if (!isset($_SESSION['u_id'])) {
+//     header("Location: login.php");
+//     exit;
+// }
 
 // ดึง user_id และ customer_id จากเซสชัน
-$user_id = $_SESSION['user_id'];
+$u_id = $_SESSION['u_id'];
 
 // เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
-$sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.customer_id = customer.customer_id
-    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
-    WHERE users.user_id = :user_id
+$sql = "SELECT users.*, customer.* FROM users
+    INNER JOIN customer ON users.username = customer.username
+    WHERE users.u_id = :u_id
 ";
 
 // เตรียมคำสั่ง SQL
 $stmt = $db_con->prepare($sql);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
 
 // ดำเนินการคำสั่ง SQL
 $stmt->execute();
@@ -30,21 +29,16 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
 if ($data) {
-    echo '<pre>';
-    print_r($data);
-    echo '</pre>';
 
     // ตัวอย่างการเข้าถึงข้อมูล
-    $user_id = $data['user_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
-    $name = $data['name']; // ตรวจสอบชื่อฟิลด์ในตาราง
+    $user_id = $data['u_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
+    $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
     $customer_id = $data['customer_id'];
-    $phone = $data['phone']; // ตรวจสอบชื่อฟิลด์ในตาราง
 
     // แสดงข้อมูล
-    // echo "User ID: " . htmlspecialchars($user_id) . "<br>";
-    // echo "Name: " . htmlspecialchars($name) . "<br>";
-    // echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
-    // echo "Phone: " . htmlspecialchars($phone) . "<br>";
+    echo "User ID: " . htmlspecialchars($user_id) . "<br>";
+    echo "Username: " . htmlspecialchars($username) . "<br>";
+    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
@@ -112,7 +106,7 @@ if ($data) {
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($name)?> </a>
+                        <a class="nav-link active" aria-current="page" href="profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($username)?> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>

@@ -8,15 +8,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function savecustomer() {
-    var name = $("#name").val();
-    var surname = $("#surname").val();
+    var firstname = $("#firstname").val();
+    var lastname = $("#lastname").val();
+    var username = $("#username").val();
     var email = $("#email").val();
     var phone = $("#phone").val();
     var age = $("#age").val();
     var password = $("#password").val();
     var password_cf = $("#password_cf").val();
 
-    if (name == "" || surname == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
+    if (firstname == "" || lastname == "" || username == "" || email == "" || phone == ""  || age == ""  || password == "" || password_cf == "") {
         Swal.fire({
             title: "กรุณากรอกข้อมูลให้ครบ",
             text: "",
@@ -34,11 +35,12 @@ function savecustomer() {
             type: 'POST',
             dataType: 'json',
             data: {
-                name: name,
-                surname: surname,
-                age: age,
-                phone: phone,
+                firstname: firstname,
+                lastname: lastname,
+                username: username,
                 email: email,
+                phone: phone,
+                age: age,
                 password: password
             },
         })

@@ -192,9 +192,9 @@
                     <form id="loginuser" action="api/checkuser.php" method="POST">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" id="email" name="email" class="form-control" placeholder="อีเมล์">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="ชื่อผู้ใช้">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
