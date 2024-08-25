@@ -6,10 +6,10 @@ $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // รับค่าจากฟอร์ม
-    if (isset($_POST['comment'], $_POST['customer_id'], $_POST['user_id'])) {
+    if (isset($_POST['comment'], $_POST['customer_id'], $_POST['u_id'])) {
         $comment = $_POST['comment'];
         $customer_id = $_POST['customer_id'];
-        $user_id = $_POST['user_id'];
+        $user_id = $_POST['u_id'];
 
         // อัปเดตคอมเมนต์ของลูกค้าในฐานข้อมูล
         $sql = "UPDATE customer SET comment=? WHERE customer_id=?";

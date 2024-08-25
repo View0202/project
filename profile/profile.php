@@ -194,21 +194,21 @@ if ($data) {
                                 <div class="card-body" >
                                     <form  method="POST" id="editCustomer" class="form-horizontal" action="api/updatecustomer.php" onsubmit="return updateForm()">
                                         <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
-                                        <input type="hidden" id="user_id" name="user_id" value="<?= htmlspecialchars($data['user_id']) ?>">
+                                        <input type="hidden" id="u_id" name="u_id" value="<?= htmlspecialchars($data['u_id']) ?>">
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">ชื่อผู้ใช้</span>
-                                            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($data['username']) ?>">
+                                            <input type="text" id="username" name="username" class="form-control" value="<?= htmlspecialchars($data['username']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($data['firstname']) ?>">
+                                            <input type="text" id="firstname" name="firstname" class="form-control" value="<?= htmlspecialchars($data['firstname']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
-                                            <input type="text" id="surname" name="surname" class="form-control" value="<?= htmlspecialchars($data['lastname']) ?>">
+                                            <input type="text" id="lastname" name="lastname" class="form-control" value="<?= htmlspecialchars($data['lastname']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -279,8 +279,34 @@ if ($data) {
                     <div class="reservation">
                         <div class="row justify-content-center">
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
-                            <strong>จองคิว</strong>
+                            <strong style="font-size: 30px;">จองคิว</strong>
+                            <div class="container mt-5">
+                                
+                                <div class="row">
+                                    <div class="col" align="right">
+                                        <a href="../reservation/reservation_form.php" class="btn btn-primary">เพิ่ม</a>
+                                    </div>
+                                </div>
 
+                                <div class="row">
+                                    <table class="table" id="estimateData">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">#</th>
+                                                <th scope="col">ชื่อจองคิว</th>
+                                                <th scope="col">เบอร์โทรศัพท์</th>
+                                                <th scope="col">วันที่</th>
+                                                <th scope="col">เวลา</th>
+                                                <th scope="col">พนักงาน</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="content">
+                                            <?php include 'api/fetch_reservation.php'; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             </span>
                         </div>
                     </div>
@@ -290,7 +316,27 @@ if ($data) {
                     <div class="status">
                         <div class="row justify-content-center">
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
-                            <strong>สถานะการจอง</strong>
+                            <strong style="font-size: 30px;">สถานะการจอง</strong>
+                            <div class="container mt-5">
+
+                                <div class="row">
+                                    <table class="table" id="estimateData">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">ชื่อจองคิว</th>
+                                                <th scope="col">เบอร์โทรศัพท์</th>
+                                                <th scope="col">วันที่</th>
+                                                <th scope="col">เวลา</th>
+                                                <th scope="col">พนักงาน</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="content">
+                                            <?php include 'api/fetch_estimate.php'; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                             </span>
                         </div>
@@ -302,7 +348,7 @@ if ($data) {
                 <div class="tab-pane fade" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
                     <div class="face">
                         <div class="row justify-content-center">
-                            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px;">
+                            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
                             <strong>การประเมินใบหน้า</strong>
                             <div class="container mt-5">
                                 
@@ -337,63 +383,6 @@ if ($data) {
                     </div>
                 </div>
 
-                <!-- Modal -->
-                <!-- <div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="estimateModalLabel">การตอบกลับ</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-
-                            <div class="modal-body" id="modalBodyContent">
-                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
-
-                                <div class="mb-3">
-                                    
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
-                                
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    $(document).ready(function() {
-    $('#estimateModal').on('show.bs.modal', function (e) {
-        var estimateId = $(e.relatedTarget).data('estimate_id'); // ดึง estimate_id จากปุ่มที่เปิดโมดัล
-
-        $.ajax({
-            url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
-            type: 'GET',
-            dataType: 'json',
-            data: { estimate_id: estimateId }, // ส่ง estimate_id ไปยัง getestimate.php
-            success: function(response) {
-                if (response.data && response.data.length > 0) {
-                    var content = '<ul>';
-                    $.each(response.data, function(index, item) {
-                        content += '<li>' + item.response + '</li>'; // เปลี่ยน `response` เป็นชื่อคอลัมน์ที่ต้องการ
-                    });
-                    content += '</ul>';
-                    $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
-                } else {
-                    $('#modalBodyContent').html('ไม่มีข้อมูล');
-                }
-            },
-            error: function() {
-                $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
-            }
-        });
-    });
-});
-
-                </script> -->
-
                 <!-- แบบประเมิน -->
                 <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
                     <form method="POST" id="comment" class="form-horizontal" action="api/updatecomment.php" onsubmit="return updateComment()">
@@ -401,7 +390,7 @@ if ($data) {
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
                                 <strong style="font-size: 30px;">แบบประเมินความพึงพอใจ</strong>
                                 <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
-                                <input type="hidden" id="user_id" name="user_id" value="<?= htmlspecialchars($data['user_id']) ?>">
+                                <input type="hidden" id="u_id" name="u_id" value="<?= htmlspecialchars($data['u_id']) ?>">
 
                                 <div class="mb-3" style="margin-top: 20px;">
                                     <textarea class="form-control" id="commentTextarea1" name="comment" rows="5" placeholder="กรุณาใส่ความคิดเห็นของคุณ"></textarea>
