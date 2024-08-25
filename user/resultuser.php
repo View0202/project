@@ -1,43 +1,49 @@
 <?php
 session_start();
-include("../db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
+include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['u_id'])) {
+    header("Location: ../login.php");
     exit;
 }
 
-// ดึง user_id จากเซสชัน
-$user_id = $_SESSION['user_id'];
+// ดึง user_id และ customer_id จากเซสชัน
+$u_id = $_SESSION['u_id'];
 
-// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลที่มีทั้ง customer name และ comment ไม่เป็นค่าว่าง
-$sql = "SELECT customer.name, customer.comment 
-        FROM users
-        INNER JOIN customer ON users.customer_id = customer.customer_id
-        LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
-        WHERE users.user_id = :user_id
-          AND customer.name IS NOT NULL AND customer.name != ''
-          AND customer.comment IS NOT NULL AND customer.comment != ''";
+// เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
+$sql = "SELECT users.*, customer.* FROM users
+    INNER JOIN customer ON users.username = customer.username
+    WHERE users.u_id = :u_id
+";
 
 // เตรียมคำสั่ง SQL
 $stmt = $db_con->prepare($sql);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
 
 // ดำเนินการคำสั่ง SQL
 $stmt->execute();
 
 // ดึงข้อมูลทั้งหมดจากผลลัพธ์
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// ใช้ array_unique เพื่อกำจัดข้อมูลซ้ำ
-$uniqueResults = array_unique($results, SORT_REGULAR);
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
-if (empty($uniqueResults)) {
-    $message = "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
+if ($data) {
+
+    // ตัวอย่างการเข้าถึงข้อมูล
+    $user_id = $data['u_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
+    $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
+    $customer_id = $data['customer_id'];
+
+    // แสดงข้อมูล
+    echo "User ID: " . htmlspecialchars($user_id) . "<br>";
+    echo "Username: " . htmlspecialchars($username) . "<br>";
+    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+
+    // การใช้งานข้อมูลต่อไป...
 } else {
-    $message = ""; // ไม่มีข้อความแสดง
+    // กรณีไม่พบข้อมูล
+    echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
 ?>
 
@@ -94,7 +100,7 @@ if (empty($uniqueResults)) {
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo isset($uniqueResults[0]['name']) ? htmlspecialchars($uniqueResults[0]['name']) : ''; ?></a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($username)?> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>

@@ -1,27 +1,25 @@
 <?php
 session_start();
-include("../db_config.php");  // เชื่อมต่อฐานข้อมูลแรก
+include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['u_id'])) {
+    header("Location: ../login.php");
     exit;
 }
 
-// ดึง user_id จากเซสชัน
-$user_id = $_SESSION['user_id'];
+// ดึง user_id และ customer_id จากเซสชัน
+$u_id = $_SESSION['u_id'];
 
-// เตรียมคำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล users และ customer
-$sql = "SELECT users.*, customer.*, estimate.* FROM users
-    INNER JOIN customer ON users.email = customer.email
-    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
-    WHERE users.user_id = :user_id
+// เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
+$sql = "SELECT users.*, customer.* FROM users
+    INNER JOIN customer ON users.username = customer.username
+    WHERE users.u_id = :u_id
 ";
-
 
 // เตรียมคำสั่ง SQL
 $stmt = $db_con->prepare($sql);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
 
 // ดำเนินการคำสั่ง SQL
 $stmt->execute();
@@ -30,26 +28,24 @@ $stmt->execute();
 $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
-if ($data) {  // แก้ไขจาก $row เป็น $data
+if ($data) {
+
     // ตัวอย่างการเข้าถึงข้อมูล
-    $user_id = $data['user_id'];
+    $user_id = $data['u_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
+    $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
     $customer_id = $data['customer_id'];
-    $name = $data['name'];
 
     // แสดงข้อมูล
     echo "User ID: " . htmlspecialchars($user_id) . "<br>";
+    echo "Username: " . htmlspecialchars($username) . "<br>";
     echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
-    echo "Name: " . htmlspecialchars($name) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
     // กรณีไม่พบข้อมูล
     echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
-
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -134,7 +130,7 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($name)?></a>
+                        <a class="nav-link active" aria-current="page" href="profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($username)?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -201,13 +197,18 @@ if ($data) {  // แก้ไขจาก $row เป็น $data
                                         <input type="hidden" id="user_id" name="user_id" value="<?= htmlspecialchars($data['user_id']) ?>">
 
                                         <div class="input-group mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">ชื่อผู้ใช้</span>
+                                            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($data['username']) ?>">
+                                        </div>
+
+                                        <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">ชื่อ</span>
-                                            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($data['name']) ?>">
+                                            <input type="text" id="name" name="name" class="form-control" value="<?= htmlspecialchars($data['firstname']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-default">นามสกุล</span>
-                                            <input type="text" id="surname" name="surname" class="form-control" value="<?= htmlspecialchars($data['surname']) ?>">
+                                            <input type="text" id="surname" name="surname" class="form-control" value="<?= htmlspecialchars($data['lastname']) ?>">
                                         </div>
 
                                         <div class="input-group mb-3">

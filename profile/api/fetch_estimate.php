@@ -8,9 +8,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['u_id'])) {
     echo '<tr><td colspan="4" align="center">กรุณาล็อกอินเพื่อดูข้อมูล</td></tr>';
-    exit; // ออกถ้าไม่ได้ล็อกอิน
 }
 
 // ดึง customer_id ของผู้ใช้จาก session

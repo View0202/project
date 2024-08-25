@@ -3,10 +3,10 @@ session_start();
 include("db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-// if (!isset($_SESSION['u_id'])) {
-//     header("Location: login.php");
-//     exit;
-// }
+if (!isset($_SESSION['u_id'])) {
+    header("Location: login.php");
+    exit;
+}
 
 // ดึง user_id และ customer_id จากเซสชัน
 $u_id = $_SESSION['u_id'];
