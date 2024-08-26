@@ -3,10 +3,10 @@ session_start();
 include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['u_id'])) {
-    header("Location: ../login.php");
-    exit;
-}
+// if (!isset($_SESSION['u_id'])) {
+//     header("Location: ../login.php");
+//     exit;
+// }
 
 // ดึง user_id และ customer_id จากเซสชัน
 $u_id = $_SESSION['u_id'];
@@ -365,6 +365,18 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
                                                 </div>
 
                                                 <div class="form-group">
+                                                    <label for="service_price" class="col-form-label">ราคา</label>
+                                                    <select class="form-select" id="service_price" name="service_price" required>
+                                                        <option value="" disabled selected>ราคา</option>
+                                                        <?php foreach ($services as $service): ?>
+                                                            <option value="<?= htmlspecialchars($service['service_id']) ?>">
+                                                                <?= htmlspecialchars($service['service_price']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
                                                     <label for="selectEmployees" class="col-form-label">เลือกพนักงาน</label>
                                                     <select class="form-select" id="employees" name="employees" required>
                                                         <option value="" disabled selected>เลือกพนักงาน</option>
@@ -404,7 +416,6 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
                                     console.log('Form is being submitted');
                                 });
                             </script>
-
 
                         </div>
                     </div>

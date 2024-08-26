@@ -3,10 +3,10 @@ session_start();
 include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-if (!isset($_SESSION['u_id'])) {
-    header("Location: ../login.php");
-    exit;
-}
+// if (!isset($_SESSION['u_id'])) {
+//     header("Location: ../login.php");
+//     exit;
+// }
 
 // ดึง user_id และ customer_id จากเซสชัน
 $u_id = $_SESSION['u_id'];
@@ -45,6 +45,24 @@ if ($data) {
     // กรณีไม่พบข้อมูล
     echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
+
+$reservation_id = 1; // Replace with actual value
+
+// Fetch service price and calculate the price with 10% more
+$query = "SELECT service_price FROM reservation WHERE reservation_id = :reservation_id";
+$stmt = $db_con->prepare($query);
+$stmt->bindParam(':reservation_id', $reservation_id, PDO::PARAM_INT);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($row) {
+    $service_price = $row['service_price'];
+    $discount = 0.10; // 10%
+    $calculated_price = $service_price * $discount;
+} else {
+    $calculated_price = 0; // or handle no result case
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -237,16 +255,10 @@ if ($data) {
                     <fieldset class="wrap_content">
                         <fieldset class="body_content">
                             <fieldset>
-                                <div class="coin">
-                                    <div>
-                                        <span style="font-size: 20px; color: #000;">ราคา :</span>
-                                        <span>
-                                            <font style="color: var(--font-my-coin);font-size: 20px;">
-                                                ........ บาท
-                                            </font>  
-                                        </span>
-                                    </div>
+                                <div style="font-size: 20px;" class="coin"> 
+                                    ราคา: <?php echo number_format($calculated_price, 2); ?> บาท 
                                 </div>
+                                
                                 <div class="list_gateway" style="margin-top: 20px; padding: 20px">
                                     <div style="font-size: 20px;" class="head_text"> กรุณาเลือกช่องทางการชำระเงิน </div>
                                     <div class="row justify-content-center align-items-center" id="wrap_gateway">

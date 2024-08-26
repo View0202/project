@@ -13,11 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $phone = $_POST['phone'];
     $service_type = $_POST['service_type'];
     $service = $_POST['service'];
+    $service_price = $_POST['service_price'];
     $employees = $_POST['employees'];
 
     try {
         // สร้างคำสั่ง SQL สำหรับเพิ่มข้อมูลในตาราง reservation
-        $sql = "INSERT INTO reservation (customer_id, date, time, name, phone, service_type, service, employees) VALUES (:customer_id, :date, :time, :name, :phone, :service_type, :service, :employees)";
+        $sql = "INSERT INTO reservation (customer_id, date, time, name, phone, service_type, service, service_price, employees) VALUES (:customer_id, :date, :time, :name, :phone, :service_type, :service, :service_price, :employees)";
         $stmt = $db_con->prepare($sql);
 
         // Bind ค่าพารามิเตอร์เข้ากับ statement
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->bindParam(":phone", $phone);
         $stmt->bindParam(":service_type", $service_type);
         $stmt->bindParam(":service", $service);
+        $stmt->bindParam(":service_price", $service_price);
         $stmt->bindParam(":employees", $employees);
 
         // Execute statement
