@@ -443,11 +443,6 @@ if ($data) {
     });
 </script>
 
-
-
-
-
-
                 <!-- แบบประเมิน -->
                 <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
                     <form method="POST" id="comment" class="form-horizontal" action="api/updatecomment.php" onsubmit="return updateComment()">

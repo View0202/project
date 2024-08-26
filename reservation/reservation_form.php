@@ -45,6 +45,27 @@ if ($data) {
     // กรณีไม่พบข้อมูล
     echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
+
+// ดึงข้อมูล service_type, service, และ employees
+$serviceTypeSql = "SELECT * FROM service_type";
+$serviceSql = "SELECT * FROM service";
+$employeeSql = "SELECT * FROM employees";
+
+// เตรียมและดำเนินการ SQL สำหรับ service_type
+$serviceTypeStmt = $db_con->prepare($serviceTypeSql);
+$serviceTypeStmt->execute();
+$serviceTypes = $serviceTypeStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// เตรียมและดำเนินการ SQL สำหรับ service
+$serviceStmt = $db_con->prepare($serviceSql);
+$serviceStmt->execute();
+$services = $serviceStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// เตรียมและดำเนินการ SQL สำหรับ employees
+$employeeStmt = $db_con->prepare($employeeSql);
+$employeeStmt->execute();
+$employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -292,16 +313,16 @@ if ($data) {
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">กรอกข้อมูลการจองคิว</h5>
+                                            <h5 class="modal-title">กรอกข้อมูลการจองคิว</h5>
                                             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="bookingForm">
-                                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
+                                            <form method="POST" id="bookingForm" class="form-horizontal" action="api/addreservation.php">
+                                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($customer_id) ?>">
 
                                                 <div class="form-group">
                                                     <label for="date">วันที่จอง</label>
-                                                    <input type="date" class="form-control" id="date" name="date">
+                                                    <input type="date" class="form-control" id="date" name="date" required>
                                                 </div>
 
                                                 <div class="form-group">
@@ -319,83 +340,71 @@ if ($data) {
                                                     <input type="text" class="form-control" id="phone" name="phone" required>
                                                 </div>
 
-                                                <!-- <div class="form-group">
-                                                    <label for="serviceGroup" class="col-form-label">กลุ่มบริการ</label>
-                                                    <div class="col-auto">
-                                                        <select class="form-select" id="serviceGroup">
-                                                            <option selected>กลุ่มบริการ...</option>
-                                                            <option value="1">กลุ่มบริการ: ...........</option>
-                                                            <option value="2">กลุ่มบริการ: ...........</option>
-                                                            <option value="3">กลุ่มบริการ: ...........</option>
-                                                        </select>
-                                                    </div>
-                                                </div> -->
+                                                <div class="form-group">
+                                                    <label for="serviceType" class="col-form-label">กลุ่มบริการ</label>
+                                                    <select class="form-select" id="service_type" name="service_type" required>
+                                                        <option value="" disabled selected>เลือกกลุ่มบริการ</option>
+                                                        <?php foreach ($serviceTypes as $serviceType): ?>
+                                                            <option value="<?= htmlspecialchars($serviceType['service_type_id']) ?>">
+                                                                <?= htmlspecialchars($serviceType['service_type_name']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
 
                                                 <div class="form-group">
-                                                    <label for="serve" class="col-form-label">บริการ</label>
-                                                    <div class="col-auto">
-                                                        <select class="form-select" id="serve" name="serve">
-                                                            
-                                                        </select>
-                                                    </div>
+                                                    <label for="service" class="col-form-label">บริการ</label>
+                                                    <select class="form-select" id="service" name="service" required>
+                                                        <option value="" disabled selected>เลือกบริการ</option>
+                                                        <?php foreach ($services as $service): ?>
+                                                            <option value="<?= htmlspecialchars($service['service_id']) ?>">
+                                                                <?= htmlspecialchars($service['service_name']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="selectEmployees" class="col-form-label">เลือกพนักงาน</label>
-                                                    <div class="col-auto">
-                                                        <select class="form-select" id="selectEmployees" name="employee">
-                                                            
-                                                        </select>
-                                                    </div>
+                                                    <select class="form-select" id="employees" name="employees" required>
+                                                        <option value="" disabled selected>เลือกพนักงาน</option>
+                                                        <?php foreach ($employees as $employee): ?>
+                                                            <option value="<?= htmlspecialchars($employee['emp_id']) ?>">
+                                                                <?= htmlspecialchars($employee['fname']) . " " . htmlspecialchars($employee['lname']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
 
                                                 <div style="font-size: 10px; margin: 10px;">
                                                     <p class="red-text">**ในการจองแต่ละครั้งสามารถเลื่อนคิวได้ 1 ครั้งเท่านั้น**</p>
                                                 </div>
 
+                                                <!-- ปุ่ม submit อยู่ภายในฟอร์ม -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                                                    <button type="submit" class="btn btn-primary">ต่อไป</button>
+                                                </div>
                                             </form>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                                            <button type="button" class="btn btn-primary" onclick="saveBooking()">ต่อไป</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    fetch('api/fetch_data.php')
-                                        .then(response => {
-                                            if (!response.ok) {
-                                                throw new Error('Network response was not ok');
-                                            }
-                                            return response.json();
-                                        })
-                                        .then(data => {
-                                            const serveSelect = document.getElementById('serve');
-                                            const employeesSelect = document.getElementById('selectEmployees');
+                                function openBookingModal(year, month, day) {
+                                    var date = new Date(year, month - 1, day); 
+                                    var formattedDate = date.toISOString().substr(0, 10); 
+                                    document.getElementById("date").value = formattedDate;
+                                    $('#dateModal').modal('show');
+                                }
 
-                                            // เติมข้อมูลบริการ
-                                            data.services.forEach(service => {
-                                                const option = document.createElement('option');
-                                                option.value = service.service_type_id;
-                                                option.textContent = `บริการ: ${service.service_type_name}`;
-                                                serveSelect.appendChild(option);
-                                            });
-
-                                            // เติมข้อมูลพนักงาน
-                                            data.employees.forEach(employee => {
-                                                const option = document.createElement('option');
-                                                option.value = employee.emp_id;
-                                                option.textContent = `ชื่อ: ${employee.fname}`;
-                                                employeesSelect.appendChild(option);
-                                            });
-                                        })
-                                        .catch(error => console.error('Error fetching data:', error));
+                                // เพิ่มโค้ดตรวจสอบว่าแบบฟอร์มถูกส่งหรือไม่
+                                document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                                    console.log('Form is being submitted');
                                 });
                             </script>
+
 
                         </div>
                     </div>

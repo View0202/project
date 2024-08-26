@@ -266,6 +266,7 @@ if ($data) {
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- <hr> ที่จะแสดงขึ้นเมื่อคลิก -->
                                 <hr id="paymentSeparator" style="display: none;" />
                                 <!-- div สำหรับแสดงข้อมูลการชำระเงิน -->
@@ -279,7 +280,7 @@ if ($data) {
                                 </div>
                                 <!-- ปุ่มที่จะแสดงขึ้นเมื่อคลิก -->
                                 <div id="buttonContainer" class="btn-container">
-                                    <a href="uploadimageuser.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
+                                    <a href="uploadpayment.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
                                     <a href="reservation_form.php" class="btn btn-warning" role="button">ย้อนกลับ</a>
                                 </div>
                             </fieldset>
