@@ -15,8 +15,11 @@ if (!isset($_SESSION['u_id'])) {
 // ดึง customer_id ของผู้ใช้จาก session
 $customer_id = $data['customer_id'];
 
-// คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง estimate โดยกรองตาม customer_id
-$sql = "SELECT * FROM reservation WHERE customer_id = :customer_id";
+// คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง queue และ employees โดยกรองตาม customer_id
+$sql = "SELECT queue.*, employees.* FROM queue 
+        JOIN employees ON queue.emp_id = employees.emp_id 
+        WHERE queue.customer_id = :customer_id";
+
 $stmt = $db_con->prepare($sql);
 $stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
 
@@ -29,20 +32,18 @@ if ($stmt->rowCount() > 0) {
     while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
         echo '<tr>';
         echo '<td>' . $index++ . '</td>'; // แสดงหมายเลขแถว
-        echo '<td>' . htmlspecialchars($data['name']) . '</td>';
-        echo '<td>' . htmlspecialchars($data['phone']) . '</td>';
-        echo '<td>' . htmlspecialchars($data['date']) . '</td>';
-        echo '<td>' . htmlspecialchars($data['time']) . '</td>';
-        echo '<td>' . htmlspecialchars($data['employees']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['queue_date']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['queue_time']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['fname']) . '</td>'; // แสดงชื่อพนักงาน
         echo '<td>';
         echo '<button class="btn btn-primary" style="margin-right: 5px;">ใบเสร็จรับเงิน</button>';
         echo '<button class="btn btn-primary" style="margin-right: 5px;">แก้ไข</button>';
         echo '<button class="btn btn-primary">ลบ</button>';
-
         echo '</td>';
         echo '</tr>';
     }
 } else {
     echo '<tr><td colspan="4" align="center">ไม่พบข้อมูล</td></tr>';
 }
+
 ?>

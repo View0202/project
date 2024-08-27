@@ -301,8 +301,8 @@ if ($data) {
                                         <thead>
                                             <tr>
                                             <th scope="col">#</th>
-                                                <th scope="col">ชื่อจองคิว</th>
-                                                <th scope="col">เบอร์โทรศัพท์</th>
+                                                <!-- <th scope="col">ชื่อจองคิว</th>
+                                                <th scope="col">เบอร์โทรศัพท์</th> -->
                                                 <th scope="col">วันที่</th>
                                                 <th scope="col">เวลา</th>
                                                 <th scope="col">พนักงาน</th>
@@ -333,8 +333,8 @@ if ($data) {
                                         <thead>
                                             <tr>
                                             <th scope="col">#</th>
-                                                <th scope="col">ชื่อจองคิว</th>
-                                                <th scope="col">เบอร์โทรศัพท์</th>
+                                                <!-- <th scope="col">ชื่อจองคิว</th>
+                                                <th scope="col">เบอร์โทรศัพท์</th> -->
                                                 <th scope="col">วันที่</th>
                                                 <th scope="col">เวลา</th>
                                                 <th scope="col">พนักงาน</th>
