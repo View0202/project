@@ -297,7 +297,7 @@ if ($data) {
                                 </div>
 
                                 <div class="row">
-                                    <table class="table" id="estimateData">
+                                    <table class="table" id="reservationData">
                                         <thead>
                                             <tr>
                                             <th scope="col">#</th>
@@ -306,6 +306,7 @@ if ($data) {
                                                 <th scope="col">วันที่</th>
                                                 <th scope="col">เวลา</th>
                                                 <th scope="col">พนักงาน</th>
+                                                <th scope="col">จัดการ</th>
                                             </tr>
                                         </thead>
 
@@ -328,7 +329,7 @@ if ($data) {
                             <div class="container mt-5">
 
                                 <div class="row">
-                                    <table class="table" id="estimateData">
+                                    <table class="table" id="statusData">
                                         <thead>
                                             <tr>
                                             <th scope="col">#</th>
@@ -337,6 +338,7 @@ if ($data) {
                                                 <th scope="col">วันที่</th>
                                                 <th scope="col">เวลา</th>
                                                 <th scope="col">พนักงาน</th>
+                                                <th scope="col">จัดการ</th>
                                             </tr>
                                         </thead>
 
@@ -355,93 +357,93 @@ if ($data) {
                 
                 <!-- ประเมินใบหน้า -->
                 <div class="tab-pane fade" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
-    <div class="face">
-        <div class="row justify-content-center">
-            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
-                <strong>การประเมินใบหน้า</strong>
-                <div class="container mt-5">
+                    <div class="face">
+                        <div class="row justify-content-center">
+                            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
+                                <strong>การประเมินใบหน้า</strong>
+                                <div class="container mt-5">
 
-                    <div class="row">
-                        <div class="col" align="right">
-                            <a href="../estimate/estimate.php" class="btn btn-primary">เพิ่ม</a>
+                                    <div class="row">
+                                        <div class="col" align="right">
+                                            <a href="../estimate/estimate.php" class="btn btn-primary">เพิ่ม</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <table class="table" id="estimateData">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Detail</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Manage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="content">
+                                                <?php include 'api/fetch_estimate.php'; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <table class="table" id="estimateData">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Detail</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Manage</th>
-                                </tr>
-                            </thead>
-                            <tbody id="content">
-                                <?php include 'api/fetch_estimate.php'; ?>
-                            </tbody>
-                        </table>
+                <!-- Modal -->
+                <div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="estimateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="estimateModalLabel">การตอบกลับ</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body" id="modalBodyContent">
+                                <input type="hidden" id="customer_id" name="customer_id">
+                                    
+                                <div class="mb-3">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </span>
-        </div>
-    </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="estimateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="estimateModalLabel">การตอบกลับ</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+                <!-- Javascript -->
+                <script>
+                    $(document).ready(function() {
+                        $('#estimateModal').on('show.bs.modal', function (e) {
+                            var customerId = $(e.relatedTarget).data('customer_id'); // ดึง customer_id จากปุ่มที่เปิดโมดัล
+                            console.log(customerId); // ตรวจสอบว่า customer_id ที่ส่งมีค่าอะไร
 
-            <div class="modal-body" id="modalBodyContent">
-                <input type="hidden" id="customer_id" name="customer_id">
-                    
-                <div class="mb-3">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Javascript -->
-<script>
-    $(document).ready(function() {
-        $('#estimateModal').on('show.bs.modal', function (e) {
-            var customerId = $(e.relatedTarget).data('customer_id'); // ดึง customer_id จากปุ่มที่เปิดโมดัล
-            console.log(customerId); // ตรวจสอบว่า customer_id ที่ส่งมีค่าอะไร
-
-            $.ajax({
-                url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
-                type: 'GET',
-                dataType: 'json',
-                data: { customer_id: customerId }, // ส่ง customer_id ไปยัง getestimate.php
-                success: function(response) {
-                    console.log(response); // ดูการตอบกลับจาก PHP ว่าได้อะไรบ้าง
-                    if (response.data && response.data.length > 0) {
-                        var content = '<ul>';
-                        $.each(response.data, function(index, item) {
-                            content += '<li>' + item.response + '</li>'; // แสดงข้อมูล response ที่ได้จากฐานข้อมูล
+                            $.ajax({
+                                url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
+                                type: 'GET',
+                                dataType: 'json',
+                                data: { customer_id: customerId }, // ส่ง customer_id ไปยัง getestimate.php
+                                success: function(response) {
+                                    console.log(response); // ดูการตอบกลับจาก PHP ว่าได้อะไรบ้าง
+                                    if (response.data && response.data.length > 0) {
+                                        var content = '<ul>';
+                                        $.each(response.data, function(index, item) {
+                                            content += '<li>' + item.response + '</li>'; // แสดงข้อมูล response ที่ได้จากฐานข้อมูล
+                                        });
+                                        content += '</ul>';
+                                        $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
+                                    } else {
+                                        $('#modalBodyContent').html('ไม่มีข้อมูล');
+                                    }
+                                },
+                                error: function() {
+                                    $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
+                                }
+                            });
                         });
-                        content += '</ul>';
-                        $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
-                    } else {
-                        $('#modalBodyContent').html('ไม่มีข้อมูล');
-                    }
-                },
-                error: function() {
-                    $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
-                }
-            });
-        });
-    });
-</script>
+                    });
+                </script>
 
                 <!-- แบบประเมิน -->
                 <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">

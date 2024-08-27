@@ -29,12 +29,16 @@ if ($stmt->rowCount() > 0) {
     while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
         echo '<tr>';
         echo '<td>' . $index++ . '</td>'; // แสดงหมายเลขแถว
-        echo '<td>' . htmlspecialchars($data['detail']) . '</td>';
-        echo '<td><img src="../image_estimate/' . htmlspecialchars($data['file']) . '" alt="Image" style="max-width: 150px;"></td>';
+        echo '<td>' . htmlspecialchars($data['name']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['phone']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['date']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['time']) . '</td>';
+        echo '<td>' . htmlspecialchars($data['employees']) . '</td>';
         echo '<td>';
-        echo '<button class="btn btn-primary btn-sm">ใบเสร็จรับเงิน</button>';
-        echo '<button class="btn btn-primary btn-sm">แก้ไข</button>';
-        echo '<button class="btn btn-primary btn-sm">ลบ</button>';
+        echo '<button class="btn btn-primary" style="margin-right: 5px;">ใบเสร็จรับเงิน</button>';
+        echo '<button class="btn btn-primary" style="margin-right: 5px;">แก้ไข</button>';
+        echo '<button class="btn btn-primary">ลบ</button>';
+
         echo '</td>';
         echo '</tr>';
     }
