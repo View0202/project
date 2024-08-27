@@ -7,30 +7,30 @@ $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $customer_id = $_POST['customer_id'];
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $service_type = $_POST['service_type'];
-    $service = $_POST['service'];
-    $service_price = $_POST['service_price'];
-    $employees = $_POST['employees'];
+    $queue_date = $_POST['date'];
+    $queue_time = $_POST['time'];
+    // $name = $_POST['name'];
+    // $phone = $_POST['phone'];
+    $service_type_id = $_POST['service_type'];
+    $service_id = $_POST['service'];
+    $price = $_POST['service_price']; // แก้ไขการใช้ number_format
+    $emp_id = $_POST['employees'];
 
     try {
-        // สร้างคำสั่ง SQL สำหรับเพิ่มข้อมูลในตาราง reservation
-        $sql = "INSERT INTO reservation (customer_id, date, time, name, phone, service_type, service, service_price, employees) VALUES (:customer_id, :date, :time, :name, :phone, :service_type, :service, :service_price, :employees)";
+        // สร้างคำสั่ง SQL สำหรับเพิ่มข้อมูลในตาราง queue
+        $sql = "INSERT INTO queue (customer_id, queue_date, queue_time, service_type_id, service_id, price, emp_id) VALUES (:customer_id, :date, :time, :service_type, :service, :service_price, :employees)";
         $stmt = $db_con->prepare($sql);
 
         // Bind ค่าพารามิเตอร์เข้ากับ statement
         $stmt->bindParam(":customer_id", $customer_id);
-        $stmt->bindParam(":date", $date);
-        $stmt->bindParam(":time", $time);
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":phone", $phone);
-        $stmt->bindParam(":service_type", $service_type);
-        $stmt->bindParam(":service", $service);
-        $stmt->bindParam(":service_price", $service_price);
-        $stmt->bindParam(":employees", $employees);
+        $stmt->bindParam(":date", $queue_date);
+        $stmt->bindParam(":time", $queue_time);
+        // $stmt->bindParam(":name", $name);
+        // $stmt->bindParam(":phone", $phone);
+        $stmt->bindParam(":service_type", $service_type_id);
+        $stmt->bindParam(":service", $service_id);
+        $stmt->bindParam(":service_price", $price);
+        $stmt->bindParam(":employees", $emp_id);
 
         // Execute statement
         $result = $stmt->execute();
@@ -55,3 +55,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 // ปิดการเชื่อมต่อ
 echo json_encode($response);
 ?>
+
+

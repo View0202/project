@@ -235,7 +235,7 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
 
                                     $daysOfWeek = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 
-                                    $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
+                                    $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year - 543); // Convert Thai year to Gregorian
                                     $numberOfDays = date('t', $firstDayOfMonth);
                                     $dayOfWeek = date('w', $firstDayOfMonth);
 
@@ -275,10 +275,11 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
                                     echo "</table>";
                                 }
 
-                                $year = 2567;
-
-                                // Get month from URL or default to current month
+                                $currentYear = 2567; // Current Thai year
                                 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('n');
+
+                                // Calculate the actual year in the Gregorian calendar
+                                $gregorianYear = $currentYear - 543;
 
                                 // Navigation buttons
                                 $prevMonth = $month - 1;
@@ -286,12 +287,12 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
 
                                 if ($prevMonth < 1) {
                                     $prevMonth = 12;
-                                    $year--;
+                                    $currentYear--;
                                 }
 
                                 if ($nextMonth > 12) {
                                     $nextMonth = 1;
-                                    $year++;
+                                    $currentYear++;
                                 }
 
                                 echo "<div class='nav-buttons'>";
@@ -300,8 +301,9 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
                                 echo "</div>";
 
                                 // Render the calendar for the selected month
-                                renderCalendar($year, $month);
+                                renderCalendar($currentYear, $month);
                             ?>
+
 
                             <!-- Booking Text -->
                             <div style="font-size: 20px;">
@@ -330,7 +332,7 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <input type="time" class="form-control" id="time" name="time" required>
                                                 </div>
 
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <label for="name">ชื่อการจองคิว</label>
                                                     <input type="text" class="form-control" id="name" name="name" required>
                                                 </div>
@@ -338,7 +340,7 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="form-group">
                                                     <label for="phone">เบอร์โทรศัพท์</label>
                                                     <input type="text" class="form-control" id="phone" name="phone" required>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="form-group">
                                                     <label for="serviceType" class="col-form-label">กลุ่มบริการ</label>
