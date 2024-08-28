@@ -49,16 +49,16 @@ if ($data) {
 $reservation_id = 1; // Replace with actual value
 
 // Fetch service price and calculate the price with 10% more
-$query = "SELECT service_price FROM reservation WHERE reservation_id = :reservation_id";
+$query = "SELECT price FROM queue WHERE queue_id = :queue_id";
 $stmt = $db_con->prepare($query);
-$stmt->bindParam(':reservation_id', $reservation_id, PDO::PARAM_INT);
+$stmt->bindParam(':queue_id', $queue_id, PDO::PARAM_INT);
 $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($row) {
-    $service_price = $row['service_price'];
+    $price = $row['price'];
     $discount = 0.10; // 10%
-    $calculated_price = $service_price * $discount;
+    $calculated_price = $price * $discount;
 } else {
     $calculated_price = 0; // or handle no result case
 }
