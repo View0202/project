@@ -13,10 +13,12 @@ $u_id = $_SESSION['u_id'];
 
 // เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
 $sql = "
-    SELECT users.*, customer.*, estimate.* 
+    SELECT users.*, customer.*, estimate.*, queue.*, employees.fname, employees.lname 
     FROM users
     INNER JOIN customer ON users.username = customer.username
     LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
+    LEFT JOIN queue ON customer.customer_id = queue.customer_id
+    LEFT JOIN employees ON queue.emp_id = queue.emp_id
     WHERE users.u_id = :u_id
 ";
 
@@ -41,12 +43,17 @@ if ($data) {
     $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
     $customer_id = $data['customer_id'];
     $estimate_id = $data['estimate_id'];
+    $queue_id = $data['queue_id'];
+    $queue_date = $data['queue_date'];
+    $queue_time = $data['queue_time'];
+    $employee_name = $data['fname'] . ' ' . $data['lname'];
 
     // แสดงข้อมูล
     echo "User ID: " . htmlspecialchars($user_id) . "<br>";
     echo "Username: " . htmlspecialchars($username) . "<br>";
     echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
     echo "Estimate ID: " . htmlspecialchars($estimate_id) . "<br>";
+    echo "Queue ID: " . htmlspecialchars($queue_id) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
@@ -321,6 +328,55 @@ if ($data) {
                     </div>
                 </div>
 
+                <!-- Modal -->
+                <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reservationModalLabel">แก้ไขข้อมูลการจองคิว</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body" id="modalBodyContent">
+                                <div class="mb-3">
+                                    <form method="POST" id="bookingForm" class="form-horizontal" action="api/updatereservation.php">
+                                        <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($customer_id) ?>">
+                                        <input type="hidden" id="queue_id" name="queue_id" value="<?= htmlspecialchars($queue_id) ?>">
+
+                                        <div class="form-group">
+                                            <label for="date">วันที่จอง</label>
+                                            <input type="date" class="form-control" id="date" name="date" value="<?= htmlspecialchars($queue_date) ?>">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="time">เวลาจอง</label>
+                                            <input type="time" class="form-control" id="time" name="time" value="<?= htmlspecialchars($queue_time) ?>">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="selectEmployees" class="col-form-label">เลือกพนักงาน</label>
+                                            <select class="form-select" id="employees" name="employees" required>
+                                                <option value="" disabled selected><?= htmlspecialchars($employee_name) ?></option>
+                                                <?php foreach ($employees as $employee): ?>
+                                                    <option value="<?= htmlspecialchars($employee['emp_id']) ?>">
+                                                        <?= htmlspecialchars($employee['fname']) . " " . htmlspecialchars($employee['lname']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+                                        <!-- ปุ่ม submit อยู่ภายในฟอร์ม -->
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="tab-pane fade" id="pills-status" role="tabpanel" aria-labelledby="pills-status-tab">
                     <div class="status">
                         <div class="row justify-content-center">
@@ -374,9 +430,9 @@ if ($data) {
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Detail</th>
-                                                    <th scope="col">Image</th>
-                                                    <th scope="col">Manage</th>
+                                                    <th scope="col">รายละเอียด</th>
+                                                    <th scope="col">รูปภาพใบหน้า</th>
+                                                    <th scope="col">จัดการข้อมูล</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="content">

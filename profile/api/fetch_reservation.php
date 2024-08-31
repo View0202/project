@@ -37,7 +37,7 @@ if ($stmt->rowCount() > 0) {
         echo '<td>' . htmlspecialchars($data['fname']) . '</td>'; // แสดงชื่อพนักงาน
         echo '<td>';
         echo '<button class="btn btn-primary" style="margin-right: 5px;">ใบเสร็จรับเงิน</button>';
-        echo '<button class="btn btn-primary" style="margin-right: 5px;">แก้ไข</button>';
+        echo '<button class="btn btn-primary" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reservationModal">แก้ไข</button>';
         echo '<button class="btn btn-primary">ลบ</button>';
         echo '</td>';
         echo '</tr>';

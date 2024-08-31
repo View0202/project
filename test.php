@@ -98,6 +98,13 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
 
+    <!-- Full Calender -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
     <!-- Inline Styles for Font Family -->
     <style>
         body {
@@ -220,224 +227,172 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="row justify-content-center">
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
                 <strong>การจองคิว</strong>
-                <div class="container">
-                    <div class="row d-flex align-items-center">
-                        <div class="row align-items-center">
-                            <?php
-                                function renderCalendar($year, $month) {
-                                    // Months and days in Thai
-                                    $months = [
-                                        1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม', 
-                                        4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน', 
-                                        7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน', 
-                                        10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
-                                    ];
+                    <div class="container-fluid">
+                        <div id="calendar"></div>
+                    </div>
 
-                                    $daysOfWeek = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
-
-                                    $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year - 543); // Convert Thai year to Gregorian
-                                    $numberOfDays = date('t', $firstDayOfMonth);
-                                    $dayOfWeek = date('w', $firstDayOfMonth);
-
-                                    echo "<h2>{$months[$month]} $year</h2>";
-                                    echo "<table id='calendarTable'>";
-                                    echo "<tr>";
-
-                                    // Display days of the week
-                                    foreach ($daysOfWeek as $day) {
-                                        echo "<th>$day</th>";
-                                    }
-                                    echo "</tr><tr>";
-
-                                    // Blank cells for days before the first of the month
-                                    if ($dayOfWeek > 0) {
-                                        echo str_repeat('<td></td>', $dayOfWeek);
-                                    }
-
-                                    // Display days of the month
-                                    for ($day = 1; $day <= $numberOfDays; $day++) {
-                                        echo "<td>";
-                                        echo "<button class='btn btn-link' onclick='openBookingModal($year, $month, $day)'>$day</button>";
-                                        echo "</td>";
-
-                                        // Start a new row at the end of the week
-                                        if (($day + $dayOfWeek) % 7 == 0) {
-                                            echo "</tr><tr>";
-                                        }
-                                    }
-
-                                    // Blank cells for the days after the end of the month
-                                    if (($dayOfWeek + $numberOfDays) % 7 != 0) {
-                                        echo str_repeat('<td></td>', 7 - (($dayOfWeek + $numberOfDays) % 7));
-                                    }
-
-                                    echo "</tr>";
-                                    echo "</table>";
-                                }
-
-                                $currentYear = 2567; // Current Thai year
-                                $month = isset($_GET['month']) ? (int)$_GET['month'] : date('n');
-
-                                // Calculate the actual year in the Gregorian calendar
-                                $gregorianYear = $currentYear - 543;
-
-                                // Navigation buttons
-                                $prevMonth = $month - 1;
-                                $nextMonth = $month + 1;
-
-                                if ($prevMonth < 1) {
-                                    $prevMonth = 12;
-                                    $currentYear--;
-                                }
-
-                                if ($nextMonth > 12) {
-                                    $nextMonth = 1;
-                                    $currentYear++;
-                                }
-
-                                echo "<div class='nav-buttons'>";
-                                echo "<a href='?month=$prevMonth'>เดือนก่อนหน้า</a>";
-                                echo "<a href='?month=$nextMonth'>เดือนถัดไป</a>";
-                                echo "</div>";
-
-                                // Render the calendar for the selected month
-                                renderCalendar($currentYear, $month);
-                            ?>
-
-
-                            <!-- Booking Text -->
-                            <div style="font-size: 20px;">
+                    <!-- Booking Text -->
+                    <div style="font-size: 20px; margin: 20px">
                                 <p class="black-text">>>คลิกวันที่เพื่อเลือกการจองคิว<<</p>
                             </div>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="dateModal" tabindex="-1" role="dialog" aria-labelledby="dateModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">กรอกข้อมูลการจองคิว</h5>
-                                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="POST" id="bookingForm" class="form-horizontal" action="api/addreservation.php">
-                                                <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($customer_id) ?>">
-
-                                                <div class="form-group">
-                                                    <label for="date">วันที่จอง</label>
-                                                    <input type="date" class="form-control" id="date" name="date" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="time">เวลาจอง</label>
-                                                    <input type="time" class="form-control" id="time" name="time" required>
-                                                </div>
-
-                                                <!-- <div class="form-group">
-                                                    <label for="name">ชื่อการจองคิว</label>
-                                                    <input type="text" class="form-control" id="name" name="name" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="phone">เบอร์โทรศัพท์</label>
-                                                    <input type="text" class="form-control" id="phone" name="phone" required>
-                                                </div> -->
-
-                                                <div class="form-group">
-                                                    <label for="serviceType" class="col-form-label">กลุ่มบริการ</label>
-                                                    <select class="form-select" id="service_type" name="service_type" required>
-                                                        <option value="" disabled selected>เลือกกลุ่มบริการ</option>
-                                                        <?php foreach ($serviceTypes as $serviceType): ?>
-                                                            <option value="<?= htmlspecialchars($serviceType['service_type_id']) ?>">
-                                                                <?= htmlspecialchars($serviceType['service_type_name']) ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="service" class="col-form-label">บริการ</label>
-                                                    <select class="form-select" id="service" name="service" required>
-                                                        <option value="" disabled selected>เลือกบริการ</option>
-                                                        <?php foreach ($services as $service): ?>
-                                                            <option value="<?= htmlspecialchars($service['service_id']) ?>">
-                                                                <?= htmlspecialchars($service['service_name']) ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group">
-    <label for="service_price" class="col-form-label">ราคา</label>
-    <input type="text" class="form-control" id="service_price" name="service_price" readonly>
-</div>
-
-
-                                                <div class="form-group">
-                                                    <label for="selectEmployees" class="col-form-label">เลือกพนักงาน</label>
-                                                    <select class="form-select" id="employees" name="employees" required>
-                                                        <option value="" disabled selected>เลือกพนักงาน</option>
-                                                        <?php foreach ($employees as $employee): ?>
-                                                            <option value="<?= htmlspecialchars($employee['emp_id']) ?>">
-                                                                <?= htmlspecialchars($employee['fname']) . " " . htmlspecialchars($employee['lname']) ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div style="font-size: 10px; margin: 10px;">
-                                                    <p class="red-text">**ในการจองแต่ละครั้งสามารถเลื่อนคิวได้ 1 ครั้งเท่านั้น**</p>
-                                                </div>
-
-                                                <!-- ปุ่ม submit อยู่ภายในฟอร์ม -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                                                    <button type="submit" class="btn btn-primary">ต่อไป</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                 // Data for services and their prices (You can also fetch this data dynamically from the server if needed)
-    var services = <?php echo json_encode($services); ?>;
-
-document.getElementById('service').addEventListener('change', function() {
-    var serviceId = this.value;
-    var servicePrice = '';
-
-    // Find the price of the selected service
-    for (var i = 0; i < services.length; i++) {
-        if (services[i].service_id == serviceId) {
-            servicePrice = services[i].service_price;
-            break;
-        }
-    }
-
-    // Update the service price input field
-    document.getElementById('service_price').value = servicePrice;
-});
-
-                                function openBookingModal(year, month, day) {
-                                    var date = new Date(year, month - 1, day); 
-                                    var formattedDate = date.toISOString().substr(0, 10); 
-                                    document.getElementById("date").value = formattedDate;
-                                    $('#dateModal').modal('show');
-                                }
-
-                                // เพิ่มโค้ดตรวจสอบว่าแบบฟอร์มถูกส่งหรือไม่
-                                document.getElementById('bookingForm').addEventListener('submit', function(e) {
-                                    console.log('Form is being submitted');
-                                });
-                            </script>
-
-                        </div>
-                    </div>
-                </div>
             </span>
         </div>
     </div>
+
+    
+
+    <!-- Modal for booking details -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="bookingForm" method="POST" action="api/addreservation.php">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bookingModalLabel">กรอกข้อมูลการจองคิว</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="date" class="form-label">วันที่การจองคิว</label>
+                            <input type="text" class="form-control" id="date" name="date" readonly>
+                        </div>
+
+                        
+
+                        <div class="mb-3">
+                            <label for="serviceType" class="form-label">กลุ่มบริการ</label>
+                            <select class="form-select" id="service_type" name="service_type" required>
+                                <option value="" disabled selected>เลือกกลุ่มบริการ</option>
+                                <?php foreach ($serviceTypes as $serviceType): ?>
+                                    <option value="<?= htmlspecialchars($serviceType['service_type_id']) ?>"><?= htmlspecialchars($serviceType['service_type_name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+						<select class="form-select" id="service" name="service" required>
+    <option value="" disabled selected>เลือกบริการ</option>
+    <?php foreach ($services as $service): ?>
+        <option value="<?= htmlspecialchars($service['service_id']) ?>" data-time="<?= htmlspecialchars($service['service_time']) ?>" data-price="<?= $service['price'] ?>">
+            <?= htmlspecialchars($service['service_name']) ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="selectEmployees" class="form-label">เลือกพนักงาน</label>
+                            <select class="form-select" id="employees" name="employees" required>
+                                <option value="" disabled selected>เลือกพนักงาน</option>
+                                <?php foreach ($employees as $employee): ?>
+                                    <option value="<?= htmlspecialchars($employee['emp_id']) ?>">
+                                        <?= htmlspecialchars($employee['fname']) . " " . htmlspecialchars($employee['lname']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+						<div class="mb-3">
+                            <label for="start_time" class="form-label">เวลาเริ่มต้น</label>
+                            <input type="time" class="form-control" id="start_time" name="start_time" required>
+                        </div>
+
+                        <div class="mb-3">
+                                                <label for="end_time" class="form-label">เวลาสิ้นสุด</label>
+                                                <input type="text" class="form-control" id="end_time" name="end_time" readonly>
+                                            </div>
+
+                        <div style="font-size: 10px; margin: 10px;">
+                            <p class="red-text">**ในการจองแต่ละครั้งสามารถเลื่อนคิวได้ 1 ครั้งเท่านั้น**</p>
+                                                </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">จองคิว</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        dateClick: function(info) {
+            // Populate modal with selected date
+            document.getElementById('date').value = info.dateStr;
+            var modal = new bootstrap.Modal(document.getElementById('bookingModal'));
+            modal.show();
+        },
+        events: 'api/fetchevents.php' // Fetch events from server
+    });
+
+    calendar.render();
+});
+
+document.getElementById('bookingForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var formData = new FormData(this);
+
+    fetch('api/addreservation.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            var calendar = FullCalendar.getCalendar(document.getElementById('calendar'));
+            calendar.addEvent({
+                title: 'Pending Approval',
+                start: formData.get('date') + 'T' + formData.get('start_time'),
+                end: formData.get('date') + 'T' + formData.get('end_time'),
+                extendedProps: {
+                    employee: formData.get('employees')
+                }
+            });
+            var modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+            modal.hide();
+        } else {
+            alert('Booking failed. Please try again.');
+        }
+    });
+});
+
+var startTimeInput = document.getElementById('start_time');
+var endTimeInput = document.getElementById('end_time');
+var serviceSelect = document.getElementById('service');
+
+serviceSelect.addEventListener('change', calculateEndTime);
+startTimeInput.addEventListener('change', calculateEndTime);
+
+function calculateEndTime() {
+    var startTime = startTimeInput.value;
+    var selectedService = serviceSelect.options[serviceSelect.selectedIndex];
+    var serviceDuration = selectedService ? parseInt(selectedService.getAttribute('data-time')) : 0;
+
+    if (startTime && serviceDuration) {
+        var [hours, minutes] = startTime.split(':').map(Number);
+
+        // Calculate end time
+        var endMinutes = minutes + serviceDuration;
+        var endHours = hours + Math.floor(endMinutes / 60);
+        endMinutes = endMinutes % 60;
+
+        // Format end time as HH:MM
+        var formattedEndTime =
+            String(endHours).padStart(2, '0') + ':' +
+            String(endMinutes).padStart(2, '0');
+
+        endTimeInput.value = formattedEndTime;
+    }
+}
+
+    </script>
 
     <hr>
 
@@ -454,41 +409,7 @@ document.getElementById('service').addEventListener('change', function() {
     </div> 
 </div>
 
-<script>
-    function openBookingModal(year, month, day) {
-        // Set the date field with the selected date
-        var date = new Date(year, month - 1, day +1); // Month in JavaScript starts from 0
-        var formattedDate = date.toISOString().substr(0, 10); // Format as YYYY-MM-DD
-        document.getElementById("date").value = formattedDate;
 
-        // Show the modal
-        $('#dateModal').modal('show');
-    }
-
-    function saveBooking() {
-        var form = document.getElementById('bookingForm');
-        var formData = new FormData(form);
-
-        // Validate form data
-        if (!formData.get('date') || !formData.get('time') || !formData.get('name') || !formData.get('phone') || !formData.get('serviceGroup') || !formData.get('serve') || !formData.get('selectEmployees')) {
-            Swal.fire({
-                title: "กรุณากรอกข้อมูลให้ครบ",
-                text: "",
-                icon: "warning"
-            });
-            return;
-        }
-
-        // Handle form submission, e.g., via AJAX
-        Swal.fire({
-            title: "แก้ไขข้อมูลสำเร็จ",
-            text: "",
-            icon: "success"
-        }).then(() => {
-            $('#dateModal').modal('hide');
-        });
-    }
-</script>
 
 </body>
 </html>

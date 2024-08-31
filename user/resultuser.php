@@ -140,7 +140,7 @@ if ($data) {
     <div class="row justify-content-center">
         <div class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
             <strong>ผลลัพธ์ลูกค้า</strong>
-            <div class="container">
+            <!-- <div class="container">
                 <div class="row align-items-center" style="margin: 20px;">
                         <?php foreach ($uniqueResults as $result): ?>
                             <div class="col-md-4 col-12 mb-3">
@@ -155,7 +155,7 @@ if ($data) {
                             </div>
                         <?php endforeach; ?>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
