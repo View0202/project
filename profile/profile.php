@@ -189,9 +189,7 @@ if ($data) {
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-reservation-tab" data-bs-toggle="pill" data-bs-target="#pills-reservation" type="button" role="tab" aria-controls="pills-reservation" aria-selected="false">จองคิว</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-status-tab" data-bs-toggle="pill" data-bs-target="#pills-status" type="button" role="tab" aria-controls="pills-status" aria-selected="false">สถานะการจอง</button>
-                </li>
+                
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-face-tab" data-bs-toggle="pill" data-bs-target="#pills-face" type="button" role="tab" aria-controls="pills-face" aria-selected="false">การประเมินใบหน้า</button>
                 </li>
@@ -376,40 +374,6 @@ if ($data) {
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="pills-status" role="tabpanel" aria-labelledby="pills-status-tab">
-                    <div class="status">
-                        <div class="row justify-content-center">
-                            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
-                            <strong style="font-size: 30px;">สถานะการจอง</strong>
-                            <div class="container mt-5">
-
-                                <div class="row">
-                                    <table class="table" id="statusData">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">#</th>
-                                                <!-- <th scope="col">ชื่อจองคิว</th>
-                                                <th scope="col">เบอร์โทรศัพท์</th> -->
-                                                <th scope="col">วันที่</th>
-                                                <th scope="col">เวลา</th>
-                                                <th scope="col">พนักงาน</th>
-                                                <th scope="col">จัดการ</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody id="content">
-                                            <?php include 'api/fetch_reservation_status.php'; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
                 
                 <!-- ประเมินใบหน้า -->
                 <div class="tab-pane fade" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
