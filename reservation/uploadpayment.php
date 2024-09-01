@@ -147,24 +147,24 @@ if ($data) {
                     <strong>หลักฐานชำระค่าเงินมัดจำ</strong>
                     <div class="row justify-content-center align-items-center mb-3">
                         <div class="col-12 col-md-8 col-lg-6 d-flex justify-content-center">
-                            <div class="card" style="width: 500px; height: 400px;">
-                                <div class="img-container">
-                                    <img id="displayImage" src="../images/imagepayment.jpg" class="card-img-top" alt="Preview Image" style="border: 1px solid #000;">
-                                </div>
+                            <div class="card" style="width: 500px; height: 500px;">
+                                <form id="paymentForm" method="POST" action="api/uploadpayment.php">
+                                    <div class="img-container">
+                                        <img id="displayImage" src="../images/imagepayment.jpg" class="card-img-top" alt="Preview Image" style="border: 1px solid #000; width: 300px; height: 300px">
+                                    </div>
 
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile" name="formFile" style="margin: 20px auto; width: 450px;">
-                                </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="file" id="formFile" name="formFile" style="margin: 20px auto; width: 450px;">
+                                    </div>
 
-                                <div class="col">
-                                    <a href="../home.php" class="btn btn-success">ยืนยันหลักฐาน</a>
-                                    <a href="reservation_form.php" class="btn btn-secondary">ยกเลิก</a>
-                                </div>
-                                
+                                    <div class="col">
+                                        <a href="../home.php" class="btn btn-success">ยืนยันหลักฐาน</a>
+                                        <a href="reservation_form.php" class="btn btn-secondary">ยกเลิก</a>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
                 </span>
             </div>
         </form>

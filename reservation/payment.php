@@ -3,17 +3,22 @@ session_start();
 include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-// if (!isset($_SESSION['u_id'])) {
-//     header("Location: ../login.php");
-//     exit;
-// }
+if (!isset($_SESSION['u_id'])) {
+    header("Location: ../login.php");
+    exit;
+}
 
 // ดึง user_id และ customer_id จากเซสชัน
 $u_id = $_SESSION['u_id'];
 
 // เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
-$sql = "SELECT users.*, customer.* FROM users
+$sql = "
+    SELECT users.*, customer.*, estimate.*, queue.*, employees.fname, employees.lname 
+    FROM users
     INNER JOIN customer ON users.username = customer.username
+    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
+    LEFT JOIN queue ON customer.customer_id = queue.customer_id
+    LEFT JOIN employees ON queue.emp_id = queue.emp_id
     WHERE users.u_id = :u_id
 ";
 
@@ -29,40 +34,30 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
 if ($data) {
+    // echo '<pre>';
+    // print_r($data);
+    // echo '</pre>';
 
     // ตัวอย่างการเข้าถึงข้อมูล
     $user_id = $data['u_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
     $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
     $customer_id = $data['customer_id'];
+    $estimate_id = $data['estimate_id'];
+    $queue_id = $data['queue_id'];
+    $total = $data['total'];
 
     // แสดงข้อมูล
     echo "User ID: " . htmlspecialchars($user_id) . "<br>";
     echo "Username: " . htmlspecialchars($username) . "<br>";
     echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "Estimate ID: " . htmlspecialchars($estimate_id) . "<br>";
+    echo "Queue ID: " . htmlspecialchars($queue_id) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
     // กรณีไม่พบข้อมูล
     echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
 }
-
-$reservation_id = 1; // Replace with actual value
-
-// Fetch service price and calculate the price with 10% more
-$query = "SELECT price FROM queue WHERE queue_id = :queue_id";
-$stmt = $db_con->prepare($query);
-$stmt->bindParam(':queue_id', $queue_id, PDO::PARAM_INT);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($row) {
-    $price = $row['price'];
-    $discount = 0.10; // 10%
-    $calculated_price = $price * $discount;
-} else {
-    $calculated_price = 0; // or handle no result case
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -105,6 +100,9 @@ if ($row) {
             border-radius: 5px; /* เพิ่มความโค้งมนให้ขอบ */
         }
         .img_gateway {
+            width: 500px; /* กำหนดความกว้างของภาพ */
+            height: auto; /* ปรับความสูงอัตโนมัติตามอัตราส่วนของภาพ */
+            max-width: 100%; /* ป้องกันการขยายขนาดเกินกว่าอัตราส่วนของคอลัมน์ */
             cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็น pointer เมื่อชี้ */
         }
         .info {
@@ -135,23 +133,34 @@ if ($row) {
             align-items: center; /* จัดตำแหน่งกลางในแนวตั้ง */
             height: 100%; /* ใช้ความสูงเต็มที่ของบรรทัดที่บรรจุ */
         }
+        .payment-separator hr {
+            border: 2px solid #ddd; /* กำหนดสีและขนาดของเส้น */
+            margin-top: 20px; /* กำหนดระยะห่างด้านบน */
+            margin-bottom: 20px; /* กำหนดระยะห่างด้านล่าง */
+            width: 100%; /* ทำให้เส้นเต็มความกว้างของบรรทัด */
+        }
+
     </style>
 
-<script>
+    <script>
         var countdownTimer; // ประกาศตัวแปรสำหรับ setInterval
         var time; // ประกาศตัวแปรสำหรับเวลา
 
         function selectGateway(id) {
             let info;
+            let imageSrc;
             switch(id) {
                 case 1:
                     info = 'ข้อมูลสำหรับการชำระเงิน "เลขบัญชี"';
+                    imageSrc = '../images/payment_method_1.png'; // เปลี่ยนเป็นเส้นทางไปยังภาพสำหรับ gateway 1
                     break;
                 case 2:
                     info = 'ข้อมูลสำหรับการชำระเงิน "พร้อมเพย์"';
+                    imageSrc = '../images/payment_method_2.png'; // เปลี่ยนเป็นเส้นทางไปยังภาพสำหรับ gateway 2
                     break;
                 default:
                     info = 'ข้อมูลไม่ถูกต้อง';
+                    imageSrc = ''; // ไม่มีภาพสำหรับการเลือกที่ไม่ถูกต้อง
             }
 
             // ตั้งเวลา 15 นาที (900 วินาที)
@@ -161,8 +170,11 @@ if ($row) {
             document.getElementById('paymentInfo').innerText = info;
             document.getElementById('paymentSeparator').style.display = 'block';
             document.getElementById('countdown').style.display = 'block';
-            document.getElementById('infoBox').style.display = 'block';
+            document.getElementById('infoBox').style.display = 'block'; // แสดง infoBox
             document.getElementById('buttonContainer').style.display = 'block';
+
+            // อัปเดต infoBox ด้วยภาพ
+            document.getElementById('infoBox').innerHTML = '<img src="' + imageSrc + '" style="width:100%; max-width:600px; height:auto;">';
 
             // เคลียร์ตัวจับเวลาถ้ามีอยู่แล้ว
             clearInterval(countdownTimer);
@@ -254,48 +266,35 @@ if ($row) {
                 <div class="row justify-content-center align-items-center">
                     <fieldset class="wrap_content">
                         <fieldset class="body_content">
-                            <fieldset>
+                            
                                 <div style="font-size: 20px;" class="coin"> 
-                                    ราคา: <?php echo number_format($calculated_price, 2); ?> บาท 
+                                    ราคา: <?php echo " " . htmlspecialchars($total)?> บาท 
                                 </div>
                                 
-                                <div class="list_gateway" style="margin-top: 20px; padding: 20px">
-                                    <div style="font-size: 20px;" class="head_text"> กรุณาเลือกช่องทางการชำระเงิน </div>
-                                    <div class="row justify-content-center align-items-center" id="wrap_gateway">
-                                        <div class="col-auto">
-                                            <div class="card" style="width: 20rem;">
-                                                <div class="img_gateway gateway_1" value="">
-                                                    <img src="../images/payment.png" style="width:100%;" onclick="selectGateway(1);"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="card" style="width: 20rem;">
-                                                <div class="img_gateway gateway_2" value="24">
-                                                    <img src="../images/payment-QR.png" style="width:100%;" onclick="selectGateway(2);" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="row mt-4">
+                                    <div class="col-auto">
+                                        <img id="gateway1" class="img_gateway" src="../images/payment.png" alt="Gateway 1" onclick="selectGateway(1)">
                                     </div>
+                                    <div class="col-auto">
+                                        <img id="gateway2" class="img_gateway" src="../images/payment-QR.png" alt="Gateway 2" onclick="selectGateway(2)">
+                                    </div>
+                                    
                                 </div>
 
-                                <!-- <hr> ที่จะแสดงขึ้นเมื่อคลิก -->
-                                <hr id="paymentSeparator" style="display: none;" />
-                                <!-- div สำหรับแสดงข้อมูลการชำระเงิน -->
-                                <div id="paymentInfo" class="info">
-                                    <!-- ข้อมูลการชำระเงินจะถูกเพิ่มที่นี่ -->
+                                <div id="paymentSeparator" class="payment-separator" style="display: block;">
+                                    <hr>
                                 </div>
-                                <div id="countdown"></div>
-                                <!-- div สำหรับแสดงข้อมูล -->
-                                <div id="infoBox" class="info-box center-content">
-                                    <!-- ข้อมูลเพิ่มเติมจะถูกเพิ่มที่นี่ -->
-                                </div>
-                                <!-- ปุ่มที่จะแสดงขึ้นเมื่อคลิก -->
+
+                                <div id="paymentInfo" class="info"></div>
+                                <div id="countdown" class="info" style="display: none;">00:00</div>
+                                <div id="infoBox" class="info-box"></div>
+
                                 <div id="buttonContainer" class="btn-container">
                                     <a href="uploadpayment.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
                                     <a href="reservation_form.php" class="btn btn-warning" role="button">ย้อนกลับ</a>
                                 </div>
-                            </fieldset>
+
+                            
                         </fieldset>
                     </fieldset>
                 </div>
