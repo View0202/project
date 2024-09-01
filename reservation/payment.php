@@ -110,19 +110,6 @@ if ($data) {
             color: #000;
             margin-top: 20px;
         }
-        hr {
-            border: 2px solid #ddd;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        .info-box {
-            width: 100%;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: none; /* ซ่อนกล่องข้อมูลเริ่มต้น */
-        }
         .btn-container {
             margin: 20px;
             display: none; /* ซ่อนปุ่มเริ่มต้น */
@@ -133,13 +120,7 @@ if ($data) {
             align-items: center; /* จัดตำแหน่งกลางในแนวตั้ง */
             height: 100%; /* ใช้ความสูงเต็มที่ของบรรทัดที่บรรจุ */
         }
-        .payment-separator hr {
-            border: 2px solid #ddd; /* กำหนดสีและขนาดของเส้น */
-            margin-top: 20px; /* กำหนดระยะห่างด้านบน */
-            margin-bottom: 20px; /* กำหนดระยะห่างด้านล่าง */
-            width: 100%; /* ทำให้เส้นเต็มความกว้างของบรรทัด */
-        }
-
+        
     </style>
 
     <script>
@@ -152,11 +133,11 @@ if ($data) {
             switch(id) {
                 case 1:
                     info = 'ข้อมูลสำหรับการชำระเงิน "เลขบัญชี"';
-                    imageSrc = '../images/payment_method_1.png'; // เปลี่ยนเป็นเส้นทางไปยังภาพสำหรับ gateway 1
+                    imageSrc = '../images/payment_bank.png'; // เปลี่ยนเป็นเส้นทางไปยังภาพสำหรับ gateway 1
                     break;
                 case 2:
                     info = 'ข้อมูลสำหรับการชำระเงิน "พร้อมเพย์"';
-                    imageSrc = '../images/payment_method_2.png'; // เปลี่ยนเป็นเส้นทางไปยังภาพสำหรับ gateway 2
+                    imageSrc = '../images/payment_promptpay.png'; // เปลี่ยนเป็นเส้นทางไปยังภาพสำหรับ gateway 2
                     break;
                 default:
                     info = 'ข้อมูลไม่ถูกต้อง';
@@ -174,7 +155,7 @@ if ($data) {
             document.getElementById('buttonContainer').style.display = 'block';
 
             // อัปเดต infoBox ด้วยภาพ
-            document.getElementById('infoBox').innerHTML = '<img src="' + imageSrc + '" style="width:100%; max-width:600px; height:auto;">';
+            document.getElementById('infoBox').innerHTML = '<img src="' + imageSrc + '" style="width:100%; max-width:400px; height:auto;">';
 
             // เคลียร์ตัวจับเวลาถ้ามีอยู่แล้ว
             clearInterval(countdownTimer);
@@ -267,34 +248,37 @@ if ($data) {
                     <fieldset class="wrap_content">
                         <fieldset class="body_content">
                             
-                                <div style="font-size: 20px;" class="coin"> 
-                                    ราคา: <?php echo " " . htmlspecialchars($total)?> บาท 
+                            <div style="display: flex; justify-content: center;">
+                                <div style="font-size: 25px; margin: 20px; font-weight: bold; border: 1px solid black; width: 300px;" class="coin"> 
+                                    ราคา: <?php echo " " . htmlspecialchars($total) ?> บาท 
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-auto">
+                                    <img id="gateway1" class="img_gateway" src="../images/bank.png" alt="Gateway 1" onclick="selectGateway(1)">
+                                </div>
+                                <div class="col-auto">
+                                    <img id="gateway2" class="img_gateway" src="../images/payment-QR.png" alt="Gateway 2" onclick="selectGateway(2)">
                                 </div>
                                 
-                                <div class="row mt-4">
-                                    <div class="col-auto">
-                                        <img id="gateway1" class="img_gateway" src="../images/payment.png" alt="Gateway 1" onclick="selectGateway(1)">
-                                    </div>
-                                    <div class="col-auto">
-                                        <img id="gateway2" class="img_gateway" src="../images/payment-QR.png" alt="Gateway 2" onclick="selectGateway(2)">
-                                    </div>
+                                <div style="font-size: 20px;"> 
+                                    >>คลิกเลือกช่องทางการชำระ<<
+                                </div>
                                     
-                                </div>
+                            </div>
 
-                                <div id="paymentSeparator" class="payment-separator" style="display: block;">
-                                    <hr>
-                                </div>
+                            <hr id="paymentSeparator" style="display: none;" />
 
-                                <div id="paymentInfo" class="info"></div>
-                                <div id="countdown" class="info" style="display: none;">00:00</div>
-                                <div id="infoBox" class="info-box"></div>
 
-                                <div id="buttonContainer" class="btn-container">
-                                    <a href="uploadpayment.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
-                                    <a href="reservation_form.php" class="btn btn-warning" role="button">ย้อนกลับ</a>
-                                </div>
+                            <div id="paymentInfo" class="info"></div>
+                            <div id="countdown" class="info" style="display: none;">00:00</div>
+                            <div id="infoBox" class="info-box"></div>
 
-                            
+                            <div id="buttonContainer" class="btn-container">
+                                <a href="uploadpayment.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
+                                <a href="reservation_form.php" class="btn btn-warning" role="button">ย้อนกลับ</a>
+                            </div>
                         </fieldset>
                     </fieldset>
                 </div>
