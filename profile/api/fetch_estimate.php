@@ -10,33 +10,22 @@ if (!isset($_SESSION['u_id'])) {
     exit;
 }
 
-$u_id = $_SESSION['u_id'];
-
-// echo 'Customer ID: ' . htmlspecialchars($u_id); // ตรวจสอบค่า customer_id
-
 $sql = "SELECT estimate_id, detail, file FROM estimate WHERE customer_id = :customer_id";
 $stmt = $db_con->prepare($sql);
 $stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
+$stmt->execute();
 
-try {
-    $stmt->execute();
+$estimates = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($stmt->rowCount() > 0) {
-        $index = 1;
-        while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo '<tr>';
-            echo '<td>' . $index++ . '</td>';
-            echo '<td>' . htmlspecialchars($data['detail']) . '</td>';
-            echo '<td><img src="../image_estimate/' . htmlspecialchars($data['file']) . '" alt="Image" style="max-width: 150px;"></td>';
-            echo '<td>';
-            echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#estimateModal">การตอบกลับ</button>';
-            echo '</td>';
-            echo '</tr>';
-        }
-    } else {
-        echo '<tr><td colspan="4" align="center">ไม่พบข้อมูล</td></tr>';
-    }
-} catch (PDOException $e) {
-    echo '<tr><td colspan="4" align="center">Error: ' . htmlspecialchars($e->getMessage()) . '</td></tr>';
+foreach ($estimates as $index => $estimate) {
+    echo '<tr>';
+    echo '<td>' . ($index + 1) . '</td>';
+    echo '<td>' . htmlspecialchars($estimate['detail']) . '</td>';
+    echo '<td><img src="../image_estimate/' . htmlspecialchars($estimate['file']) . '" width="100" height="100" /></td>';
+    echo '<td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#estimateModal" data-estimate_id="' . htmlspecialchars($estimate['estimate_id']) . '">การตอบกลับ</button>
+            <button type="button" class="btn btn-danger" onclick="deleteEstimate(' . htmlspecialchars($estimate['estimate_id']) . ')">ลบข้อมูล</button>
+          </td>';
+    echo '</tr>';
 }
 ?>

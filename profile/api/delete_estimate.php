@@ -10,17 +10,15 @@ $estimate_id = $data['estimate_id'] ?? null;
 
 if ($estimate_id) {
     try {
-        $sql = "SELECT response FROM estimate WHERE estimate_id = :estimate_id";
+        $sql = "DELETE FROM estimate WHERE estimate_id = :estimate_id";
         $stmt = $db_con->prepare($sql);
         $stmt->bindParam(':estimate_id', $estimate_id, PDO::PARAM_INT);
         $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            $response['response'] = $result['response'];
+        if ($stmt->rowCount() > 0) {
+            $response['success'] = true;
         } else {
-            $response['error'] = 'ไม่มีข้อมูล';
+            $response['error'] = 'ไม่พบข้อมูลที่ต้องการลบ';
         }
     } catch (PDOException $e) {
         $response['error'] = 'ข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: ' . $e->getMessage();

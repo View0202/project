@@ -91,6 +91,8 @@ if ($data) {
     <!-- sweet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    
+
     <!-- jquery -->
     <script type="text/javascript" src="../index.js"></script>
 
@@ -194,7 +196,7 @@ if ($data) {
                     <button class="nav-link" id="pills-face-tab" data-bs-toggle="pill" data-bs-target="#pills-face" type="button" role="tab" aria-controls="pills-face" aria-selected="false">การประเมินใบหน้า</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-form-tab" data-bs-toggle="pill" data-bs-target="#pills-form" type="button" role="tab" aria-controls="pills-form" aria-selected="false">แบบประเมิน</button>
+                    <button class="nav-link" id="pills-form-tab" data-bs-toggle="pill" data-bs-target="#pills-form" type="button" role="tab" aria-controls="pills-form" aria-selected="false">ความคิดเห็น</button>
                 </li>
             </ul>
 
@@ -382,24 +384,23 @@ if ($data) {
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
                                 <strong>การประเมินใบหน้า</strong>
                                 <div class="container mt-5">
-
                                     <div class="row">
                                         <div class="col" align="right">
                                             <a href="../estimate/estimate.php" class="btn btn-primary">เพิ่ม</a>
                                         </div>
                                     </div>
-
                                     <div class="row">
+                                        <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($customer_id) ?>">
                                         <table class="table" id="estimateData">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">รายละเอียด</th>
                                                     <th scope="col">รูปภาพใบหน้า</th>
-                                                    <th scope="col">จัดการข้อมูล</th>
+                                                    <th scope="col">ข้อมูล</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="content">
+                                            <tbody id="estimateContent">
                                                 <?php include 'api/fetch_estimate.php'; ?>
                                             </tbody>
                                         </table>
@@ -418,12 +419,9 @@ if ($data) {
                                 <h5 class="modal-title" id="estimateModalLabel">การตอบกลับ</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-
                             <div class="modal-body" id="modalBodyContent">
-                                <input type="hidden" id="customer_id" name="customer_id">
-                                    
-                                <div class="mb-3">
-                                </div>
+                                <input type="hidden" id="estimate_id" name="estimate_id">
+                                <div id="responseContent"></div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
@@ -432,37 +430,82 @@ if ($data) {
                     </div>
                 </div>
 
+
                 <!-- Javascript -->
                 <script>
                     $(document).ready(function() {
                         $('#estimateModal').on('show.bs.modal', function (e) {
-                            var customerId = $(e.relatedTarget).data('customer_id'); // ดึง customer_id จากปุ่มที่เปิดโมดัล
-                            console.log(customerId); // ตรวจสอบว่า customer_id ที่ส่งมีค่าอะไร
+                            var estimateId = $(e.relatedTarget).data('estimate_id'); // ดึง estimate_id จากปุ่มที่เปิดโมดัล
 
                             $.ajax({
                                 url: 'api/getestimate.php', // URL ของสคริปต์ PHP ที่ดึงข้อมูล
-                                type: 'GET',
+                                type: 'POST',
                                 dataType: 'json',
-                                data: { customer_id: customerId }, // ส่ง customer_id ไปยัง getestimate.php
+                                contentType: 'application/json',
+                                data: JSON.stringify({ estimate_id: estimateId }), // ส่ง estimate_id ไปยัง getestimate.php
                                 success: function(response) {
                                     console.log(response); // ดูการตอบกลับจาก PHP ว่าได้อะไรบ้าง
-                                    if (response.data && response.data.length > 0) {
-                                        var content = '<ul>';
-                                        $.each(response.data, function(index, item) {
-                                            content += '<li>' + item.response + '</li>'; // แสดงข้อมูล response ที่ได้จากฐานข้อมูล
-                                        });
-                                        content += '</ul>';
-                                        $('#modalBodyContent').html(content); // แสดงข้อมูลในโมดัล
+                                    if (response.response) {
+                                        $('#responseContent').text(response.response); // แสดงข้อมูลในโมดัล
                                     } else {
-                                        $('#modalBodyContent').html('ไม่มีข้อมูล');
+                                        $('#responseContent').text(response.error);
                                     }
                                 },
-                                error: function() {
-                                    $('#modalBodyContent').html('เกิดข้อผิดพลาดในการโหลดข้อมูล');
+                                error: function(xhr, status, error) {
+                                    console.error('Error:', status, error); // ตรวจสอบข้อผิดพลาด
+                                    $('#responseContent').text('เกิดข้อผิดพลาดในการโหลดข้อมูล');
                                 }
                             });
                         });
                     });
+
+                    function deleteEstimate(estimateId) {
+                        Swal.fire({
+                            title: 'คุณแน่ใจว่าต้องการลบข้อมูลนี้?',
+                            text: "",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'ใช่, ลบข้อมูล!',
+                            cancelButtonText: 'ยกเลิก'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    url: 'api/delete_estimate.php', // URL ของสคริปต์ PHP สำหรับการลบข้อมูล
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({ estimate_id: estimateId }), // ส่ง estimate_id ไปยัง delete_estimate.php
+                                    success: function(response) {
+                                        if (response.success) {
+                                            Swal.fire(
+                                                'ลบข้อมูลสำเร็จ!',
+                                                '',
+                                                'success'
+                                            ).then(() => {
+                                                location.reload(); // โหลดหน้าใหม่เพื่ออัปเดตตาราง
+                                            });
+                                        } else {
+                                            Swal.fire(
+                                                'เกิดข้อผิดพลาด!',
+                                                'ไม่สามารถลบข้อมูลได้: ' + response.error,
+                                                'error'
+                                            );
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error('Error:', status, error); // ตรวจสอบข้อผิดพลาด
+                                        Swal.fire(
+                                            'เกิดข้อผิดพลาด!',
+                                            'ไม่สามารถติดต่อกับเซิร์ฟเวอร์ได้',
+                                            'error'
+                                        );
+                                    }
+                                });
+                            }
+                        });
+                    }
                 </script>
 
                 <!-- แบบประเมิน -->
@@ -470,7 +513,7 @@ if ($data) {
                     <form method="POST" id="comment" class="form-horizontal" action="api/updatecomment.php" onsubmit="return updateComment()">
                         <div class="row justify-content-center">
                             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; height: 500px">
-                                <strong style="font-size: 30px;">แบบประเมินความพึงพอใจ</strong>
+                                <strong style="font-size: 30px;">แสดงความคิดเห็น</strong>
                                 <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($data['customer_id']) ?>">
                                 <input type="hidden" id="u_id" name="u_id" value="<?= htmlspecialchars($data['u_id']) ?>">
 
