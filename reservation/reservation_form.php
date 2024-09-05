@@ -243,7 +243,9 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
             <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
                 <strong>การจองคิว</strong>
                     <div class="container-fluid">
-                        <div id="calendar"></div>
+                        <div id="calendar">
+                            
+                        </div>
                     </div>
 
                     <!-- คำอธิบาย -->
@@ -344,15 +346,32 @@ $employees = $employeeStmt->fetchAll(PDO::FETCH_ASSOC);
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                dateClick: function(info) {
-                    // แสดงวันที่ที่เลือกใน modal
-                    document.getElementById('date').value = info.dateStr;
-                    var modal = new bootstrap.Modal(document.getElementById('bookingModal'));
-                    modal.show();
-                },
-                events: 'api/fetchevents.php' // ดึงเหตุการณ์จากเซิร์ฟเวอร์
-            });
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    // ดึงข้อมูลจาก PHP ผ่าน AJAX
+                    $.ajax({
+                        url: 'api/fetch_queue_data.php',
+                        method: 'POST',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);  // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลในคอนโซล
+                            var events = [];
 
+                            // แปลงข้อมูลเป็น event ใน FullCalendar
+                            data.forEach(function(queue) {
+                                events.push({
+                                    title:  queue.service_name + ', ' + queue.fname,
+                                    start: queue.queue_date + 'T' + queue.queue_time
+                                });
+                            });
+
+                            successCallback(events);
+                        },
+                        error: function() {
+                            failureCallback();
+                        }
+                    });
+                }
+            });
             calendar.render();
         });
 
