@@ -1,218 +1,359 @@
-<!-- <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body data-new-gr-c-s-check-loaded="14.1193.0" data-gr-ext-installed="">
-<div id="calendar" class="demo-calendar fc fc-media-screen fc-direction-ltr fc-theme-bootstrap5">
-    <div class="fc-header-toolbar fc-toolbar fc-toolbar-ltr"><div class="fc-toolbar-chunk">
-        <div class="btn-group">
-            <button type="button" title="Previous month" aria-pressed="false" class="fc-prev-button btn btn-primary">
-                <span class="bi bi-chevron-left" role="img"></span>
-            </button>
-            <button type="button" title="Next month" aria-pressed="false" class="fc-next-button btn btn-primary">
-                <span class="bi bi-chevron-right" role="img"></span>
-            </button>
-        </div>
-        <button type="button" title="This month" disabled="" aria-pressed="false" class="fc-today-button btn btn-primary">
-            today
-        </button>
-    </div>
-
-    <div class="fc-toolbar-chunk">
-        <h2 class="fc-toolbar-title" id="fc-dom-1">September 2024</h2>
-    </div>
-
-    <div class="fc-toolbar-chunk">
-        <div class="btn-group">
-            <button type="button" title="month view" aria-pressed="true" class="fc-dayGridMonth-button btn btn-primary active">
-                month
-            </button>
-            <button type="button" title="week view" aria-pressed="false" class="fc-timeGridWeek-button btn btn-primary">
-                week
-            </button>
-            <button type="button" title="day view" aria-pressed="false" class="fc-timeGridDay-button btn btn-primary">
-                day
-            </button>
-            <button type="button" title="list view" aria-pressed="false" class="fc-listWeek-button btn btn-primary">
-                list
-            </button>
-        </div>
-    </div>
-</div>
-
-<div aria-labelledby="fc-dom-1" class="fc-view-harness fc-view-harness-active" style="height: 471.111px;">
-    <div class="fc-dayGridMonth-view fc-view fc-daygrid"><table role="grid" class="fc-scrollgrid  fc-scrollgrid-liquid">
-        <thead role="rowgroup">
-            <tr role="presentation" class="fc-scrollgrid-section fc-scrollgrid-section-header ">
-                <th role="presentation">
-                    <div class="fc-scroller-harness">
-                        <div class="fc-scroller" style="overflow: hidden;">
-                            <table role="presentation" class="fc-col-header " style="width: 634px;">
-                                <colgroup></colgroup>
-                                <thead role="presentation">
-                                    <tr role="row">
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-sun">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Sunday" class="fc-col-header-cell-cushion">
-                                                    Sun
-                                                </a>
-                                            </div>
-                                        </th>
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-mon">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Monday" class="fc-col-header-cell-cushion">
-                                                    Mon
-                                                </a>
-                                            </div>
-                                        </th>
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-tue">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Tuesday" class="fc-col-header-cell-cushion">
-                                                    Tue
-                                                </a>
-                                            </div>
-                                        </th>
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-wed">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Wednesday" class="fc-col-header-cell-cushion">
-                                                    Wed
-                                                </a>
-                                            </div>
-                                        </th>
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-thu">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Thursday" class="fc-col-header-cell-cushion">
-                                                    Thu
-                                                </a>
-                                            </div>
-                                        </th>
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-fri">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Friday" class="fc-col-header-cell-cushion">
-                                                    Fri
-                                                </a>
-                                            </div>
-                                        </th>
-                                        <th role="columnheader" class="fc-col-header-cell fc-day fc-day-sat">
-                                            <div class="fc-scrollgrid-sync-inner">
-                                                <a aria-label="Saturday" class="fc-col-header-cell-cushion">
-                                                    Sat
-                                                </a>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
+<!doctype html>
+<html>
+    <head>
+        <title>บริษัทปัญญาประดิษฐ์ รูปแบบเว็บไซต์ | WIX</title>
+        <!-- BEGIN SENTRY -->
+        <script id="sentry">
+            (function(c, u, v, n, p, e, z, A, w) {
+                function k(a) {
+                    if (!x) {
+                        x = !0;
+                        var l = u.getElementsByTagName(v)[0]
+                          , d = u.createElement(v);
+                        d.src = A;
+                        d.crossorigin = "anonymous";
+                        d.addEventListener("load", function() {
+                            try {
+                                c[n] = r;
+                                c[p] = t;
+                                var b = c[e]
+                                  , d = b.init;
+                                b.init = function(a) {
+                                    for (var b in a)
+                                        Object.prototype.hasOwnProperty.call(a, b) && (w[b] = a[b]);
+                                    d(w)
+                                }
+                                ;
+                                B(a, b)
+                            } catch (g) {
+                                console.error(g)
+                            }
+                        });
+                        l.parentNode.insertBefore(d, l)
+                    }
+                }
+                function B(a, l) {
+                    try {
+                        for (var d = m.data, b = 0; b < a.length; b++)
+                            if ("function" === typeof a[b])
+                                a[b]();
+                        var e = !1
+                          , g = c.__SENTRY__;
+                        "undefined" !== typeof g && g.hub && g.hub.getClient() && (e = !0);
+                        g = !1;
+                        for (b = 0; b < d.length; b++)
+                            if (d[b].f) {
+                                g = !0;
+                                var f = d[b];
+                                !1 === e && "init" !== f.f && l.init();
+                                e = !0;
+                                l[f.f].apply(l, f.a)
+                            }
+                        !1 === e && !1 === g && l.init();
+                        var h = c[n]
+                          , k = c[p];
+                        for (b = 0; b < d.length; b++)
+                            d[b].e && h ? h.apply(c, d[b].e) : d[b].p && k && k.apply(c, [d[b].p])
+                    } catch (C) {
+                        console.error(C)
+                    }
+                }
+                for (var f = !0, y = !1, q = 0; q < document.scripts.length; q++)
+                    if (-1 < document.scripts[q].src.indexOf(z)) {
+                        f = "no" !== document.scripts[q].getAttribute("data-lazy");
+                        break
+                    }
+                var x = !1
+                  , h = []
+                  , m = function(a) {
+                    (a.e || a.p || a.f && -1 < a.f.indexOf("capture") || a.f && -1 < a.f.indexOf("showReportDialog")) && f && k(h);
+                    m.data.push(a)
+                };
+                m.data = [];
+                c[e] = c[e] || {};
+                c[e].onLoad = function(a) {
+                    h.push(a);
+                    f && !y || k(h)
+                }
+                ;
+                c[e].forceLoad = function() {
+                    y = !0;
+                    f && setTimeout(function() {
+                        k(h)
+                    })
+                }
+                ;
+                "init addBreadcrumb captureMessage captureException captureEvent configureScope withScope showReportDialog".split(" ").forEach(function(a) {
+                    c[e][a] = function() {
+                        m({
+                            f: a,
+                            a: arguments
+                        })
+                    }
+                });
+                var r = c[n];
+                c[n] = function(a, e, d, b, f) {
+                    m({
+                        e: [].slice.call(arguments)
+                    });
+                    r && r.apply(c, arguments)
+                }
+                ;
+                var t = c[p];
+                c[p] = function(a) {
+                    m({
+                        p: a.reason
+                    });
+                    t && t.apply(c, arguments)
+                }
+                ;
+                f || setTimeout(function() {
+                    k(h)
+                })
+            }
+            )(window, document, "script", "onerror", "onunhandledrejection", "Sentry", "b4e7a2b423b54000ac2058644c76f718", "https://static.parastorage.com/unpkg/@sentry/browser@5.27.4/build/bundle.min.js", {
+                "dsn": "https://b4e7a2b423b54000ac2058644c76f718@sentry.wixpress.com/217"
+            });
+        </script>
+        <script type="text/javascript">
+            window.Sentry.onLoad(function() {
+                window.Sentry.init({
+                    "release": "marketing-template-viewer@1.2177.0",
+                    "environment": "production",
+                    "allowUrls": undefined,
+                    "denyUrls": undefined
+                });
+                window.Sentry.configureScope(function(scope) {
+                    scope.setUser({
+                        id: "null-user-id:b3feb0e1-147a-47d3-acb0-dc3c4b73542e",
+                        clientId: "b3feb0e1-147a-47d3-acb0-dc3c4b73542e",
+                    });
+                    scope.setExtra("user.authenticated", false);
+                    scope.setExtra("sessionId", "935849b6-bb54-4bf3-9827-2e352560e682");
+                });
+            });
+        </script>
+        <!-- END SENTRY -->
+        <script src="https://static.parastorage.com/polyfill/v3/polyfill.min.js?features=default,es6,es7,es2017,es2018,es2019,fetch&flags=gated&unknown=polyfill"></script>
+        <script>
+            window.onWixFedopsLoggerLoaded = function() {
+                window.fedopsLogger && window.fedopsLogger.reportAppLoadStarted('marketing-template-viewer');
+            }
+        </script>
+        <script onload="onWixFedopsLoggerLoaded()" src="//static.parastorage.com/unpkg/@wix/fedops-logger@5.507.0/dist/statics/fedops-logger.bundle.min.js" crossorigin></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <link rel="icon" sizes="192x192" href="https://www.wix.com/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="https://www.wix.com/favicon.ico" type="image/x-icon"/>
+        <link rel="apple-touch-icon" href="https://www.wix.com/favicon.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="https://static.parastorage.com/services/third-party/fonts/Helvetica/fontFace.css">
+        <link rel="stylesheet" href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/madefor.min.css">
+        <link rel="stylesheet" href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/madeforDisplay.min.css">
+        <link rel="stylesheet" href="//static.parastorage.com/services/marketing-template-viewer/1.2177.0/app.min.css">
+        <meta name="description" content="เทมเพลตนี้ให้สุนทรียภาพด้านการแสดงผลเพื่อสื่อถึงมุมมองแห่งอนาคต ดีไซน์ที่มีระดับช่วยให้ผลิตภัณฑ์ของคุณเปล่งประกาย ขณะเดียวกันแอป Wix Forms ก็เป็นเครื่องมือที่ยอดเยี่ยมสำหรับการเฟ้นหาคนเก่งมาร่วมงานกับคุณ และเชิญกลุ่มคนที่สนใจเทคโนโลยีมาสมัครรับข้อมูลอัปเดตเกี่ยวกับบริษัท คลิก &#34;แก้ไข&#34; เพื่อบังคับพวงมาลัยได้เลย">
+        <meta name="author" content="Wixpress">
+        <meta http-equiv="content-language" content="th"/>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta property="og:title" content="บริษัทปัญญาประดิษฐ์ รูปแบบเว็บไซต์ | WIX"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://th.wix.com/website-template/view/html/2898"/>
+        <meta property="og:image" content="//static.wixstatic.com/media//templates/image/b4f2783ce96ff27bf8d6343aa5c08bfc5cef9c057b8ebf9461d30e44bc94d2d11644571654096.jpg"/>
+        <meta content="Wix" property="og:site_name">
+        <meta property="og:description" content="เทมเพลตนี้ให้สุนทรียภาพด้านการแสดงผลเพื่อสื่อถึงมุมมองแห่งอนาคต ดีไซน์ที่มีระดับช่วยให้ผลิตภัณฑ์ของคุณเปล่งประกาย ขณะเดียวกันแอป Wix Forms ก็เป็นเครื่องมือที่ยอดเยี่ยมสำหรับการเฟ้นหาคนเก่งมาร่วมงานกับคุณ และเชิญกลุ่มคนที่สนใจเทคโนโลยีมาสมัครรับข้อมูลอัปเดตเกี่ยวกับบริษัท คลิก &#34;แก้ไข&#34; เพื่อบังคับพวงมาลัยได้เลย"/>
+        <meta property="fb:admins" content="731184828"/>
+        <meta name="fb:app_id" content="236335823061286"/>
+        <meta name="google-site-verification" content="QXhlrY-V2PWOmnGUb8no0L-fKzG48uJ5ozW0ukU7Rpo"/>
+        <link rel="canonical" href="https://th.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="fr" href="https://fr.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="pt" href="https://pt.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="cs" href="https://cs.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="it" href="https://it.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="nl" href="https://nl.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="ko" href="https://ko.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="de" href="https://de.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="ru" href="https://ru.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="sv" href="https://sv.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="tr" href="https://tr.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="da" href="https://da.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="en" href="https://www.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="es" href="https://es.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="hi" href="https://hi.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="ja" href="https://ja.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="no" href="https://no.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="pl" href="https://pl.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="vi" href="https://vi.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="uk" href="https://uk.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="zh" href="https://zh.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="th" href="https://th.wix.com/website-template/view/html/2898"/>
+        <link rel="alternate" hreflang="x-default" href="https://www.wix.com/website-template/view/html/2898"/>
+    </head>
+    <body>
+        <script>
+            window.onWixRecorderLoaded = function() {
+                window.dispatchEvent(new Event('wixRecorderReady'));
+            }
+            ;
+        </script>
+        <script async src="//static.parastorage.com/unpkg-semver/wix-recorder/app.bundle.min.js" crossorigin onload="onWixRecorderLoaded()"></script>
+        <script src="//static.parastorage.com/services/cookie-sync-service/1.347.20/embed-cidx.bundle.min.js"></script>
+        <script src="//static.parastorage.com/services/tag-manager-client/1.875.0/hostTags.bundle.min.js"></script>
+        <div id="root">
+            <div data-hook="app">
+                <div data-hook="tool-bar" class="sbWfkE">
+                    <div class="Mn4893">
+                        <div class="bZOLNF">
+                            <a data-hook="logo" href="/" class="nHuSJZ">
+                                <span class="AV8G6s">wix.com</span>
+                            </a>
+                        </div>
+                        <div class="wKSaYa">
+                            <button data-hook="desktop-view" class="is65hl sdsgLW">
+                                <span class="XFdFwl">แสดงมุมมองเดสก์ท็อป</span>
+                            </button>
+                            <hr class="hS1yv1"/>
+                            <button data-hook="mobile-view" class="fB70N2">
+                                <span class="XFdFwl">แสดงมุมมองมือถือ</span>
+                            </button>
                         </div>
                     </div>
-                </th>
-            </tr>
-        </thead>
-
-        <tbody role="rowgroup">
-            <tr role="presentation" class="fc-scrollgrid-section fc-scrollgrid-section-body fc-scrollgrid-section-liquid">
-                <td role="presentation"><div class="fc-scroller-harness fc-scroller-harness-liquid">
-                    <div class="fc-scroller fc-scroller-liquid-absolute" style="overflow: hidden auto;">
-                        <div class="fc-daygrid-body fc-daygrid-body-balanced " style="width: 634px;">
-                            <table role="presentation" class="fc-scrollgrid-sync-table" style="width: 634px; height: 447px;">
-                                <colgroup></colgroup>
-                                <tbody role="presentation">
-                                    <tr role="row">
-                                        <td aria-labelledby="fc-dom-2" role="gridcell" data-date="2024-09-01" class="fc-day fc-day-sun fc-day-past fc-daygrid-day">
-                                            <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
-                                                <div class="fc-daygrid-day-top">
-                                                    <a title="Go to September 1, 2024" data-navlink="" tabindex="0" id="fc-dom-2" class="fc-daygrid-day-number">
-                                                        1
-                                                    </a>
-                                                </div>
-                                                <div class="fc-daygrid-day-events">
-                                                    <div class="fc-daygrid-event-harness" style="margin-top: 0px;">
-                                                        <a class="fc-event fc-event-start fc-event-end fc-event-past fc-daygrid-event fc-daygrid-block-event fc-h-event">
-                                                            <div class="fc-event-main">
-                                                                <div class="fc-event-main-frame">
-                                                                    <div class="fc-event-title-container">
-                                                                        <div class="fc-event-title fc-sticky">
-                                                                            All Day Event
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
-                                                </div>
-                                                <div class="fc-daygrid-day-bg"></div>
-                                            </div>
-                                        </td>
-                                        <td aria-labelledby="fc-dom-4" role="gridcell" data-date="2024-09-02" class="fc-day fc-day-mon fc-day-past fc-daygrid-day">
-                                            <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
-                                                <div class="fc-daygrid-day-top">
-                                                    <a title="Go to September 2, 2024" data-navlink="" tabindex="0" id="fc-dom-4" class="fc-daygrid-day-number">
-                                                        2
-                                                    </a>
-                                                </div>
-                                                <div class="fc-daygrid-day-events">
-                                                    <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
-                                                </div>
-                                                <div class="fc-daygrid-day-bg"></div>
-                                            </div>
-                                        </td>
-                                        <td aria-labelledby="fc-dom-6" role="gridcell" data-date="2024-09-03" class="fc-day fc-day-tue fc-day-past fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 3, 2024" data-navlink="" tabindex="0" id="fc-dom-6" class="fc-daygrid-day-number">3</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-8" role="gridcell" data-date="2024-09-04" class="fc-day fc-day-wed fc-day-past fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 4, 2024" data-navlink="" tabindex="0" id="fc-dom-8" class="fc-daygrid-day-number">4</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="top: 0px; left: 0px; right: -90.5625px;"><a class="fc-event fc-event-start fc-event-end fc-daygrid-event fc-daygrid-block-event fc-h-event"><div class="fc-event-main"><div class="fc-event-main-frame"><div class="fc-event-title-container"><div class="fc-event-title fc-sticky">Conference</div></div></div></div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 19px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-10" role="gridcell" data-date="2024-09-05" class="fc-day fc-day-thu fc-day-today fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 5, 2024" data-navlink="" tabindex="0" id="fc-dom-10" class="fc-daygrid-day-number">5</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="visibility: hidden; top: 0px; left: 0px; right: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-today fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">10:30a</div><div class="fc-event-title">Meeting</div></a></div><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="visibility: hidden; top: 0px; left: 0px; right: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-today fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">12p</div><div class="fc-event-title">Lunch</div></a></div><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="visibility: hidden; top: 0px; left: 0px; right: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-today fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">2:30p</div><div class="fc-event-title">Meeting</div></a></div><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="visibility: hidden; top: 0px; left: 0px; right: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-today fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">5:30p</div><div class="fc-event-title">Happy Hour</div></a></div><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="visibility: hidden; top: 0px; left: 0px; right: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-today fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">8p</div><div class="fc-event-title">Dinner</div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 19px;"><a tabindex="0" title="Show 5 more events" aria-expanded="false" aria-controls="" class="fc-daygrid-more-link fc-more-link">+5 more</a></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-12" role="gridcell" data-date="2024-09-06" class="fc-day fc-day-fri fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 6, 2024" data-navlink="" tabindex="0" id="fc-dom-12" class="fc-daygrid-day-number">6</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness" style="margin-top: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-future fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">7a</div><div class="fc-event-title">Birthday Party</div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-14" role="gridcell" data-date="2024-09-07" class="fc-day fc-day-sat fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 7, 2024" data-navlink="" tabindex="0" id="fc-dom-14" class="fc-daygrid-day-number">7</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness" style="margin-top: 0px;"><a class="fc-event fc-event-start fc-event-future fc-daygrid-event fc-daygrid-block-event fc-h-event"><div class="fc-event-main"><div class="fc-event-main-frame"><div class="fc-event-title-container"><div class="fc-event-title fc-sticky">Long Event</div></div></div></div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td></tr><tr role="row"><td aria-labelledby="fc-dom-16" role="gridcell" data-date="2024-09-08" class="fc-day fc-day-sun fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 8, 2024" data-navlink="" tabindex="0" id="fc-dom-16" class="fc-daygrid-day-number">8</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness fc-daygrid-event-harness-abs" style="top: 0px; left: 0px; right: -90.5625px;"><a class="fc-event fc-event-end fc-event-future fc-daygrid-event fc-daygrid-block-event fc-h-event"><div class="fc-event-main"><div class="fc-event-main-frame"><div class="fc-event-title-container"><div class="fc-event-title fc-sticky">Long Event</div></div></div></div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 19px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-18" role="gridcell" data-date="2024-09-09" class="fc-day fc-day-mon fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 9, 2024" data-navlink="" tabindex="0" id="fc-dom-18" class="fc-daygrid-day-number">9</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness" style="margin-top: 19px;"><a class="fc-event fc-event-start fc-event-end fc-event-future fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">4p</div><div class="fc-event-title">Repeating Event</div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-20" role="gridcell" data-date="2024-09-10" class="fc-day fc-day-tue fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 10, 2024" data-navlink="" tabindex="0" id="fc-dom-20" class="fc-daygrid-day-number">10</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-22" role="gridcell" data-date="2024-09-11" class="fc-day fc-day-wed fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 11, 2024" data-navlink="" tabindex="0" id="fc-dom-22" class="fc-daygrid-day-number">11</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-24" role="gridcell" data-date="2024-09-12" class="fc-day fc-day-thu fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 12, 2024" data-navlink="" tabindex="0" id="fc-dom-24" class="fc-daygrid-day-number">12</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-26" role="gridcell" data-date="2024-09-13" class="fc-day fc-day-fri fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 13, 2024" data-navlink="" tabindex="0" id="fc-dom-26" class="fc-daygrid-day-number">13</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-28" role="gridcell" data-date="2024-09-14" class="fc-day fc-day-sat fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 14, 2024" data-navlink="" tabindex="0" id="fc-dom-28" class="fc-daygrid-day-number">14</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td></tr><tr role="row"><td aria-labelledby="fc-dom-30" role="gridcell" data-date="2024-09-15" class="fc-day fc-day-sun fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 15, 2024" data-navlink="" tabindex="0" id="fc-dom-30" class="fc-daygrid-day-number">15</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-32" role="gridcell" data-date="2024-09-16" class="fc-day fc-day-mon fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 16, 2024" data-navlink="" tabindex="0" id="fc-dom-32" class="fc-daygrid-day-number">16</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness" style="margin-top: 0px;"><a class="fc-event fc-event-start fc-event-end fc-event-future fc-daygrid-event fc-daygrid-dot-event"><div class="fc-daygrid-event-dot"></div><div class="fc-event-time">4p</div><div class="fc-event-title">Repeating Event</div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-34" role="gridcell" data-date="2024-09-17" class="fc-day fc-day-tue fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 17, 2024" data-navlink="" tabindex="0" id="fc-dom-34" class="fc-daygrid-day-number">17</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-36" role="gridcell" data-date="2024-09-18" class="fc-day fc-day-wed fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 18, 2024" data-navlink="" tabindex="0" id="fc-dom-36" class="fc-daygrid-day-number">18</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-38" role="gridcell" data-date="2024-09-19" class="fc-day fc-day-thu fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 19, 2024" data-navlink="" tabindex="0" id="fc-dom-38" class="fc-daygrid-day-number">19</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-40" role="gridcell" data-date="2024-09-20" class="fc-day fc-day-fri fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 20, 2024" data-navlink="" tabindex="0" id="fc-dom-40" class="fc-daygrid-day-number">20</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-42" role="gridcell" data-date="2024-09-21" class="fc-day fc-day-sat fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 21, 2024" data-navlink="" tabindex="0" id="fc-dom-42" class="fc-daygrid-day-number">21</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td></tr><tr role="row"><td aria-labelledby="fc-dom-44" role="gridcell" data-date="2024-09-22" class="fc-day fc-day-sun fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 22, 2024" data-navlink="" tabindex="0" id="fc-dom-44" class="fc-daygrid-day-number">22</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-46" role="gridcell" data-date="2024-09-23" class="fc-day fc-day-mon fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 23, 2024" data-navlink="" tabindex="0" id="fc-dom-46" class="fc-daygrid-day-number">23</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-48" role="gridcell" data-date="2024-09-24" class="fc-day fc-day-tue fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 24, 2024" data-navlink="" tabindex="0" id="fc-dom-48" class="fc-daygrid-day-number">24</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-50" role="gridcell" data-date="2024-09-25" class="fc-day fc-day-wed fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 25, 2024" data-navlink="" tabindex="0" id="fc-dom-50" class="fc-daygrid-day-number">25</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-52" role="gridcell" data-date="2024-09-26" class="fc-day fc-day-thu fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 26, 2024" data-navlink="" tabindex="0" id="fc-dom-52" class="fc-daygrid-day-number">26</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-54" role="gridcell" data-date="2024-09-27" class="fc-day fc-day-fri fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 27, 2024" data-navlink="" tabindex="0" id="fc-dom-54" class="fc-daygrid-day-number">27</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-56" role="gridcell" data-date="2024-09-28" class="fc-day fc-day-sat fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 28, 2024" data-navlink="" tabindex="0" id="fc-dom-56" class="fc-daygrid-day-number">28</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-event-harness" style="margin-top: 0px;"><a href="http://google.com/" class="fc-event fc-event-start fc-event-end fc-event-future fc-daygrid-event fc-daygrid-block-event fc-h-event"><div class="fc-event-main"><div class="fc-event-main-frame"><div class="fc-event-title-container"><div class="fc-event-title fc-sticky">Click for Google</div></div></div></div></a></div><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td></tr><tr role="row"><td aria-labelledby="fc-dom-58" role="gridcell" data-date="2024-09-29" class="fc-day fc-day-sun fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 29, 2024" data-navlink="" tabindex="0" id="fc-dom-58" class="fc-daygrid-day-number">29</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-60" role="gridcell" data-date="2024-09-30" class="fc-day fc-day-mon fc-day-future fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to September 30, 2024" data-navlink="" tabindex="0" id="fc-dom-60" class="fc-daygrid-day-number">30</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-62" role="gridcell" data-date="2024-10-01" class="fc-day fc-day-tue fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 1, 2024" data-navlink="" tabindex="0" id="fc-dom-62" class="fc-daygrid-day-number">1</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-64" role="gridcell" data-date="2024-10-02" class="fc-day fc-day-wed fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 2, 2024" data-navlink="" tabindex="0" id="fc-dom-64" class="fc-daygrid-day-number">2</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-66" role="gridcell" data-date="2024-10-03" class="fc-day fc-day-thu fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 3, 2024" data-navlink="" tabindex="0" id="fc-dom-66" class="fc-daygrid-day-number">3</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-68" role="gridcell" data-date="2024-10-04" class="fc-day fc-day-fri fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 4, 2024" data-navlink="" tabindex="0" id="fc-dom-68" class="fc-daygrid-day-number">4</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-70" role="gridcell" data-date="2024-10-05" class="fc-day fc-day-sat fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 5, 2024" data-navlink="" tabindex="0" id="fc-dom-70" class="fc-daygrid-day-number">5</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td></tr><tr role="row"><td aria-labelledby="fc-dom-72" role="gridcell" data-date="2024-10-06" class="fc-day fc-day-sun fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 6, 2024" data-navlink="" tabindex="0" id="fc-dom-72" class="fc-daygrid-day-number">6</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-74" role="gridcell" data-date="2024-10-07" class="fc-day fc-day-mon fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 7, 2024" data-navlink="" tabindex="0" id="fc-dom-74" class="fc-daygrid-day-number">7</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-76" role="gridcell" data-date="2024-10-08" class="fc-day fc-day-tue fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 8, 2024" data-navlink="" tabindex="0" id="fc-dom-76" class="fc-daygrid-day-number">8</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-78" role="gridcell" data-date="2024-10-09" class="fc-day fc-day-wed fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 9, 2024" data-navlink="" tabindex="0" id="fc-dom-78" class="fc-daygrid-day-number">9</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-80" role="gridcell" data-date="2024-10-10" class="fc-day fc-day-thu fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 10, 2024" data-navlink="" tabindex="0" id="fc-dom-80" class="fc-daygrid-day-number">10</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-82" role="gridcell" data-date="2024-10-11" class="fc-day fc-day-fri fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 11, 2024" data-navlink="" tabindex="0" id="fc-dom-82" class="fc-daygrid-day-number">11</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td><td aria-labelledby="fc-dom-84" role="gridcell" data-date="2024-10-12" class="fc-day fc-day-sat fc-day-future fc-day-other fc-daygrid-day"><div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner"><div class="fc-daygrid-day-top"><a title="Go to October 12, 2024" data-navlink="" tabindex="0" id="fc-dom-84" class="fc-daygrid-day-number">12</a></div><div class="fc-daygrid-day-events"><div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div></div><div class="fc-daygrid-day-bg"></div></div></td></tr></tbody></table></div></div></div></td></tr></tbody></table></div></div></div>
-
-
-</body>
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queue Calendar</title>
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-
-    <div id="calendar"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: function(fetchInfo, successCallback, failureCallback) {
-                    // ดึงข้อมูลจาก PHP ผ่าน AJAX
-                    $.ajax({
-                        url: 'fetch_queue_data.php',
-                        method: 'POST',
-                        dataType: 'json',
-                        success: function(data) {
-                            console.log(data);  // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลในคอนโซล
-                            var events = [];
-
-                            // แปลงข้อมูลเป็น event ใน FullCalendar
-                            data.forEach(function(queue) {
-                                events.push({
-                                    title: 'Service Type: ' + queue.service_type_id + ', Emp: ' + queue.emp_id,
-                                    start: queue.queue_date + 'T' + queue.queue_time
-                                });
-                            });
-
-                            successCallback(events);
-                        },
-                        error: function() {
-                            failureCallback();
-                        }
-                    });
+                    <div class="TYXuEX">
+                        <div class="RyxoSg">
+                            <p data-hook="tool-bar-title" class="VaexPL">คลิกแก้ไขและสร้างเว็บไซต์ที่น่าตื่นตาตื่นใจของคุณเอง</p>
+                            <a data-hook="info-view" class="bggdgE" tabindex="0" role="dialog" href="#">อ่านเพิ่มเติม</a>
+                            <a class="Ydu4WK" data-hook="editor-link" href="https://manage.wix.com/edit-template/from-intro?originTemplateId=bb8c85e6-6106-4b34-8945-5f5a6a4aa5de&amp;editorSessionId=f5710687-e12e-4871-a5b8-1701082b61c0" target="_blank" tabindex="0">แก้ไขหน้าเว็บไซต์นี้</a>
+                        </div>
+                    </div>
+                </div>
+                <div data-hook="template-demo" class="CJ4D6R">
+                    <div data-hook="desktop-view" class="Woz8P7">
+                        <iframe data-hook="desktop-iframe" src="https://www.wix.com/templatesth/2898-ai-company" title="บริษัทปัญญาประดิษฐ์" width="100%" height="100%" class="eZTjsa"></iframe>
+                    </div>
+                </div>
+                <div data-hook="info-pop-up" class="M05QSQ">
+                    <div class="E0wHmq">
+                        <button data-hook="card-close" class="eds_d0">
+                            <span class="ydbrSa">ปิดป๊อปอัพแสดงข้อมูล</span>
+                        </button>
+                        <div class="qLnKwP">
+                            <h1 data-hook="card-title" class="PHJvhr">บริษัทปัญญาประดิษฐ์ - Website Template</h1>
+                            <div class="CEjC4K">
+                                <h3 data-hook="card-good-for-title" class="xqspyG">ดีสำหรับ:</h3>
+                                <p data-hook="card-good-for" class="gsbPc5">บริษัทสตาร์ตอัปด้านเทคโนโลยีและยานพาหนะ</p>
+                            </div>
+                            <div class="CEjC4K">
+                                <h3 class="xqspyG">คำบรรยาย:</h3>
+                                <p data-hook="card-description" class="gsbPc5">เทมเพลตนี้ให้สุนทรียภาพด้านการแสดงผลเพื่อสื่อถึงมุมมองแห่งอนาคต ดีไซน์ที่มีระดับช่วยให้ผลิตภัณฑ์ของคุณเปล่งประกาย ขณะเดียวกันแอป Wix Forms ก็เป็นเครื่องมือที่ยอดเยี่ยมสำหรับการเฟ้นหาคนเก่งมาร่วมงานกับคุณ และเชิญกลุ่มคนที่สนใจเทคโนโลยีมาสมัครรับข้อมูลอัปเดตเกี่ยวกับบริษัท คลิก &quot;แก้ไข &quot;เพื่อบังคับพวงมาลัยได้เลย</p>
+                            </div>
+                        </div>
+                        <div class="KiqsRq">
+                            <a data-hook="card-editor-url" class="XpwCp3 sKD7vO" target="_blank" href="https://manage.wix.com/edit-template/from-intro?originTemplateId=bb8c85e6-6106-4b34-8945-5f5a6a4aa5de&amp;editorSessionId=f5710687-e12e-4871-a5b8-1701082b61c0">แก้ไขเลย</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.__BASEURL__ = "https:\u002F\u002Fth.wix.com\u002Fwebsite-template\u002Fview\u002Fhtml\u002F";
+            window.__INITIAL_I18N__ = {
+                "locale": "th",
+                "resources": {
+                    "errorPage.templatesLinkText": "รูปแบบ",
+                    "template.viewer.page.title": "{{- title}} รูปแบบเว็บไซต์ | WIX",
+                    "template.viewer.studio.page.title": "{{- title}} Responsive Template | Wix Studio",
+                    "template.viewer.studio.page.description": "This {{- title}} is ready to be customized to your exact needs. Click \"Edit Template\" and try it on any device",
+                    "template_button_label": "แก้ไขเว็บไซต์",
+                    "template_seeFeatures_label": "ดูคุณสมบัติทั้งหมด",
+                    "template_expand_examples_text": "เหมาะสำหรับ",
+                    "template_expand_header": "คุณสมบัติเกี่ยวกับรูปแบบ",
+                    "template.viewer.title": "คลิกแก้ไขและสร้างเว็บไซต์ที่น่าตื่นตาตื่นใจของคุณเอง",
+                    "template.viewer.edit.button": "แก้ไขหน้าเว็บไซต์นี้",
+                    "template.viewer.read.more": "อ่านเพิ่มเติม",
+                    "template.viewer.back": "ย้อนกลับ",
+                    "template.viewer.info.edit.button": "แก้ไขเลย",
+                    "template.viewer.price": "ราคา:",
+                    "template.viewer.info.title": "{{- title}} - Website Template",
+                    "template.viewer.info.goodFor": "ดีสำหรับ:",
+                    "template.viewer.info.description": "คำบรรยาย:",
+                    "template.viewer.info.desktop.only.notice": "แก้ไขเทมเพลตนี้โดยไปที่ Wix.com จากเดสก์ท็อปของคุณ ที่ที่คุณสามารถปรับแต่งรูปแบบที่สวยงามของเราอย่างไรก็ได้",
+                    "template.viewer.see.all.templates": "See All Templates",
+                    "template.viewer.seeAllExpressions": "See all expressions",
+                    "template.viewer.goToBiggerScreen": "To start designing, go to your desktop.",
+                    "template.viewer.getStarted": "Get Started",
+                    "template.viewer.startNow": "Start Now",
+                    "template.viewer.features": "Features",
+                    "template.viewer.allFeatures": "All Features",
+                    "template.viewer.expressions": "Expressions",
+                    "template.viewer.tutorials": "Tutorials",
+                    "template.viewer.updatesAndReleases": "Updates & Releases",
+                    "template.viewer.comingSoon": "Coming soon",
+                    "template.viewer.academy": "Academy",
+                    "template.viewer.editTemplate": "แก้ไขเทมเพลต",
+                    "template.viewer.header.backToTemplates": "กลับไปที่เทมเพลต",
+                    "a11y.desktop.button": "แสดงมุมมองเดสก์ท็อป",
+                    "a11y.mobile.button": "แสดงมุมมองมือถือ",
+                    "a11y.close.popup.button": "ปิดป๊อปอัพแสดงข้อมูล",
+                    "toolbar.tooltip.desktop": "1001px ขึ้นไป",
+                    "toolbar.tooltip.tablet": "751 ถึง 1000px",
+                    "toolbar.tooltip.mobile": "320 ถึง 750px",
+                    "errorPage.4xx.title": "เราไม่พบเทมเพลตที่คุณกำลังค้นหา",
+                    "errorPage.5xx.title": "เราไม่สามารถโหลดเทมเพลต",
+                    "errorPage.subTitle": "ขัดข้อง {{- code }}",
+                    "errorPage.4xx.details": "ลองค้นหาเทมเพลตอื่น ๆ \u003Clink\u003Eที่นี่\u003C\u002Flink\u003E",
+                    "errorPage.5xx.details": "ทางเราพบปัญหาทางเทคนิคส่งผลให้ไม่สามารถโหลดหน้าเพจนี้ กรุณารอสักครู่แล้วลองอีกครั้ง",
+                    "errorPage.5xx.action": "รีเฟรช"
                 }
-            });
-            calendar.render();
-        });
-    </script>
-
-</body>
+            };
+            window.__INITIAL_STATE__ = {
+                "viewMode": "desktop",
+                "isInfoShown": false,
+                "isEditButtonHidden": false,
+                "template": {
+                    "title": "บริษัทปัญญาประดิษฐ์",
+                    "description": "เทมเพลตนี้ให้สุนทรียภาพด้านการแสดงผลเพื่อสื่อถึงมุมมองแห่งอนาคต ดีไซน์ที่มีระดับช่วยให้ผลิตภัณฑ์ของคุณเปล่งประกาย ขณะเดียวกันแอป Wix Forms ก็เป็นเครื่องมือที่ยอดเยี่ยมสำหรับการเฟ้นหาคนเก่งมาร่วมงานกับคุณ และเชิญกลุ่มคนที่สนใจเทคโนโลยีมาสมัครรับข้อมูลอัปเดตเกี่ยวกับบริษัท คลิก \"แก้ไข\" เพื่อบังคับพวงมาลัยได้เลย",
+                    "image": "\u002Ftemplates\u002Fimage\u002Fb4f2783ce96ff27bf8d6343aa5c08bfc5cef9c057b8ebf9461d30e44bc94d2d11644571654096.jpg",
+                    "id": "2898",
+                    "lng": "th",
+                    "price": "ฟรี",
+                    "docUrl": "https:\u002F\u002Fwww.wix.com\u002Ftemplatesth\u002F2898-ai-company",
+                    "editorUrl": "https:\u002F\u002Fmanage.wix.com\u002Fedit-template\u002Ffrom-intro?originTemplateId=bb8c85e6-6106-4b34-8945-5f5a6a4aa5de&editorSessionId=f5710687-e12e-4871-a5b8-1701082b61c0",
+                    "goodFor": "บริษัทสตาร์ตอัปด้านเทคโนโลยีและยานพาหนะ",
+                    "siteId": "50e763fb-6000-43d5-a5cf-ae4b991b8cb9",
+                    "metaSiteId": "bb8c85e6-6106-4b34-8945-5f5a6a4aa5de",
+                    "editorSessionId": "f5710687-e12e-4871-a5b8-1701082b61c0",
+                    "isResponsive": false,
+                    "isStudio": false,
+                    "templateId": "41894390-c4c2-4a1c-9b5c-3b908fc4d15b",
+                    "url": "https:\u002F\u002Fwww.wix.com\u002Ftemplatesth\u002F2898-ai-company"
+                },
+                "activeExperiments": ["OpenTemplateInSameTabForDashboardFirstUsers", "StudioTemplatesPageNewUI"],
+                "config": {
+                    "locale": "th",
+                    "dealerCmsTranslationsUrl": "\u002F\u002Fstatic.parastorage.com\u002Fservices\u002Fdealer-cms-translations\u002F1.6834.0\u002F",
+                    "dealerLightboxUrl": "\u002F\u002Fstatic.parastorage.com\u002Fservices\u002Fdealer-lightbox\u002F2.0.260\u002F"
+                },
+                "userData": {
+                    "isLoggedIn": false
+                }
+            };
+            window.__BI__ = {
+                "siteId": "50e763fb-6000-43d5-a5cf-ae4b991b8cb9",
+                "originUrl": "https:\u002F\u002Fth.wix.com\u002Fwebsite\u002Ftemplates",
+                "referer": "https:\u002F\u002Fth.wix.com\u002Fwebsite\u002Ftemplates",
+                "editorSessionId": "f5710687-e12e-4871-a5b8-1701082b61c0"
+            };
+            window.__DEVICE__ = "desktop";
+            window.__CONSENT_POLICY__ = {
+                "essential": true,
+                "functional": true,
+                "analytics": true,
+                "advertising": true,
+                "dataToThirdParty": true
+            };
+        </script>
+        <script src="//static.parastorage.com/unpkg/react@18.2.0/umd/react.production.min.js" crossorigin></script>
+        <script src="//static.parastorage.com/unpkg/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="//static.parastorage.com/services/cookie-consent-policy-client/1.866.0/app.bundle.min.js"></script>
+        <script src="//static.parastorage.com/services/dealer-lightbox/2.0.260/dealer-lightbox.bundle.min.js"></script>
+        <script src="//static.parastorage.com/services/marketing-template-viewer/1.2177.0/app.bundle.min.js"></script>
+    </body>
 </html>
