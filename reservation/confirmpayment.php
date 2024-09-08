@@ -3,10 +3,10 @@ session_start();
 include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-// if (!isset($_SESSION['u_id'])) {
-//     header("Location: ../login.php");
-//     exit;
-// }
+if (!isset($_SESSION['u_id'])) {
+    header("Location: ../login.php");
+    exit;
+}
 
 // ดึง user_id และ customer_id จากเซสชัน
 $u_id = $_SESSION['u_id'];
@@ -18,7 +18,7 @@ $sql = "
     INNER JOIN customer ON users.username = customer.username
     LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
     LEFT JOIN queue ON customer.customer_id = queue.customer_id
-    LEFT JOIN employees ON queue.emp_id = queue.emp_id
+    LEFT JOIN employees ON queue.emp_id = employees.emp_id
     WHERE users.u_id = :u_id
 ";
 
@@ -34,33 +34,24 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
 if ($data) {
-
     // ตัวอย่างการเข้าถึงข้อมูล
-    $user_id = $data['u_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
     $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
     $customer_id = $data['customer_id'];
     $queue_id = $data['queue_id'];
-
-    // แสดงข้อมูล
-    echo "User ID: " . htmlspecialchars($user_id) . "<br>";
-    echo "Username: " . htmlspecialchars($username) . "<br>";
-    echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
-    echo "Queue ID: " . htmlspecialchars($queue_id) . "<br>";
-
-    // การใช้งานข้อมูลต่อไป...
 } else {
     // กรณีไม่พบข้อมูล
-    echo "ไม่พบข้อมูลที่ตรงตามเงื่อนไข";
+    $username = "ไม่พบข้อมูล";
+    $customer_id = "ไม่พบข้อมูล";
+    $queue_id = "ไม่พบข้อมูล";
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mira comprehensive beauty center</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../layouts/index.css">
@@ -68,13 +59,13 @@ if ($data) {
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- jquery -->
-		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-    <!-- jquery -->
+    <!-- Custom JavaScript -->
     <script type="text/javascript" src="../index.js"></script>
 
-    <!-- sweet -->
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Inline Styles for Font Family -->
@@ -89,6 +80,13 @@ if ($data) {
 
         p, .card-title, .card-text, .widget-item-shortdesc {
             font-family: 'Prompt', sans-serif;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
         }
     </style>
     
@@ -110,7 +108,7 @@ if ($data) {
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($username)?> </a>
+                        <a class="nav-link active" aria-current="page" href="../profile/profile.php">ข้อมูลส่วนตัว <?php echo htmlspecialchars($username); ?> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -121,7 +119,7 @@ if ($data) {
     </div>
 
     <div class="container2">
-            <ul class="nav justify-content-center">
+        <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="../home.php">หน้าแรก</a>
             </li>
@@ -143,32 +141,31 @@ if ($data) {
             <li class="nav-item">
                 <a class="nav-link" href="../user/contactuser.php">ติดต่อเรา</a>
             </li>
-            </ul>
+        </ul>
     </div>
 
-    <div class="estimate">
-        <form id="estimateForm" method="POST" enctype="multipart/form-data" action="api/addpayment.php">
+    <div class="payment">
+        <form id="paymentForm" method="POST" enctype="multipart/form-data" action="api/addpayment.php">
             <input type="hidden" id="queue_id" name="queue_id" value="<?= htmlspecialchars($queue_id) ?>">
             <div class="row justify-content-center">
                 <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
-                    <strong>หลักฐานชำระค่าเงินมัดจำ</strong>
+                    <strong style="font-size: 30px;">หลักฐานชำระค่าเงินมัดจำ</strong>
                     <div class="row justify-content-center align-items-center mb-3">
                         <div class="col-12 col-md-8 col-lg-6 d-flex justify-content-center">
                             <div class="card" style="width: 500px; height: 500px;">
-                                <form id="paymentForm" method="POST" action="api/uploadpayment.php">
-                                    <div class="img-container">
-                                        <img id="displayImage" src="../images/imagepayment.jpg" class="card-img-top" alt="Preview Image" style="border: 1px solid #000; width: 300px; height: 300px">
-                                    </div>
+                                <div class="img-container">
+                                    <img id="displayImage" src="../images/imagepayment.jpg" class="card-img-top" alt="Preview Image" style="border: 1px solid #000; width: 300px; height: 300px">
+                                </div>
 
-                                    <div class="mb-3">
-                                        <input class="form-control" type="file" id="formFile" name="formFile" style="margin: 20px auto; width: 450px;">
-                                    </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" id="formFile" name="formFile" style="margin: 20px auto; width: 450px;">
+                                </div>
 
-                                    <div class="col">
-                                        <a href="../home.php" class="btn btn-success">ยืนยันหลักฐาน</a>
-                                        <a href="reservation_form.php" class="btn btn-secondary">ยกเลิก</a>
-                                    </div>
-                                </form>
+                                <div class="col">
+                                    <input type="submit" class="btn btn-success" value="ยืนยันการชำระ">
+
+                                    <a href="reservation_form.php" class="btn btn-secondary">ยกเลิก</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -195,15 +192,50 @@ if ($data) {
 <!-- JavaScript image -->
 <script>
     document.getElementById('formFile').addEventListener('change', function(event) {
-        const file = event.target.files[0]; // รับไฟล์ที่ถูกเลือก
+        const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader(); // สร้าง FileReader
-            reader.onload = function(e) {
-                document.getElementById('displayImage').src = e.target.result; // อัปเดต src ของรูปภาพ
+            const validExtensions = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!validExtensions.includes(file.type)) {
+                Swal.fire('ไฟล์ไม่ถูกต้อง', 'กรุณาเลือกไฟล์รูปภาพที่มีนามสกุล JPG, PNG, หรือ GIF', 'error');
+                event.target.value = ''; // ล้าง input file
+                return;
             }
-            reader.readAsDataURL(file); // อ่านไฟล์เป็น Data URL
+
+            if (file.size > 2 * 1024 * 1024) { // จำกัดขนาดไฟล์ที่ 2MB
+                Swal.fire('ไฟล์มีขนาดใหญ่เกินไป', 'ขนาดไฟล์เกิน 2MB', 'error');
+                event.target.value = ''; // ล้าง input file
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('displayImage').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
         }
     });
+
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // ป้องกันการส่งฟอร์มทันที
+        Swal.fire({
+            title: 'ยืนยันการชำระ?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.querySelector('input[type="submit"]').disabled = true;
+                this.submit(); // ส่งฟอร์ม
+            }
+        });
+    });
+
+    function logoutuser() {
+        // ฟังก์ชันการออกจากระบบ
+        window.location.href = '../logout.php';
+    }
 </script>
 
 </body>
