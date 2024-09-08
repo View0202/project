@@ -73,6 +73,13 @@ if ($data) {
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 
+    <!-- Full Calender -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
     <!-- Inline Styles for Font Family -->
     <style>
         body {
@@ -143,13 +150,16 @@ if ($data) {
     </div>
 
     <div class="calendar">
-        <strong>ตารางพนักงาน</strong>
-        <div class="container">
-            <div class="row align-items-center">
-                <iframe src="https://calendar.google.com/calendar/embed?src=rungpairin.nut%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="800" height="500" frameborder="0" scrolling="no"></iframe>
-            </div>
+        <div class="row justify-content-center">
+            <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
+                <strong style="font-size: 30px;">ปฏิทิน</strong>
+                <div class="container-fluid">
+                    <div id="calendar" style="width: 1000px; margin: 0 auto; margin-bottom: 20px;"></div>
+                </div>
+            </span>
         </div>
     </div>
+
 
     <hr>
 
@@ -436,6 +446,48 @@ if ($data) {
             </nav>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                dateClick: function(info) {
+                    // แสดงวันที่ที่เลือกใน modal
+                    document.getElementById('date').value = info.dateStr;
+                    var modal = new bootstrap.Modal(document.getElementById('bookingModal'));
+                    modal.show();
+                },
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    // ดึงข้อมูลจาก PHP ผ่าน AJAX
+                    $.ajax({
+                        url: 'reservation/api/fetch_queue_data.php',
+                        method: 'POST',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);  // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลในคอนโซล
+                            var events = [];
+
+                            // แปลงข้อมูลเป็น event ใน FullCalendar
+                            data.forEach(function(queue) {
+                                events.push({
+                                    title:  queue.service_name + ', ' + queue.fname,
+                                    start: queue.queue_date + 'T' + queue.queue_time
+                                });
+                            });
+
+                            successCallback(events);
+                        },
+                        error: function() {
+                            failureCallback();
+                        }
+                    });
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
 </div>
 </body>
 </html>
