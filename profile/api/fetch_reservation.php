@@ -36,9 +36,11 @@ if ($stmt->rowCount() > 0) {
         echo '<td>' . htmlspecialchars($data['queue_time']) . '</td>';
         echo '<td>' . htmlspecialchars($data['fname']) . '</td>'; // แสดงชื่อพนักงาน
         echo '<td>';
-        echo '<button class="btn btn-primary" style="margin-right: 5px;">ใบเสร็จรับเงิน</button>';
-        echo '<button class="btn btn-primary" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reservationModal">แก้ไข</button>';
-        echo '<button class="btn btn-primary">ลบ</button>';
+        // แก้ไข customer ID ในแอตทริบิวต์ data
+        echo '<button type="button" class="btn btn-primary" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#depositModal" data-customer-id="' . htmlspecialchars($data['customer_id']) . '">ใบเสร็จค่ามัดจำ</button>';
+        echo '<button class="btn btn-success" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reservationModal">เลื่อน</button>';
+        echo '<button class="btn btn-warning" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reservationModal">แก้ไข</button>';
+        echo '<button class="btn btn-danger" onclick="deleteQueue(' . htmlspecialchars($data['queue_id']) . ')">ลบการจองคิว</button>';
         echo '</td>';
         echo '</tr>';
     }

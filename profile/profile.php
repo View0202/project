@@ -361,6 +361,94 @@ if ($data) {
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal Deposit -->
+                <div class="modal fade" id="depositModal" tabindex="-1" aria-labelledby="depositModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="depositModalLabel">.ใบเสร็จค่ามัดจำ</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modalBodyContent">
+                                <input type="hidden" id="customer_id" name="customer_id">
+                                <div id="depositContent"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).on('show.bs.modal', '#depositModal', function (event) {
+                        var customer_id = $(event.relatedTarget).data('customer-id'); // Get customer ID from button data attribute
+                        
+                        // Set the hidden input field value
+                        $('#customer_id').val(customer_id);
+
+                        // Fetch slip image via AJAX
+                        $.ajax({
+                            url: 'api/fetch_slip.php',
+                            type: 'POST',
+                            data: { customer_id: customer_id },
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.slip) {
+                                    // Display the image in the modal
+                                    $('#depositContent').html('<img src="../image_payment/' + response.slip + '" width="300" height="300" alt="Payment Slip">');
+                                } else {
+                                    // Display error message
+                                    $('#depositContent').html('<p class="text-danger">No slip found</p>');
+                                }
+                            },
+                            error: function () {
+                                $('#depositContent').html('<p class="text-danger">Error fetching slip</p>');
+                            }
+                        });
+                    });
+
+                    function deleteQueue(queue_id) {
+                        Swal.fire({
+                            title: 'คุณต้องการลบการจองคิว?',
+                            text: "",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'ใช่, ลบเลย!',
+                            cancelButtonText: 'ยกเลิก'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    url: 'api/delete_queue.php',  // ไฟล์ PHP ที่จะใช้ลบข้อมูล
+                                    type: 'POST',
+                                    data: { queue_id: queue_id },
+                                    success: function(response) {
+                                        // ตรวจสอบผลลัพธ์จาก PHP
+                                        if (response.success) {
+                                            Swal.fire(
+                                                'ลบสำเร็จ!',
+                                                'การจองคิวของคุณถูกลบแล้ว.',
+                                                'success'
+                                            ).then(() => {
+                                                location.reload();  // โหลดหน้าใหม่เพื่อแสดงข้อมูลที่อัปเดต
+                                            });
+                                        } else {
+                                            Swal.fire(
+                                                'เกิดข้อผิดพลาด!',
+                                                'ไม่สามารถลบการจองคิวได้.',
+                                                'error'
+                                            );
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    
+                </script>
                 
                 <!-- ประเมินใบหน้า -->
                 <div class="tab-pane fade" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
