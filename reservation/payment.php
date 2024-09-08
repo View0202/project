@@ -276,7 +276,7 @@ if ($data) {
                             <div id="infoBox" class="info-box"></div>
 
                             <div id="buttonContainer" class="btn-container">
-                                <a href="uploadpayment.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
+                                <a href="confirmpayment.php" class="btn btn-success" role="button">อัพโหลดหลักฐาน</a>
                                 <a href="reservation_form.php" class="btn btn-warning" role="button">ย้อนกลับ</a>
                             </div>
                         </fieldset>

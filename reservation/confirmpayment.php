@@ -12,8 +12,13 @@ include("../db_config.php");  // เชื่อมต่อฐานข้อ�
 $u_id = $_SESSION['u_id'];
 
 // เตรียมคำสั่ง SQL โดยใช้ INNER JOIN
-$sql = "SELECT users.*, customer.* FROM users
+$sql = "
+    SELECT users.*, customer.*, estimate.*, queue.*, employees.fname, employees.lname 
+    FROM users
     INNER JOIN customer ON users.username = customer.username
+    LEFT JOIN estimate ON customer.customer_id = estimate.customer_id
+    LEFT JOIN queue ON customer.customer_id = queue.customer_id
+    LEFT JOIN employees ON queue.emp_id = queue.emp_id
     WHERE users.u_id = :u_id
 ";
 
@@ -34,11 +39,13 @@ if ($data) {
     $user_id = $data['u_id']; // มีหลายฟิลด์อาจต้องระบุชัดเจน
     $username = $data['username']; // ตรวจสอบชื่อฟิลด์ในตาราง
     $customer_id = $data['customer_id'];
+    $queue_id = $data['queue_id'];
 
     // แสดงข้อมูล
     echo "User ID: " . htmlspecialchars($user_id) . "<br>";
     echo "Username: " . htmlspecialchars($username) . "<br>";
     echo "Customer ID: " . htmlspecialchars($customer_id) . "<br>";
+    echo "Queue ID: " . htmlspecialchars($queue_id) . "<br>";
 
     // การใช้งานข้อมูลต่อไป...
 } else {
@@ -140,8 +147,8 @@ if ($data) {
     </div>
 
     <div class="estimate">
-        <form id="estimateForm" method="POST" enctype="multipart/form-data" action="api/addestimate.php">
-            <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($customer_id) ?>">
+        <form id="estimateForm" method="POST" enctype="multipart/form-data" action="api/addpayment.php">
+            <input type="hidden" id="queue_id" name="queue_id" value="<?= htmlspecialchars($queue_id) ?>">
             <div class="row justify-content-center">
                 <span class="border border-secondary d-block bg-white rounded-3 shadow-lg" style="width: 1250px; margin-top: 20px;">
                     <strong>หลักฐานชำระค่าเงินมัดจำ</strong>
