@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("db_config.php");  // เชื่อมต่อฐานข้อมูล
+include("../db_config.php");  // เชื่อมต่อฐานข้อมูล
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['u_id'])) {
@@ -56,7 +56,7 @@ if ($data) {
 	<title>Mira comprehensive beauty center</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="layouts/index.css">
+    <link rel="stylesheet" type="text/css" href="../layouts/index.css">
 
     <!-- Google Fonts - Prompt -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@ if ($data) {
 		<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- jquery -->
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="index_employee.js"></script>
 
     <!-- sweet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -105,7 +105,7 @@ if ($data) {
             <div class="logo">
                 <div class="widget-header-logo widget-header-logo-0">
                     <a class="widget-item-logolink">
-                        <img class="widget-item-logoimg" src="images/logo.png" alt=" ">
+                        <img class="widget-item-logoimg" src="../images/logo.png" alt=" ">
                     </a>
                 </div>
             </div>
@@ -113,7 +113,7 @@ if ($data) {
             <nav class="navbar navbar-light">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($username)?> </a>
+                        <a class="nav-link active" aria-current="page" href="../employeeProfile/profile.php">ข้อมูลส่วนตัว <?php echo " " . htmlspecialchars($username)?> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="logoutuser()">ออกจากระบบ</a>
@@ -124,29 +124,29 @@ if ($data) {
     </div>
 
     <div class="container2">
-            <ul class="nav justify-content-center">
+        <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="#">หน้าแรก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="user/aboutuser.php">เกี่ยวกับเรา</a>
+                <a class="nav-link" href="aboutEmployee.php">เกี่ยวกับเรา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="user/reservationuser.php">ตารางพนักงาน</a>
+                <a class="nav-link" href="reservationEmployee.php">ตารางพนักงาน</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="user/productuser.php">สินค้าและบริการ</a>
+                <a class="nav-link" href="productEmployee.php">สินค้าและบริการ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="user/promotionuser.php">โปรโมชั่น</a>
+                <a class="nav-link" href="promotionEmployee.php">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="user/resultuser.php">ผลลัพธ์ลูกค้า</a>
+                <a class="nav-link" href="resultEmployee.php">ผลลัพธ์ลูกค้า</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="user/contactuser.php">ติดต่อเรา</a>
+                <a class="nav-link" href="contactEmployee.php">ติดต่อเรา</a>
             </li>
-            </ul>
+        </ul>
     </div>
 
     <div class="calendar">
@@ -211,7 +211,7 @@ if ($data) {
             <div class="row justify-content-center g-3 align-items-center">
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                        <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                        <img src="../images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -221,7 +221,7 @@ if ($data) {
 
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                    <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                    <img src="../images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -231,7 +231,7 @@ if ($data) {
 
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                    <img src="images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                    <img src="../images/product_test.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -244,7 +244,7 @@ if ($data) {
             <div class="row align-items-center">
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                        <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                        <img src="../images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -254,7 +254,7 @@ if ($data) {
 
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                    <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                    <img src="../images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -264,7 +264,7 @@ if ($data) {
 
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                    <img src="images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                    <img src="../images/service_test1.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -277,7 +277,7 @@ if ($data) {
             <div class="row align-items-center">
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                        <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                        <img src="../images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -287,7 +287,7 @@ if ($data) {
 
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                    <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                    <img src="../images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -297,7 +297,7 @@ if ($data) {
 
                 <div class="col">
                     <div class="card" style="width: 20rem;">
-                    <img src="images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                    <img src="../images/service_test2.jpg" class="card-img-top" alt="..." style="width:100%; height:auto;">
                         <div class="card-body">
                             <h5 class="card-title">สินค้า :</h5>
                             <p class="card-text">ราคา : บาท</p>
@@ -323,7 +323,7 @@ if ($data) {
                         <div class="card" style="width: 30rem;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                    <img src="../images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
@@ -340,7 +340,7 @@ if ($data) {
                         <div class="card" style="width: 30rem;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                    <img src="../images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
@@ -361,7 +361,7 @@ if ($data) {
                         <div class="card" style="width: 30rem;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                    <img src="../images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
@@ -378,7 +378,7 @@ if ($data) {
                         <div class="card" style="width: 30rem;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                    <img src="../images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
@@ -399,7 +399,7 @@ if ($data) {
                         <div class="card" style="width: 30rem; margin: 20px">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                    <img src="../images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
@@ -416,7 +416,7 @@ if ($data) {
                         <div class="card" style="width: 30rem;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
+                                    <img src="../images/promotion_test.png" class="card-img-top" alt="..." style="width:100%; height:auto;">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
@@ -443,19 +443,19 @@ if ($data) {
             <div class="row align-items-center">
                 <div class="col">
                     <div class="alert alert-secondary" role="alert">
-                        <img src="icons/facebook.png" alt="Facebook Icon" style="width:30px; height:30px; margin-right:5px;">
+                        <img src="../icons/facebook.png" alt="Facebook Icon" style="width:30px; height:30px; margin-right:5px;">
                             Facebook : .....................
                     </div>
                 </div>
                 <div class="col">
                     <div class="alert alert-secondary" role="alert">
-                        <img src="icons/line.png" alt="Line Icon" style="width:30px; height:30px; margin-right:5px;">
+                        <img src="../icons/line.png" alt="Line Icon" style="width:30px; height:30px; margin-right:5px;">
                         Line : ....................
                     </div>
                 </div>
                 <div class="col">
                     <div class="alert alert-secondary" role="alert">
-                        <img src="icons/phone.png" alt="Phone Icon" style="width:30px; height:30px; margin-right:5px;">
+                        <img src="../icons/phone.png" alt="Phone Icon" style="width:30px; height:30px; margin-right:5px;">
                         Phone : 090-3166790
                     </div>
                 </div>
@@ -466,13 +466,13 @@ if ($data) {
         
     </div>
 
-    <div class="fixed-bottom">
+    <!-- <div class="fixed-bottom">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin: 20px;">
-            <button type="button" class="btn btn-outline-success" onclick="location.href='estimate/estimate.php'">
+            <button type="button" class="btn btn-outline-success" onclick="location.href='../estimate/estimate.php'">
                 <i class="bi bi-box-arrow-up-right"></i> ประเมินใบหน้า
             </button>
         </div>
-    </div>
+    </div> -->
     
     <hr>
 

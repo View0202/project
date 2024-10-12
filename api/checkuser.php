@@ -15,16 +15,21 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($data) {
     // Check if the password is correct
     $hashed_password = $data['password'];
-    if ($password==$hashed_password) {
+    if ($password == $hashed_password) {
         // Set session variables
         $_SESSION['login'] = 'yes';
         $_SESSION['u_id'] = $data['u_id'];
         $_SESSION['username'] = $data['username'];
         $_SESSION["user_status"] = $data['status']; // เก็บสถานะผู้ใช้ใน session
 
-        // Respond with success
-        echo json_encode(['status' => 'ok']);
-        header("Location: ../home.php");
+        // Redirect based on user status
+        if ($data['status'] == 'employee') {
+            echo json_encode(['status' => 'ok']);
+            header("Location: ../employee/homeEmployee.php");
+        } elseif ($data['status'] == 'customer') {
+            echo json_encode(['status' => 'ok']);
+            header("Location: ../home.php");
+        }
         exit();
     } else {
         // If password is incorrect
